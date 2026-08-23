@@ -2,7 +2,7 @@
 
 > **Enterprise AI Knowledge Workspace & RAG Chatbot powered by Retrieval-Augmented Generation**
 
-[![Version](https://img.shields.io/badge/Version-v1.4.0-indigo.svg)](https://github.com/Ganu39/nexusAI-rag-chat-bot/releases)
+[![Version](https://img.shields.io/badge/Version-v1.5.0-indigo.svg)](https://github.com/Ganu39/nexusAI-rag-chat-bot/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Production Frontend](https://img.shields.io/badge/Frontend-Next.js_15-black?logo=next.js)](https://nexusai-sage-beta.vercel.app/)
 [![Production Backend](https://img.shields.io/badge/Backend-FastAPI-009688?logo=fastapi)](https://nexusai-1xq9.onrender.com)
@@ -24,25 +24,38 @@
 NexusAI processes every document Q&A query through a structured 6-stage pipeline:
 
 ```mermaid
-flowchart TD
-    A["👤 User Input Query<br/>(e.g., 'What are the specs?')"] --> B["1️⃣ Query Ingest & Session Scoping<br/>(Attaches X-User-ID context & sanitizes input)"]
-    B --> C["2️⃣ Embedding Generation<br/>(Gemini text-embedding-004 ➔ 3072d Vector)"]
-    C --> D["3️⃣ Vector Similarity Search<br/>(FAISS / Pinecone Database ➔ Top-K Chunks, default k=5)"]
-    D --> E["4️⃣ Relevance Filtering & Context Isolation<br/>(Filters low-scoring chunks & formats prompt)"]
-    E --> F["5️⃣ Gemini 2.5 Flash LLM Generation<br/>(Strictly grounded system instructions)"]
-    F --> G["6️⃣ SSE Token Streaming & Citation Attribution<br/>(Streams answer + attaches source badges)"]
+graph TD
+    classDef inputStyle fill:#0f172a,stroke:#06b6d4,stroke-width:2px,color:#fff;
+    classDef processStyle fill:#0f172a,stroke:#8b5cf6,stroke-width:2px,color:#fff;
+    classDef vectorStyle fill:#0f172a,stroke:#ec4899,stroke-width:2px,color:#fff;
+    classDef llmStyle fill:#0f172a,stroke:#10b981,stroke-width:2px,color:#fff;
+
+    subgraph Phase1 ["1️⃣ Query Ingestion & Session Scoping"]
+        A["👤 User Input Query<br/>(e.g., 'What are the specs?')"]:::inputStyle --> B["🔒 X-User-ID Middleware<br/>(Multi-Tenant Session Scoping)"]:::inputStyle
+    end
+
+    subgraph Phase2 ["2️⃣ Vector Embedding & Similarity Search"]
+        B --> C["⚡ Gemini Embedding API<br/>(text-embedding-004 ➔ 3072d)"]:::processStyle
+        C --> D["🗄️ FAISS / Pinecone Index<br/>(Cosine Search ➔ Top-K Chunks)"]:::vectorStyle
+    end
+
+    subgraph Phase3 ["3️⃣ Context Building & LLM Streaming"]
+        D --> E["🎯 Relevance Thresholding<br/>(Similarity >= 0.30, Cap 5 Chunks)"]:::processStyle
+        E --> F["🧠 Gemini 2.5 Flash LLM<br/>(Strict Grounding System Prompt)"]:::llmStyle
+        F --> G["📡 Server-Sent Events (SSE)<br/>(Real-Time Tokens + Source Badges)"]:::llmStyle
+    end
 ```
 
 ### Execution Stage Matrix
 
-| Stage # | Pipeline Phase | Technical Operation | Output / Result |
-| :---: | :--- | :--- | :--- |
-| **1** | **Query Ingest** | Validates query text, scopes request to user session (`X-User-ID`), and routes casual greetings vs. document queries. | Clean query string |
-| **2** | **Vector Embedding** | Passes query to Google Gemini Embedding API (`text-embedding-004`) to convert text into semantic numerical vectors. | `3072-dimensional` vector array |
-| **3** | **FAISS / Pinecone Search** | Performs high-speed Cosine Similarity search across document chunks stored in FAISS / Pinecone vector index. | Top-K (e.g. 5) most relevant document chunks |
-| **4** | **Context Building** | Filters out weak matches (similarity < 0.30), formats text chunks into structured context blocks with filename & page numbers. | Isolated document context payload |
-| **5** | **Gemini 2.5 Flash** | Sends isolated context + strict grounding prompt + user question to `gemini-2.5-flash`. | Streamed response tokens |
-| **6** | **Citations & UI** | Streams tokens live via Server-Sent Events (SSE), marks response as **Grounded Answer**, and attaches clickable source citation cards. | Formatted answer + source chips |
+| Stage # | Phase | Icon | Technical Operation | Output / Result | Status |
+| :---: | :--- | :---: | :--- | :--- | :---: |
+| **1** | **Query Ingest** | 📩 | Scopes request with `X-User-ID` session context and routes casual greetings vs. document queries. | Clean query string | 🟢 Active |
+| **2** | **Embedding** | ⚡ | Passes query text to Google Gemini Embedding API (`text-embedding-004`). | `3072d` Vector Array | 🟢 Active |
+| **3** | **Vector Search** | 🗄️ | High-speed Cosine Similarity search across FAISS / Pinecone vector database. | Top-K (k=5) Chunks | 🟢 Active |
+| **4** | **Context Building**| 🎯 | Filters weak matches (< 0.30 score) & packages text into structured context blocks. | Grounded Context | 🟢 Active |
+| **5** | **LLM Synthesis** | 🧠 | Sends isolated context + strict grounding instructions to `gemini-2.5-flash`. | Streamed Tokens | 🟢 Active |
+| **6** | **SSE Citations** | 📡 | Streams tokens live via Server-Sent Events with interactive source citation cards. | Cited Answer | 🟢 Active |
 
 ---
 
