@@ -30,6 +30,7 @@ import { AskResponse, AskSource } from "@/types";
 import { apiClient } from "@/lib/api";
 import ReasoningDrawer from "@/components/chat/ReasoningDrawer";
 import MobileKnowledgeSheet from "@/components/chat/MobileKnowledgeSheet";
+import ReactMarkdown from "react-markdown";
 
 // Dynamic 3D Nexus_Bot Mascot Component
 const NexusBotAvatarCanvas = dynamic(() => import("@/components/3d/GlowingAIOrb"), {
@@ -244,7 +245,6 @@ export function RAGChat() {
               timestamp: timestampStr,
             };
             setMessages((prev) => [...prev, initialMsg]);
-            setExpandedSources((prev) => ({ ...prev, [assistantMsgId]: true }));
           }
         },
         (token) => {
@@ -277,7 +277,6 @@ export function RAGChat() {
           timestamp: timestampStr,
         };
         setMessages((prev) => [...prev, assistantMsg]);
-        setExpandedSources((prev) => ({ ...prev, [assistantMsgId]: true }));
       } catch (err: unknown) {
         const msg =
           err instanceof Error
@@ -530,8 +529,10 @@ export function RAGChat() {
                     <ReasoningDrawer />
 
                     {/* Answer Body */}
-                    <div className="leading-relaxed text-slate-100 whitespace-pre-wrap text-sm sm:text-base font-sans">
-                      {msg.text}
+                    <div className="leading-relaxed text-slate-100 text-sm sm:text-base font-sans font-normal">
+                      <ReactMarkdown className="prose prose-invert max-w-none text-slate-100 leading-relaxed text-sm sm:text-base font-sans">
+                        {msg.text}
+                      </ReactMarkdown>
                     </div>
 
                     {/* Connected Sources Attribution Grid */}
