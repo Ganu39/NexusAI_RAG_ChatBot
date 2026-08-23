@@ -52,17 +52,25 @@ flowchart LR
 
 ---
 
-## 🌟 Key Features
+## 🌟 Core RAG & AI Features
 
-* **3D Interactive Mascot (`Nexus_Bot`)** — WebGL-powered 3D robot mascot avatar with dark-mode obsidian glassmorphism UI.
-* **First-Time User Onboarding Popup** — Interactive *"What should we call you?"* modal with persistent user identity memory.
-* **Grounded Answer Generation** — Answers derived strictly from uploaded documents with zero speculation.
-* **Spacious Markdown Formatting** — Formatted bullet lists, cyan headers, and inline skill badges.
-* **Real-Time Token Streaming (SSE)** — Fast typethrough streaming powered by Server-Sent Events.
-* **Multi-Format Extraction** — Full support for PDF, TXT, and DOCX document formats with page-number tracking.
-* **Dual Vector Database Engine** — Local CPU **FAISS** index by default, with optional cloud **Pinecone** integration.
-* **Workspace Data Isolation** — `X-User-ID` session header ensuring zero cross-tenant data leakage between users.
-* **Interactive Source Citations** — Clickable citation badges with raw text snippet modal inspection.
+* **Grounded Answer Synthesis** — Synthesizes accurate responses grounded exclusively in uploaded document context with zero speculation or hallucinations.
+* **Real-Time Token Streaming (SSE)** — High-speed typethrough token streaming powered by Server-Sent Events (`POST /api/v1/ask/stream`).
+* **High-Dimensional Vector Embeddings** — Converts text into `3072-dimensional` semantic vectors using Google Gemini (`text-embedding-004`).
+* **Dual Vector Database Engine** — Zero-cost local CPU **FAISS** index by default, with optional managed cloud **Pinecone** index via toggle.
+* **Page-Aware Multi-Format Extraction** — Native extractors for `PDF`, `TXT`, and `DOCX` files with exact page-number tracking.
+* **Relevance Thresholding & Context Building** — Filters weak matches (similarity score < 0.30) and packages top-K relevant chunks into strict prompts.
+
+---
+
+## ✨ Key User Experience & Security Features
+
+* **3D Interactive Mascot Avatar (`Nexus_Bot`)** — WebGL-powered 3D robot mascot head avatar with glowing digital cyan eyes and dark studio UI.
+* **First-Time User Onboarding Popup** — Interactive *"What should we call you?"* modal with persistent `localStorage` user memory and edit pencil icon.
+* **Workspace Data Isolation (`X-User-ID`)** — Client session header scoping document listings and vector search to ensure zero cross-tenant data leakage.
+* **Interactive Source Citation Snippets** — Clickable source badges displaying filename, page number, match score, and raw vector text snippet modal.
+* **Spacious Markdown Formatting** — Formatted bullet lists, cyan headers, and inline dark skill badges.
+* **Universal Knowledge Base Drawer** — Responsive modal to search, view, upload, and delete indexed vector documents on desktop and mobile.
 
 ---
 
