@@ -2,16 +2,20 @@
 
 > **Enterprise AI Knowledge Workspace & RAG Chatbot powered by Retrieval-Augmented Generation**
 
-🌐 **Live Web Application:** [https://nexusai-sage-beta.vercel.app/](https://nexusai-sage-beta.vercel.app/)  
-💬 **Live Chat Application:** [https://nexusai-sage-beta.vercel.app/chat](https://nexusai-sage-beta.vercel.app/chat)  
-⚡ **Production Backend API:** [https://nexusai-1xq9.onrender.com](https://nexusai-1xq9.onrender.com)  
-🐙 **GitHub Repository:** [https://github.com/Ganu39/nexusAI-rag-chat-bot](https://github.com/Ganu39/nexusAI-rag-chat-bot)
+[![Version](https://img.shields.io/badge/Version-v1.4.0-indigo.svg)](https://github.com/Ganu39/nexusAI-rag-chat-bot/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Production Frontend](https://img.shields.io/badge/Frontend-Next.js_15-black?logo=next.js)](https://nexusai-sage-beta.vercel.app/)
+[![Production Backend](https://img.shields.io/badge/Backend-FastAPI-009688?logo=fastapi)](https://nexusai-1xq9.onrender.com)
+[![Model](https://img.shields.io/badge/Model-Gemini_2.5_Flash-4285F4?logo=google)](https://aistudio.google.com/)
 
-[![Production Frontend](https://img.shields.io/badge/Production_Frontend-Vercel-black?logo=vercel)](https://nexusai-sage-beta.vercel.app/)
-[![Production Backend](https://img.shields.io/badge/Production_Backend-Render-46E3B7?logo=render)](https://nexusai-1xq9.onrender.com)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+**Stop searching documents. Start asking questions.**  
+*Upload PDF, TXT, or DOCX files ➔ Instant FAISS Vector Indexing ➔ Real-Time Token Streaming with Source Citations.*
 
-NexusAI enables teams to ingest, index, and query document repositories using state-of-the-art AI models, producing verified answers grounded exclusively in user-uploaded data with precise source citations.
+---
+
+### 📍 Quick Navigation
+
+[Getting Started](#-quick-start-local-setup) · [How It Works](#-end-to-end-rag-pipeline-workflow) · [Features](#-key-features) · [Tech Stack](#-technology-stack) · [Live Demo](https://nexusai-sage-beta.vercel.app/)
 
 ---
 
@@ -45,7 +49,9 @@ flowchart TD
 ## 🌟 Key Features
 
 * **3D Interactive Mascot (`Nexus_Bot`)** — WebGL-powered 3D robot mascot avatar with dark-mode obsidian glassmorphism UI.
+* **First-Time User Onboarding Popup** — Interactive *"What should we call you?"* modal with persistent user identity memory.
 * **Grounded Answer Generation** — Answers derived strictly from uploaded documents with zero speculation.
+* **Spacious Markdown Formatting** — Formatted bullet lists, cyan headers, and inline skill badges.
 * **Real-Time Token Streaming (SSE)** — Fast typethrough streaming powered by Server-Sent Events.
 * **Multi-Format Extraction** — Full support for PDF, TXT, and DOCX document formats with page-number tracking.
 * **Dual Vector Database Engine** — Local CPU **FAISS** index by default, with optional cloud **Pinecone** integration.
