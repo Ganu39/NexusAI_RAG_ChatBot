@@ -34,7 +34,7 @@ import MobileKnowledgeSheet from "@/components/chat/MobileKnowledgeSheet";
 const GlowingAIOrbCanvas = dynamic(() => import("@/components/3d/GlowingAIOrb"), {
   ssr: false,
   loading: () => (
-    <div className="w-16 h-16 rounded-full bg-cyan-500/20 blur-md animate-pulse flex items-center justify-center border border-cyan-400/30">
+    <div className="w-16 h-16 rounded-full bg-cyan-500/20 blur-md animate-pulse flex items-center justify-center border border-white/20">
       <Bot className="w-8 h-8 text-cyan-400" />
     </div>
   ),
@@ -249,57 +249,53 @@ export function RAGChat() {
   };
 
   return (
-    <div className="flex h-screen w-full flex-col bg-[#020617] overflow-hidden relative font-sans text-slate-100">
+    <div className="flex h-screen w-full flex-col bg-[#0d1321] overflow-hidden relative font-sans text-slate-100">
       {/* 3D WebGL Background Constellation */}
       <VectorParticleCloudCanvas />
 
-      {/* Ambient Glow Orbs */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none -z-10 animate-pulse" />
-      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-violet-600/10 rounded-full blur-[140px] pointer-events-none -z-10" />
+      {/* VisionOS Ambient Light Halos */}
+      <div className="absolute top-10 left-1/3 w-[600px] h-[600px] bg-cyan-400/10 rounded-full blur-[160px] pointer-events-none -z-10 animate-pulse" />
+      <div className="absolute bottom-10 right-1/3 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-[160px] pointer-events-none -z-10" />
 
-      {/* 1. EXECUTIVE COMMAND TOP BAR */}
-      <div className="flex flex-wrap items-center justify-between border-b border-white/10 bg-[#020617]/80 backdrop-blur-2xl px-6 py-4 gap-4 z-20">
+      {/* 1. VISIONOS FLOATING HEADER BADGE */}
+      <div className="flex items-center justify-between border-b border-white/10 bg-[#0d1321]/60 backdrop-blur-3xl px-8 py-4 z-20">
         <div className="flex items-center gap-4">
-          <div className="w-14 h-14 relative flex items-center justify-center overflow-visible shrink-0 rounded-2xl bg-cyan-950/40 border border-cyan-500/30 shadow-[0_0_20px_rgba(6,182,212,0.2)]">
+          <div className="w-12 h-12 relative flex items-center justify-center overflow-visible shrink-0 rounded-full bg-cyan-500/10 border border-white/20 shadow-[0_0_25px_rgba(34,211,238,0.25)]">
             <GlowingAIOrbCanvas isProcessing={loading} />
           </div>
           <div>
             <div className="flex items-center gap-3">
-              <h3 className="font-extrabold text-white text-base sm:text-lg tracking-tight font-mono">
-                Obsidian Command Studio
+              <h3 className="font-bold text-white text-base sm:text-lg tracking-tight font-sans">
+                Spatial Knowledge Studio
               </h3>
-              <span className="flex items-center gap-1.5 rounded-full bg-cyan-500/10 px-3 py-0.5 text-[11px] font-semibold text-cyan-400 border border-cyan-500/30 shadow-sm">
+              <span className="flex items-center gap-1.5 rounded-full bg-cyan-500/10 px-3 py-1 text-[11px] font-semibold text-cyan-300 border border-cyan-400/30 shadow-sm backdrop-blur-md">
                 <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
-                Knowledge Base Connected
+                Neural Net v2.0
               </span>
             </div>
-            <p className="text-xs text-slate-400 font-mono mt-0.5 flex items-center gap-2">
-              <span>MODEL: <strong className="text-cyan-400">Gemini 2.5 Flash</strong></span>
-              <span>•</span>
-              <span>INDEX: <strong className="text-violet-400">FAISS 3072d</strong></span>
-              <span>•</span>
-              <span>LATENCY: <strong className="text-emerald-400">18ms</strong></span>
+            <p className="text-xs text-slate-400 mt-0.5">
+              Apple VisionOS Spatial Computing Architecture • Real-time Grounded RAG
             </p>
           </div>
         </div>
 
-        {/* Controls & Tools */}
+        {/* Controls */}
         <div className="flex items-center gap-3">
           <button
             onClick={() => setIsMobileSheetOpen(true)}
-            className="md:hidden flex items-center gap-2 min-h-[44px] px-3.5 rounded-xl border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 text-xs font-semibold hover:bg-cyan-500/20 active:scale-95 transition-transform"
+            className="md:hidden flex items-center gap-2 min-h-[44px] px-4 rounded-full border border-white/20 bg-white/5 text-cyan-300 text-xs font-semibold hover:bg-white/10 active:scale-95 transition-all backdrop-blur-md"
           >
             <Database className="w-4 h-4 text-cyan-400" />
             <span>Knowledge Base</span>
           </button>
 
-          <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-slate-900/90 px-4 py-2 text-xs text-slate-300 shadow-sm backdrop-blur-md">
+          <div className="flex items-center gap-2 rounded-full border border-white/15 bg-slate-900/60 px-4 py-2 text-xs text-slate-300 backdrop-blur-xl shadow-lg">
             <Sliders className="h-3.5 w-3.5 text-cyan-400" />
-            <span className="text-[11px] text-slate-400 font-mono">Top-K Chunks:</span>
+            <span className="text-[11px] text-slate-400 font-mono">Top-K:</span>
             <select
               value={topK}
               onChange={(e) => setTopK(Number(e.target.value))}
-              className="bg-transparent font-bold text-cyan-400 focus:outline-none cursor-pointer text-xs"
+              className="bg-transparent font-bold text-cyan-300 focus:outline-none cursor-pointer text-xs"
             >
               {[1, 2, 3, 4, 5, 7, 10].map((k) => (
                 <option key={k} value={k} className="bg-slate-900 text-white">
@@ -312,19 +308,19 @@ export function RAGChat() {
           {messages.length > 0 && (
             <button
               onClick={handleClearChat}
-              className="flex items-center gap-1.5 min-h-[44px] rounded-xl border border-rose-500/30 bg-rose-500/10 px-3.5 py-2 text-xs font-semibold text-rose-300 hover:bg-rose-500/20 active:scale-95 transition-all"
+              className="flex items-center gap-1.5 min-h-[44px] rounded-full border border-rose-500/30 bg-rose-500/10 px-4 py-2 text-xs font-semibold text-rose-300 hover:bg-rose-500/20 active:scale-95 transition-all backdrop-blur-md"
               title="Clear conversation history"
             >
               <Trash2 className="h-3.5 w-3.5 text-rose-400" />
-              <span>Clear Chat</span>
+              <span>Clear</span>
             </button>
           )}
         </div>
       </div>
 
-      {/* 2. ARCHITECTURAL RETRIEVAL PIPELINE STEPPER */}
-      <div className="border-b border-white/5 bg-slate-950/60 px-6 py-2.5 overflow-x-auto z-20 backdrop-blur-md">
-        <div className="flex items-center justify-between min-w-[600px] text-[11px] font-mono text-slate-400">
+      {/* 2. PIPELINE STEPPER BADGE */}
+      <div className="border-b border-white/5 bg-slate-950/40 px-8 py-2.5 overflow-x-auto z-20 backdrop-blur-xl">
+        <div className="flex items-center justify-between min-w-[580px] text-[11px] font-mono text-slate-400">
           {RAG_RETRIEVAL_STEPS.map((step, idx) => {
             const isCurrent = activePipelineStage === idx;
             const isPassed = activePipelineStage > idx;
@@ -333,7 +329,7 @@ export function RAGChat() {
                 <div
                   className={`flex items-center gap-1.5 transition-colors ${
                     isCurrent
-                      ? "text-cyan-400 font-bold drop-shadow-[0_0_8px_rgba(6,182,212,0.6)]"
+                      ? "text-cyan-300 font-bold drop-shadow-[0_0_8px_rgba(34,211,238,0.6)]"
                       : isPassed
                       ? "text-emerald-400 font-semibold"
                       : "text-slate-500"
@@ -345,7 +341,7 @@ export function RAGChat() {
                         ? "bg-cyan-400 animate-ping"
                         : isPassed
                         ? "bg-emerald-400"
-                        : "bg-slate-800"
+                        : "bg-slate-700"
                     }`}
                   />
                   <span>{step.label}</span>
@@ -359,31 +355,30 @@ export function RAGChat() {
         </div>
       </div>
 
-      {/* 3. MESSAGES SCROLL AREA */}
-      <div className="flex-1 overflow-y-auto p-6 sm:p-10 space-y-6 z-20 max-w-6xl mx-auto w-full">
+      {/* 3. MESSAGES SCROLL AREA (VISIONOS FROSTED GLASS CARDS) */}
+      <div className="flex-1 overflow-y-auto p-6 sm:p-10 space-y-6 z-20 max-w-4xl mx-auto w-full">
         {messages.length === 0 ? (
           <div className="flex h-full flex-col items-center justify-center text-center p-6 space-y-6">
-            {/* 3D WebGL Glowing AI Mascot Canvas */}
+            {/* 3D WebGL Glowing Mascot Orb */}
             <div className="relative w-36 h-36 flex items-center justify-center">
               <GlowingAIOrbCanvas isProcessing={loading} />
             </div>
 
             <div className="max-w-lg space-y-2">
-              <h4 className="text-2xl font-bold text-white tracking-tight font-mono">
+              <h4 className="text-2xl font-bold text-white tracking-tight font-sans">
                 Ask Questions Grounded in Your Documents
               </h4>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-md mx-auto">
-                NexusAI retrieves semantic vector chunks from your FAISS repository and
-                synthesizes grounded answers using Gemini 2.5 Flash with verified source citations.
+                NexusAI retrieves semantic vector chunks from your document repository and synthesizes grounded answers using Gemini 2.5 Flash with verified source citations.
               </p>
             </div>
 
-            {/* Suggested Question Cards */}
-            <div className="w-full max-w-2xl space-y-3 pt-2">
-              <div className="text-[11px] font-mono text-cyan-400/90 uppercase tracking-widest font-semibold text-center">
+            {/* Suggested Question Glass Pills */}
+            <div className="w-full max-w-xl space-y-3 pt-2">
+              <div className="text-[11px] font-mono text-cyan-300 uppercase tracking-widest font-semibold text-center">
                 SUGGESTED QUESTIONS:
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                 {SUGGESTED_QUESTIONS.map((q) => (
                   <button
                     key={q}
@@ -391,10 +386,10 @@ export function RAGChat() {
                       setQuestion(q);
                       handleSend(q);
                     }}
-                    className="min-h-[56px] rounded-2xl border border-white/10 bg-slate-900/60 backdrop-blur-md p-4 text-left text-slate-200 hover:border-cyan-400/60 hover:bg-slate-900/90 hover:text-white active:scale-[0.98] transition-all shadow-xl flex items-center justify-between group"
+                    className="min-h-[56px] rounded-3xl border border-white/15 bg-slate-900/40 backdrop-blur-3xl p-4 text-left text-slate-200 hover:border-cyan-400/60 hover:bg-slate-900/70 hover:text-white active:scale-[0.98] transition-all shadow-2xl flex items-center justify-between group"
                   >
                     <span className="font-medium text-sm">💡 &quot;{q}&quot;</span>
-                    <span className="text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all">→</span>
+                    <span className="text-slate-500 group-hover:text-cyan-300 group-hover:translate-x-1 transition-all">→</span>
                   </button>
                 ))}
               </div>
@@ -409,7 +404,7 @@ export function RAGChat() {
               }`}
             >
               {msg.sender === "assistant" && (
-                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 shrink-0 shadow-lg">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-cyan-500/20 text-cyan-300 border border-white/20 shrink-0 shadow-lg backdrop-blur-md">
                   <Bot className="h-5 w-5" />
                 </div>
               )}
@@ -421,23 +416,23 @@ export function RAGChat() {
               >
                 {/* User Bubble */}
                 {msg.sender === "user" ? (
-                  <div className="rounded-2xl bg-cyan-600 px-5 py-3.5 text-xs sm:text-sm text-white shadow-lg shadow-cyan-600/25 leading-relaxed font-medium">
+                  <div className="rounded-3xl bg-gradient-to-r from-cyan-500 to-emerald-500 px-6 py-4 text-xs sm:text-sm text-slate-950 font-bold shadow-[0_10px_30px_rgba(34,211,238,0.3)] leading-relaxed">
                     <p className="whitespace-pre-wrap">{msg.text}</p>
                   </div>
                 ) : (
-                  /* Editorial AI Response Panel with GlassCard */
-                  <GlassCard className="w-full p-6 text-xs sm:text-sm text-slate-100 space-y-4">
+                  /* VisionOS Frosted Glass Card */
+                  <div className="w-full rounded-3xl border border-white/15 bg-slate-900/40 backdrop-blur-3xl p-6 text-xs sm:text-sm text-slate-100 space-y-4 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
                     {/* Header Grounding Status */}
                     {msg.response && (
                       <div className="flex flex-wrap items-center justify-between gap-2 pb-3.5 border-b border-white/10">
                         <div className="flex items-center gap-2.5">
                           {msg.response.grounded ? (
-                            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-400 border border-emerald-500/20 shadow-sm">
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/15 px-3 py-1 text-xs font-semibold text-emerald-300 border border-emerald-400/30 shadow-sm">
                               <CheckCircle2 className="h-3.5 w-3.5" />
                               Grounded Answer
                             </span>
                           ) : (
-                            <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-400 border border-amber-500/20 shadow-sm">
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/15 px-3 py-1 text-xs font-semibold text-amber-300 border border-amber-400/30 shadow-sm">
                               <AlertTriangle className="h-3.5 w-3.5" />
                               Insufficient Context
                             </span>
@@ -450,7 +445,7 @@ export function RAGChat() {
                         {msg.response.sources.length > 0 && (
                           <button
                             onClick={() => toggleSources(msg.id)}
-                            className="flex items-center gap-1 text-xs font-semibold text-violet-400 hover:text-violet-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rounded-md"
+                            className="flex items-center gap-1 text-xs font-semibold text-cyan-300 hover:text-white transition-colors rounded-full px-3 py-1 bg-cyan-500/10 border border-cyan-400/20"
                           >
                             <span>
                               {expandedSources[msg.id]
@@ -480,7 +475,7 @@ export function RAGChat() {
                       <div className="pt-3 border-t border-white/10 space-y-2.5">
                         <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 uppercase tracking-wider">
                           <div className="flex items-center gap-1.5">
-                            <CornerDownRight className="h-3.5 w-3.5 text-violet-400" />
+                            <CornerDownRight className="h-3.5 w-3.5 text-cyan-400" />
                             <span>Connected Source Citations:</span>
                           </div>
                           <span className="text-slate-500 text-[10px]">Click source to inspect snippet</span>
@@ -491,15 +486,15 @@ export function RAGChat() {
                             <div
                               key={src.chunk_id || sIdx}
                               onClick={() => setActiveSourceModal(src)}
-                              className="rounded-xl border border-white/10 bg-slate-950/80 p-3.5 space-y-2 text-slate-300 hover:border-violet-400/60 hover:bg-slate-900 transition-all cursor-pointer group shadow-sm"
+                              className="rounded-2xl border border-white/15 bg-slate-950/60 p-4 space-y-2 text-slate-300 hover:border-cyan-400/60 hover:bg-slate-900/80 transition-all cursor-pointer group shadow-lg backdrop-blur-xl"
                             >
                               <div className="flex items-center justify-between font-medium">
-                                <div className="flex items-center gap-2 text-violet-300 truncate max-w-[260px] sm:max-w-md">
-                                  <FileText className="h-3.5 w-3.5 text-violet-400 shrink-0" />
-                                  <span className="truncate text-xs font-mono group-hover:text-violet-200 transition-colors">{src.filename}</span>
+                                <div className="flex items-center gap-2 text-cyan-300 truncate max-w-[260px] sm:max-w-md">
+                                  <FileText className="h-3.5 w-3.5 text-cyan-400 shrink-0" />
+                                  <span className="truncate text-xs font-mono group-hover:text-white transition-colors">{src.filename}</span>
                                 </div>
                                 <div className="flex items-center gap-2 shrink-0">
-                                  <span className="rounded bg-violet-500/10 px-2.5 py-1 text-[10px] font-mono font-bold text-violet-400 border border-violet-500/20">
+                                  <span className="rounded-full bg-cyan-500/15 px-3 py-1 text-[10px] font-mono font-bold text-cyan-300 border border-cyan-400/30">
                                     {(src.score * 100).toFixed(1)}% Match
                                   </span>
                                   <Eye className="h-3.5 w-3.5 text-slate-500 group-hover:text-cyan-400 transition-colors" />
@@ -510,7 +505,7 @@ export function RAGChat() {
                         </div>
                       </div>
                     )}
-                  </GlassCard>
+                  </div>
                 )}
 
                 <span className="text-[10px] text-slate-500 font-mono px-2">
@@ -519,7 +514,7 @@ export function RAGChat() {
               </div>
 
               {msg.sender === "user" && (
-                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-800 text-slate-300 shrink-0 border border-white/10 shadow-md">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-800 text-slate-300 shrink-0 border border-white/15 shadow-md">
                   <User className="h-5 w-5" />
                 </div>
               )}
@@ -530,10 +525,10 @@ export function RAGChat() {
         {/* Dynamic Loading State */}
         {loading && (
           <div className="flex gap-4 items-start">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 shrink-0 animate-pulse">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-cyan-500/20 text-cyan-400 border border-white/20 shrink-0 animate-pulse">
               <Bot className="h-5 w-5" />
             </div>
-            <div className="rounded-2xl border border-cyan-500/30 bg-slate-900/90 px-6 py-4 text-xs text-slate-200 flex items-center gap-3 shadow-xl backdrop-blur-2xl">
+            <div className="rounded-3xl border border-white/15 bg-slate-900/60 backdrop-blur-3xl px-6 py-4 text-xs text-slate-200 flex items-center gap-3 shadow-2xl">
               <Loader2 className="h-5 w-5 animate-spin text-cyan-400" />
               <div>
                 <p className="font-semibold text-white font-mono text-sm">
@@ -551,7 +546,7 @@ export function RAGChat() {
 
         {/* Error Feedback */}
         {error && (
-          <div className="rounded-2xl border border-rose-500/30 bg-rose-500/10 p-4 text-xs text-rose-300 flex items-center justify-between gap-3 shadow-md">
+          <div className="rounded-3xl border border-rose-500/30 bg-rose-500/10 p-5 text-xs text-rose-300 flex items-center justify-between gap-3 shadow-xl backdrop-blur-2xl">
             <div className="flex items-center gap-3">
               <AlertTriangle className="h-5 w-5 text-rose-400 shrink-0" />
               <div>
@@ -561,7 +556,7 @@ export function RAGChat() {
             </div>
             <button
               onClick={() => handleSend()}
-              className="rounded-xl border border-rose-500/40 bg-rose-600/20 px-4 py-2 text-xs font-semibold text-rose-200 hover:bg-rose-600/30 active:scale-95 transition-all"
+              className="rounded-full border border-rose-500/40 bg-rose-600/20 px-5 py-2 text-xs font-semibold text-rose-200 hover:bg-rose-600/30 active:scale-95 transition-all"
             >
               Retry
             </button>
@@ -569,20 +564,20 @@ export function RAGChat() {
         )}
       </div>
 
-      {/* 4. PREMIUM FLOATING INPUT BAR FOOTER */}
-      <div className="border-t border-white/10 bg-[#020617]/90 backdrop-blur-2xl p-4 sm:p-6 z-20">
-        <div className="max-w-4xl mx-auto w-full">
+      {/* 4. VISIONOS FLOATING CENTERED PROMPT PILL BAR */}
+      <div className="p-6 pb-8 z-20 flex justify-center w-full">
+        <div className="max-w-3xl w-full">
           <form
             onSubmit={(e) => {
               e.preventDefault();
               handleSend();
             }}
-            className="flex items-center gap-3"
+            className="flex items-center gap-3 rounded-full border border-white/20 bg-slate-900/60 backdrop-blur-3xl p-2.5 pl-4 shadow-[0_20px_50px_rgba(0,0,0,0.6)]"
           >
             <button
               type="button"
               onClick={() => setIsMobileSheetOpen(true)}
-              className="min-h-[50px] min-w-[50px] flex items-center justify-center rounded-2xl border border-white/10 bg-slate-900/80 text-slate-400 hover:text-white hover:border-cyan-400/50 active:scale-95 transition-all shadow-md"
+              className="h-10 w-10 flex items-center justify-center rounded-full text-slate-400 hover:text-white hover:bg-white/10 active:scale-95 transition-all shrink-0"
               title="Attach Document"
             >
               <Paperclip className="w-5 h-5" />
@@ -593,15 +588,15 @@ export function RAGChat() {
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Ask a question grounded in your indexed knowledge base..."
+              placeholder="Ask a question grounded in your knowledge base..."
               disabled={loading}
-              className="flex-1 min-h-[50px] rounded-2xl border border-white/10 bg-slate-950/90 px-6 py-3.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/30 disabled:opacity-50 shadow-inner"
+              className="flex-1 bg-transparent px-2 text-xs sm:text-sm text-white placeholder-slate-400 focus:outline-none disabled:opacity-50 font-sans"
             />
 
             <button
               type="submit"
               disabled={!question.trim() || loading}
-              className="min-h-[50px] px-7 flex items-center justify-center gap-2 rounded-2xl bg-cyan-500 text-slate-950 font-bold text-xs sm:text-sm shadow-lg shadow-cyan-500/25 transition-all hover:bg-cyan-400 active:scale-95 disabled:opacity-50 shrink-0"
+              className="h-11 px-6 flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 to-emerald-400 text-slate-950 font-bold text-xs sm:text-sm shadow-[0_0_20px_rgba(34,211,238,0.4)] transition-all hover:brightness-110 active:scale-95 disabled:opacity-50 shrink-0"
             >
               {loading ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -623,10 +618,10 @@ export function RAGChat() {
       {/* 6. SOURCE SNIPPET VIEWER MODAL */}
       {activeSourceModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 animate-in fade-in duration-200">
-          <div className="w-full max-w-2xl rounded-3xl border border-white/10 bg-slate-900 p-6 shadow-2xl space-y-4">
+          <div className="w-full max-w-2xl rounded-3xl border border-white/20 bg-slate-900/90 backdrop-blur-3xl p-6 shadow-2xl space-y-4">
             <div className="flex items-start justify-between border-b border-white/10 pb-4">
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-violet-500/20 text-violet-400 border border-violet-500/30">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-cyan-500/20 text-cyan-300 border border-cyan-400/30">
                   <FileText className="h-5 w-5" />
                 </div>
                 <div>
@@ -648,7 +643,7 @@ export function RAGChat() {
               <span className="rounded-xl bg-slate-800 border border-white/10 px-3 py-1 text-slate-300 font-mono">
                 {activeSourceModal.page_number ? `Page ${activeSourceModal.page_number}` : "Full Document"}
               </span>
-              <span className="rounded-xl bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 font-bold text-emerald-400 font-mono">
+              <span className="rounded-xl bg-emerald-500/15 border border-emerald-400/30 px-3 py-1 font-bold text-emerald-300 font-mono">
                 {(activeSourceModal.score * 100).toFixed(1)}% Similarity
               </span>
             </div>
@@ -665,7 +660,7 @@ export function RAGChat() {
             <div className="flex justify-end pt-2">
               <button
                 onClick={() => setActiveSourceModal(null)}
-                className="min-h-[44px] rounded-xl bg-cyan-500 px-5 py-2 text-xs font-semibold text-slate-950 hover:bg-cyan-400 transition-colors"
+                className="min-h-[44px] rounded-full bg-gradient-to-r from-cyan-400 to-emerald-400 px-6 py-2 text-xs font-bold text-slate-950 hover:brightness-110 transition-all"
               >
                 Close Snippet Viewer
               </button>
