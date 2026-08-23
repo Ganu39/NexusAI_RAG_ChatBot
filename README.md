@@ -24,26 +24,16 @@
 NexusAI processes every document Q&A query through a structured 6-stage pipeline:
 
 ```mermaid
-graph TD
-    classDef inputStyle fill:#0f172a,stroke:#06b6d4,stroke-width:2px,color:#fff;
-    classDef processStyle fill:#0f172a,stroke:#8b5cf6,stroke-width:2px,color:#fff;
-    classDef vectorStyle fill:#0f172a,stroke:#ec4899,stroke-width:2px,color:#fff;
-    classDef llmStyle fill:#0f172a,stroke:#10b981,stroke-width:2px,color:#fff;
+flowchart TD
+    classDef cyanNode fill:#0f172a,stroke:#06b6d4,stroke-width:2px,color:#fff;
+    classDef purpleNode fill:#0f172a,stroke:#8b5cf6,stroke-width:2px,color:#fff;
+    classDef emeraldNode fill:#0f172a,stroke:#10b981,stroke-width:2px,color:#fff;
 
-    subgraph Phase1 ["1️⃣ Query Ingestion & Session Scoping"]
-        A["👤 User Input Query<br/>(e.g., 'What are the specs?')"]:::inputStyle --> B["🔒 X-User-ID Middleware<br/>(Multi-Tenant Session Scoping)"]:::inputStyle
-    end
-
-    subgraph Phase2 ["2️⃣ Vector Embedding & Similarity Search"]
-        B --> C["⚡ Gemini Embedding API<br/>(text-embedding-004 ➔ 3072d)"]:::processStyle
-        C --> D["🗄️ FAISS / Pinecone Index<br/>(Cosine Search ➔ Top-K Chunks)"]:::vectorStyle
-    end
-
-    subgraph Phase3 ["3️⃣ Context Building & LLM Streaming"]
-        D --> E["🎯 Relevance Thresholding<br/>(Similarity >= 0.30, Cap 5 Chunks)"]:::processStyle
-        E --> F["🧠 Gemini 2.5 Flash LLM<br/>(Strict Grounding System Prompt)"]:::llmStyle
-        F --> G["📡 Server-Sent Events (SSE)<br/>(Real-Time Tokens + Source Badges)"]:::llmStyle
-    end
+    A["👤 1. User Input Query (Query Ingest)"]:::cyanNode --> B["🔒 2. Session Scoping (X-User-ID Middleware)"]:::cyanNode
+    B --> C["⚡ 3. Vector Embedding (Gemini text-embedding-004)"]:::purpleNode
+    C --> D["🗄️ 4. Similarity Search (FAISS / Pinecone Vector Store)"]:::purpleNode
+    D --> E["🎯 5. Context Thresholding (Score >= 0.30)"]:::emeraldNode
+    E --> F["🧠 6. LLM Token Streaming (Gemini 2.5 Flash + SSE)"]:::emeraldNode
 ```
 
 ### Execution Stage Matrix
