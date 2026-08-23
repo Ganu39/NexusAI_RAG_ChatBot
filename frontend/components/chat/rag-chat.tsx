@@ -529,10 +529,8 @@ export function RAGChat() {
                     <ReasoningDrawer />
 
                     {/* Answer Body */}
-                    <div className="leading-relaxed text-slate-100 text-sm sm:text-base font-sans font-normal">
-                      <ReactMarkdown className="prose prose-invert max-w-none text-slate-100 leading-relaxed text-sm sm:text-base font-sans">
-                        {msg.text}
-                      </ReactMarkdown>
+                    <div className="leading-relaxed text-slate-100 text-sm sm:text-base font-sans font-normal prose prose-invert max-w-none">
+                      <ReactMarkdown>{msg.text}</ReactMarkdown>
                     </div>
 
                     {/* Connected Sources Attribution Grid */}
