@@ -1,8 +1,12 @@
-# NexusAI 🧠⚡
+# NexusAI RAG Chatbot 🧠⚡
 
-> **Enterprise AI Knowledge Workspace powered by Retrieval-Augmented Generation (RAG)**
+> **Enterprise AI Knowledge Workspace & RAG Chatbot powered by Retrieval-Augmented Generation**
 
-[![Production Frontend](https://img.shields.io/badge/Production_Frontend-Vercel-black?logo=vercel)](https://nexusai-sage-beta.vercel.app/)
+🌐 **Live Application:** [https://nexusai-sage-beta.vercel.app/chat](https://nexusai-sage-beta.vercel.app/chat)  
+⚡ **Production Backend API:** [https://nexusai-1xq9.onrender.com](https://nexusai-1xq9.onrender.com)  
+🐙 **GitHub Repository:** [https://github.com/Ganu39/nexusAI-rag-chat-bot](https://github.com/Ganu39/nexusAI-rag-chat-bot)
+
+[![Production Frontend](https://img.shields.io/badge/Production_Frontend-Vercel-black?logo=vercel)](https://nexusai-sage-beta.vercel.app/chat)
 [![Production Backend](https://img.shields.io/badge/Production_Backend-Render-46E3B7?logo=render)](https://nexusai-1xq9.onrender.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
