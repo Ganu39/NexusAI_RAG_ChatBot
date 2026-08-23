@@ -24,28 +24,31 @@
 NexusAI processes every document Q&A query through a structured 6-stage pipeline:
 
 ```mermaid
-flowchart TD
+flowchart LR
     classDef cyanNode fill:#0f172a,stroke:#06b6d4,stroke-width:2px,color:#fff;
     classDef purpleNode fill:#0f172a,stroke:#8b5cf6,stroke-width:2px,color:#fff;
+    classDef pinkNode fill:#0f172a,stroke:#ec4899,stroke-width:2px,color:#fff;
     classDef emeraldNode fill:#0f172a,stroke:#10b981,stroke-width:2px,color:#fff;
 
-    A["👤 1. User Input Query (Query Ingest)"]:::cyanNode --> B["🔒 2. Session Scoping (X-User-ID Middleware)"]:::cyanNode
-    B --> C["⚡ 3. Vector Embedding (Gemini text-embedding-004)"]:::purpleNode
-    C --> D["🗄️ 4. Similarity Search (FAISS / Pinecone Vector Store)"]:::purpleNode
-    D --> E["🎯 5. Context Thresholding (Score >= 0.30)"]:::emeraldNode
-    E --> F["🧠 6. LLM Token Streaming (Gemini 2.5 Flash + SSE)"]:::emeraldNode
+    A["👤 1. User Query"]:::cyanNode --> B["🔒 2. X-User-ID Scope"]:::cyanNode
+    B --> C["⚡ 3. Gemini Embedding (3072d)"]:::purpleNode
+    C --> D["🗄️ 4. Cosine Search (FAISS/Pinecone)"]:::pinkNode
+    D --> E["🎯 5. Relevance Filter (Score >= 0.30)"]:::emeraldNode
+    E --> F["🧠 6. Gemini 2.5 Flash LLM"]:::emeraldNode
+    F --> G["📡 7. SSE Token Stream & Citations"]:::emeraldNode
 ```
 
 ### Execution Stage Matrix
 
 | Stage # | Phase | Icon | Technical Operation | Output / Result | Status |
 | :---: | :--- | :---: | :--- | :--- | :---: |
-| **1** | **Query Ingest** | 📩 | Scopes request with `X-User-ID` session context and routes casual greetings vs. document queries. | Clean query string | 🟢 Active |
-| **2** | **Embedding** | ⚡ | Passes query text to Google Gemini Embedding API (`text-embedding-004`). | `3072d` Vector Array | 🟢 Active |
-| **3** | **Vector Search** | 🗄️ | High-speed Cosine Similarity search across FAISS / Pinecone vector database. | Top-K (k=5) Chunks | 🟢 Active |
-| **4** | **Context Building**| 🎯 | Filters weak matches (< 0.30 score) & packages text into structured context blocks. | Grounded Context | 🟢 Active |
-| **5** | **LLM Synthesis** | 🧠 | Sends isolated context + strict grounding instructions to `gemini-2.5-flash`. | Streamed Tokens | 🟢 Active |
-| **6** | **SSE Citations** | 📡 | Streams tokens live via Server-Sent Events with interactive source citation cards. | Cited Answer | 🟢 Active |
+| **1** | **Query Ingest** | 📩 | Validates query text & routes casual greetings vs. document queries. | Clean query string | 🟢 Active |
+| **2** | **Session Scope** | 🔒 | Attaches `X-User-ID` session context ensuring multi-tenant workspace isolation. | User-scoped session | 🟢 Active |
+| **3** | **Embedding** | ⚡ | Converts query text into a high-dimensional vector via Google Gemini (`text-embedding-004`). | `3072d` Vector Array | 🟢 Active |
+| **4** | **Vector Search** | 🗄️ | High-speed Cosine Similarity search across FAISS / Pinecone vector database. | Top-K (k=5) Chunks | 🟢 Active |
+| **5** | **Context Building**| 🎯 | Filters weak matches (< 0.30 score) & formats text into structured context blocks. | Grounded Context | 🟢 Active |
+| **6** | **LLM Synthesis** | 🧠 | Sends isolated context + strict grounding instructions to `gemini-2.5-flash`. | Streamed Tokens | 🟢 Active |
+| **7** | **SSE & Citations**| 📡 | Streams tokens live via Server-Sent Events with interactive source citation cards. | Cited Answer | 🟢 Active |
 
 ---
 
