@@ -575,8 +575,40 @@ export function RAGChat() {
                     <ReasoningDrawer />
 
                     {/* Answer Body */}
-                    <div className="leading-relaxed text-slate-100 text-sm sm:text-base font-sans font-normal prose prose-invert max-w-none">
-                      <ReactMarkdown>{msg.text}</ReactMarkdown>
+                    <div className="leading-relaxed text-slate-100 text-sm sm:text-base font-sans font-normal p-1">
+                      <ReactMarkdown
+                        components={{
+                          ul: ({ node, ...props }) => (
+                            <ul className="list-disc pl-5 my-3 space-y-2 text-slate-200" {...props} />
+                          ),
+                          ol: ({ node, ...props }) => (
+                            <ol className="list-decimal pl-5 my-3 space-y-2 text-slate-200" {...props} />
+                          ),
+                          li: ({ node, ...props }) => (
+                            <li className="leading-relaxed text-slate-200" {...props} />
+                          ),
+                          p: ({ node, ...props }) => (
+                            <p className="mb-3.5 leading-relaxed text-slate-200 font-sans" {...props} />
+                          ),
+                          strong: ({ node, ...props }) => (
+                            <strong className="font-bold text-cyan-300 drop-shadow-sm" {...props} />
+                          ),
+                          h1: ({ node, ...props }) => (
+                            <h1 className="text-lg font-bold text-cyan-400 mt-4 mb-2 tracking-wide font-mono border-b border-cyan-500/20 pb-1" {...props} />
+                          ),
+                          h2: ({ node, ...props }) => (
+                            <h2 className="text-base font-bold text-cyan-400 mt-4 mb-2 tracking-wide font-mono border-b border-cyan-500/20 pb-1" {...props} />
+                          ),
+                          h3: ({ node, ...props }) => (
+                            <h3 className="text-sm font-bold text-cyan-400 mt-3 mb-1.5 tracking-wide font-mono uppercase" {...props} />
+                          ),
+                          code: ({ node, ...props }) => (
+                            <code className="bg-slate-950 text-cyan-300 px-2 py-0.5 rounded-md border border-cyan-500/30 font-mono text-xs shadow-inner" {...props} />
+                          ),
+                        }}
+                      >
+                        {msg.text}
+                      </ReactMarkdown>
                     </div>
 
                     {/* Connected Sources Attribution Grid */}
