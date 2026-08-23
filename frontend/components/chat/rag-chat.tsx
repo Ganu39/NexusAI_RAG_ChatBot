@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import {
   Send,
@@ -88,12 +88,14 @@ export function RAGChat() {
   const [question, setQuestion] = useState("");
   const [topK, setTopK] = useState(5);
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [expandedSources, setExpandedSources] = useState<Record<string, boolean>>({});
   const [activePipelineStage, setActivePipelineStage] = useState<number>(-1);
   const [activeSourceModal, setActiveSourceModal] = useState<AskSource | null>(null);
   const [isMobileSheetOpen, setIsMobileSheetOpen] = useState(false);
+  const directFileInputRef = useRef<HTMLInputElement>(null);
 
   // Restore session chat messages from sessionStorage
   useEffect(() => {
@@ -151,6 +153,38 @@ export function RAGChat() {
         sessionStorage.removeItem(SESSION_STORAGE_KEY);
       } catch {
         // Ignore
+      }
+    }
+  };
+
+  const handleDirectFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    setError(null);
+
+    const timestampStr = new Date().toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    try {
+      await apiClient.uploadDocument(file);
+      const systemNotice: ChatMessage = {
+        id: `assistant-upload-${Date.now()}`,
+        sender: "assistant",
+        text: `📄 Successfully uploaded and indexed **${file.name}** into your FAISS vector database! You can now ask questions grounded in this document.`,
+        timestamp: timestampStr,
+      };
+      setMessages((prev) => [...prev, systemNotice]);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Failed to upload document.";
+      setError(msg);
+    } finally {
+      setUploading(false);
+      if (directFileInputRef.current) {
+        directFileInputRef.current.value = "";
       }
     }
   };
@@ -270,6 +304,15 @@ export function RAGChat() {
 
   return (
     <div className="flex h-screen w-full flex-col bg-[#020617] overflow-hidden relative font-sans text-slate-100">
+      {/* Hidden Direct File Picker */}
+      <input
+        type="file"
+        ref={directFileInputRef}
+        onChange={handleDirectFileUpload}
+        accept=".pdf,.txt,.docx,.md"
+        className="hidden"
+      />
+
       {/* 3D WebGL Background Constellation */}
       <VectorParticleCloudCanvas />
 
@@ -280,7 +323,6 @@ export function RAGChat() {
       {/* 1. COMPACT TOP HEADER BAR */}
       <div className="flex flex-wrap items-center justify-between border-b border-white/10 bg-[#020617]/90 backdrop-blur-2xl px-6 py-3.5 gap-4 z-20 shadow-xl">
         <div className="flex items-center gap-3.5">
-          {/* Compact 36px Nexus_Bot Logo */}
           <NexusBotAvatarCanvas size="sm" isProcessing={loading} />
 
           <div className="flex items-center gap-3">
@@ -301,7 +343,7 @@ export function RAGChat() {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setIsMobileSheetOpen(true)}
-            className="md:hidden flex items-center gap-2 min-h-[40px] px-3.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 text-xs font-semibold hover:bg-cyan-500/20 active:scale-95 transition-all"
+            className="flex items-center gap-2 min-h-[40px] px-4 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 text-xs font-semibold hover:bg-cyan-500/20 active:scale-95 transition-all shadow-md"
           >
             <Database className="w-4 h-4 text-cyan-400" />
             <span>Knowledge Base</span>
@@ -377,7 +419,7 @@ export function RAGChat() {
       <div className="flex-1 overflow-y-auto p-6 sm:p-10 space-y-6 z-20 max-w-4xl mx-auto w-full">
         {messages.length === 0 ? (
           <div className="flex h-full flex-col items-center justify-center text-center p-6 space-y-6">
-            {/* 3D Robot Mascot (Nexus_Bot) Avatar - Clean with no popping badge */}
+            {/* 3D Robot Mascot (Nexus_Bot) Avatar */}
             <div className="relative w-32 h-32 flex items-center justify-center">
               <NexusBotAvatarCanvas size="lg" isProcessing={loading} />
             </div>
@@ -571,8 +613,8 @@ export function RAGChat() {
           ))
         )}
 
-        {/* Dynamic Loading State */}
-        {loading && (
+        {/* Dynamic Loading / Uploading State */}
+        {(loading || uploading) && (
           <div className="flex gap-4 items-start">
             <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 shrink-0 animate-pulse">
               <Bot className="h-5 w-5 text-cyan-400" />
@@ -581,12 +623,14 @@ export function RAGChat() {
               <Loader2 className="h-5 w-5 animate-spin text-cyan-400" />
               <div>
                 <p className="font-semibold text-white font-mono text-sm">
-                  {activePipelineStage <= 2
+                  {uploading
+                    ? "Uploading & Vectorizing Document into FAISS..."
+                    : activePipelineStage <= 2
                     ? "Searching vector database..."
                     : "Synthesizing answer with grounded citations..."}
                 </p>
                 <p className="text-[11px] text-slate-400 font-mono mt-0.5">
-                  Nexus_Bot calculating vector similarity metrics
+                  Nexus_Bot processing document embeddings & metrics
                 </p>
               </div>
             </div>
@@ -613,7 +657,7 @@ export function RAGChat() {
         )}
       </div>
 
-      {/* 4. FLOATING DARK PILL INPUT BAR (No Mic Button) */}
+      {/* 4. FLOATING DARK PILL INPUT BAR WITH REAL DIRECT FILE ATTACHMENT */}
       <div className="p-6 pb-8 z-20 flex justify-center w-full">
         <div className="max-w-2xl w-full">
           <form
@@ -623,13 +667,19 @@ export function RAGChat() {
             }}
             className="flex items-center gap-3 rounded-full border border-white/10 bg-slate-950/90 backdrop-blur-2xl p-2 pl-4 shadow-2xl"
           >
+            {/* Real File Upload Attachment Button */}
             <button
               type="button"
-              onClick={() => setIsMobileSheetOpen(true)}
-              className="h-10 w-10 flex items-center justify-center rounded-full text-slate-400 hover:text-white hover:bg-white/10 active:scale-95 transition-all shrink-0"
-              title="Attach Document"
+              onClick={() => directFileInputRef.current?.click()}
+              disabled={uploading || loading}
+              className="h-10 w-10 flex items-center justify-center rounded-full text-slate-400 hover:text-cyan-400 hover:bg-cyan-500/10 active:scale-95 transition-all shrink-0 border border-transparent hover:border-cyan-500/30"
+              title="Attach & Upload Document (PDF, TXT, DOCX)"
             >
-              <Plus className="w-5 h-5" />
+              {uploading ? (
+                <Loader2 className="w-5 h-5 animate-spin text-cyan-400" />
+              ) : (
+                <Plus className="w-5 h-5" />
+              )}
             </button>
 
             <input
@@ -638,13 +688,13 @@ export function RAGChat() {
               onChange={(e) => setQuestion(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Ask Nexus_Bot anything..."
-              disabled={loading}
+              disabled={loading || uploading}
               className="flex-1 bg-transparent px-2 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none disabled:opacity-50 font-sans"
             />
 
             <button
               type="submit"
-              disabled={!question.trim() || loading}
+              disabled={!question.trim() || loading || uploading}
               className="h-11 px-6 flex items-center justify-center gap-2 rounded-full bg-cyan-500 text-slate-950 font-bold text-xs sm:text-sm shadow-lg shadow-cyan-500/25 transition-all hover:bg-cyan-400 active:scale-95 disabled:opacity-50 shrink-0"
             >
               {loading ? (
@@ -658,10 +708,23 @@ export function RAGChat() {
         </div>
       </div>
 
-      {/* 5. MOBILE KNOWLEDGE BASE BOTTOM SHEET */}
+      {/* 5. UNIVERSAL KNOWLEDGE BASE MODAL (DESKTOP + MOBILE) */}
       <MobileKnowledgeSheet
         isOpen={isMobileSheetOpen}
         onClose={() => setIsMobileSheetOpen(false)}
+        onUploadSuccess={(filename) => {
+          const timestampStr = new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+          const systemNotice: ChatMessage = {
+            id: `assistant-upload-${Date.now()}`,
+            sender: "assistant",
+            text: `📄 Successfully uploaded and indexed **${filename}** into your FAISS vector database! You can now ask questions grounded in this document.`,
+            timestamp: timestampStr,
+          };
+          setMessages((prev) => [...prev, systemNotice]);
+        }}
       />
 
       {/* 6. SOURCE SNIPPET VIEWER MODAL */}
