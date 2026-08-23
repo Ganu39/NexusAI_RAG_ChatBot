@@ -9,6 +9,34 @@ from services.llm import BaseLLMProvider, GeminiLLMProvider
 from services.context_builder import ContextBuilder
 from services.prompts import RAG_SYSTEM_INSTRUCTION, build_rag_user_prompt
 
+CASUAL_GREETINGS = {
+    "hi",
+    "hello",
+    "hey",
+    "hiya",
+    "howdy",
+    "greetings",
+    "good morning",
+    "good afternoon",
+    "good evening",
+    "who are you",
+    "who are u",
+    "what is your name",
+    "what's your name",
+    "how are you",
+    "how are u",
+    "thanks",
+    "thank you",
+    "help",
+    "ping",
+}
+
+
+def is_casual_greeting(question: str) -> bool:
+    """Check if question is a casual greeting or pleasantry."""
+    clean = question.strip().lower().rstrip(".!?,")
+    return clean in CASUAL_GREETINGS
+
 
 class RAGService:
     """Orchestrates RAG search, context building, and LLM generation."""
@@ -51,6 +79,19 @@ class RAGService:
         filtered_results = self.context_builder.filter_results(raw_results)
 
         if not filtered_results:
+            if is_casual_greeting(request.question):
+                greeting_text = (
+                    "Hello! 👋 I am Nexus_Bot, your AI document intelligence assistant. "
+                    "How can I help you analyze your documents today?"
+                )
+                return AskResponse(
+                    question=request.question,
+                    answer=greeting_text,
+                    sources=[],
+                    retrieved_chunks=0,
+                    grounded=True,
+                )
+
             return AskResponse(
                 question=request.question,
                 answer=(
@@ -104,11 +145,22 @@ class RAGService:
         filtered_results = self.context_builder.filter_results(raw_results)
 
         if not filtered_results:
+            if is_casual_greeting(request.question):
+                greeting_text = (
+                    "Hello! 👋 I am Nexus_Bot, your AI document intelligence assistant. "
+                    "How can I help you analyze your documents today?"
+                )
+                def greeting_gen():
+                    yield greeting_text
+
+                return [], True, greeting_gen()
+
             def fallback_gen():
                 yield (
                     "I couldn't find enough information in the uploaded "
                     "documents to answer that question."
                 )
+
             return [], False, fallback_gen()
 
         context_text = self.context_builder.build_context(filtered_results)
