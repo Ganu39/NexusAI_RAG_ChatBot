@@ -2,7 +2,7 @@
 
 > **Enterprise AI Knowledge Workspace & RAG Chatbot powered by Retrieval-Augmented Generation**
 
-🌐 **Landing Page:** [https://nexusai-sage-beta.vercel.app/](https://nexusai-sage-beta.vercel.app/)  
+🌐 **Live Web Application:** [https://nexusai-sage-beta.vercel.app/](https://nexusai-sage-beta.vercel.app/)  
 💬 **Live Chat Application:** [https://nexusai-sage-beta.vercel.app/chat](https://nexusai-sage-beta.vercel.app/chat)  
 ⚡ **Production Backend API:** [https://nexusai-1xq9.onrender.com](https://nexusai-1xq9.onrender.com)  
 🐙 **GitHub Repository:** [https://github.com/Ganu39/nexusAI-rag-chat-bot](https://github.com/Ganu39/nexusAI-rag-chat-bot)
