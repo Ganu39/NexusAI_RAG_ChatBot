@@ -25,6 +25,7 @@ import {
   Clock,
   BookOpen,
   Cpu,
+  Edit3,
 } from "lucide-react";
 import { AskResponse, AskSource } from "@/types";
 import { apiClient } from "@/lib/api";
@@ -84,6 +85,7 @@ const RAG_RETRIEVAL_STEPS = [
 ];
 
 const SESSION_STORAGE_KEY = "nexusai_rag_chat_messages";
+const USER_NAME_STORAGE_KEY = "nexusai_user_display_name";
 
 export function RAGChat() {
   const [question, setQuestion] = useState("");
@@ -96,7 +98,40 @@ export function RAGChat() {
   const [activePipelineStage, setActivePipelineStage] = useState<number>(-1);
   const [activeSourceModal, setActiveSourceModal] = useState<AskSource | null>(null);
   const [isMobileSheetOpen, setIsMobileSheetOpen] = useState(false);
+
+  // Dynamic User Onboarding Name State
+  const [userName, setUserName] = useState<string>("");
+  const [inputUserName, setInputUserName] = useState<string>("");
+  const [showOnboardingModal, setShowOnboardingModal] = useState<boolean>(false);
+
   const directFileInputRef = useRef<HTMLInputElement>(null);
+
+  // Check & restore user display name on mount
+  useEffect(() => {
+    try {
+      const savedName = localStorage.getItem(USER_NAME_STORAGE_KEY);
+      if (savedName && savedName.trim()) {
+        setUserName(savedName.trim());
+      } else {
+        // First-time user: Show "What should we call you?" onboarding modal
+        setShowOnboardingModal(true);
+      }
+    } catch {
+      // Storage fallback
+    }
+  }, []);
+
+  const handleSaveUserName = (overrideName?: string) => {
+    const finalName = (overrideName || inputUserName).trim();
+    if (!finalName) return;
+    setUserName(finalName);
+    setShowOnboardingModal(false);
+    try {
+      localStorage.setItem(USER_NAME_STORAGE_KEY, finalName);
+    } catch {
+      // Storage fallback
+    }
+  };
 
   // Restore session chat messages from sessionStorage
   useEffect(() => {
@@ -427,8 +462,19 @@ export function RAGChat() {
               <span className="text-xs font-mono uppercase tracking-widest text-cyan-400">
                 AI KNOWLEDGE ASSISTANT
               </span>
-              <h4 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-sans">
-                Welcome back, Ganu 👋<br />
+              <h4 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-sans items-center justify-center">
+                <span>Welcome back, {userName || "Explorer"} 👋</span>
+                <button
+                  onClick={() => {
+                    setInputUserName(userName);
+                    setShowOnboardingModal(true);
+                  }}
+                  className="ml-2 inline-flex items-center text-xs text-slate-400 hover:text-cyan-400 transition-colors p-1"
+                  title="Change your name"
+                >
+                  <Edit3 className="w-4 h-4" />
+                </button>
+                <br />
                 <span className="text-slate-300 font-normal text-xl sm:text-2xl">
                   How may I help you today?
                 </span>
@@ -604,15 +650,15 @@ export function RAGChat() {
               </div>
 
               {msg.sender === "user" && (
-                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-800 text-slate-300 shrink-0 border border-white/10 shadow-md">
-                  <User className="h-5 w-5 text-cyan-400" />
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-800 text-slate-300 shrink-0 border border-white/10 shadow-md font-mono text-xs font-bold text-cyan-400">
+                  {userName ? userName.slice(0, 2).toUpperCase() : "US"}
                 </div>
               )}
             </div>
           ))
         )}
 
-        {/* Dynamic Loading / Uploading State */}
+        {/* Dynamic Loading State */}
         {(loading || uploading) && (
           <div className="flex gap-4 items-start">
             <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 shrink-0 animate-pulse">
@@ -629,7 +675,7 @@ export function RAGChat() {
                     : "Synthesizing answer with grounded citations..."}
                 </p>
                 <p className="text-[11px] text-slate-400 font-mono mt-0.5">
-                  Nexus_Bot processing document embeddings & metrics
+                  Nexus_Bot processing embeddings & metrics
                 </p>
               </div>
             </div>
@@ -656,7 +702,7 @@ export function RAGChat() {
         )}
       </div>
 
-      {/* 4. FLOATING DARK PILL INPUT BAR WITH REAL DIRECT FILE ATTACHMENT */}
+      {/* 4. FLOATING DARK PILL INPUT BAR */}
       <div className="p-6 pb-8 z-20 flex justify-center w-full">
         <div className="max-w-2xl w-full">
           <form
@@ -666,7 +712,6 @@ export function RAGChat() {
             }}
             className="flex items-center gap-3 rounded-full border border-white/10 bg-slate-950/90 backdrop-blur-2xl p-2 pl-4 shadow-2xl"
           >
-            {/* Real File Upload Attachment Button */}
             <button
               type="button"
               onClick={() => directFileInputRef.current?.click()}
@@ -707,7 +752,7 @@ export function RAGChat() {
         </div>
       </div>
 
-      {/* 5. UNIVERSAL KNOWLEDGE BASE MODAL (DESKTOP + MOBILE) */}
+      {/* 5. UNIVERSAL KNOWLEDGE BASE MODAL */}
       <MobileKnowledgeSheet
         isOpen={isMobileSheetOpen}
         onClose={() => setIsMobileSheetOpen(false)}
@@ -726,7 +771,72 @@ export function RAGChat() {
         }}
       />
 
-      {/* 6. SOURCE SNIPPET VIEWER MODAL */}
+      {/* 6. FIRST-TIME USER ONBOARDING NAME POPUP MODAL */}
+      {showOnboardingModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4 animate-in fade-in duration-300">
+          <div className="w-full max-w-md rounded-3xl border border-cyan-500/40 bg-slate-900 p-7 shadow-2xl space-y-6 text-center relative overflow-hidden">
+            {/* Glow Halo */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-48 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none" />
+
+            {/* Mascot Avatar */}
+            <div className="relative w-24 h-24 mx-auto flex items-center justify-center">
+              <NexusBotAvatarCanvas size="lg" />
+            </div>
+
+            <div className="space-y-2">
+              <span className="text-xs font-mono uppercase tracking-widest text-cyan-400">
+                Welcome to NexusAI 🧠⚡
+              </span>
+              <h3 className="text-2xl font-extrabold text-white tracking-tight font-sans">
+                What should we call you?
+              </h3>
+              <p className="text-xs text-slate-400">
+                Nexus_Bot will use this name to personalize your workspace identity & greetings.
+              </p>
+            </div>
+
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSaveUserName();
+              }}
+              className="space-y-4"
+            >
+              <div className="relative">
+                <input
+                  type="text"
+                  value={inputUserName}
+                  onChange={(e) => setInputUserName(e.target.value)}
+                  placeholder="Enter your name (e.g. Ganu, Alex)..."
+                  autoFocus
+                  className="w-full rounded-full border border-white/20 bg-slate-950 px-5 py-3 text-sm text-white placeholder-slate-500 focus:border-cyan-400 focus:outline-none font-sans text-center shadow-inner"
+                />
+              </div>
+
+              <div className="flex items-center gap-3">
+                {userName && (
+                  <button
+                    type="button"
+                    onClick={() => setShowOnboardingModal(false)}
+                    className="w-1/3 min-h-[46px] rounded-full border border-white/10 bg-slate-800 text-xs font-bold text-slate-300 hover:bg-slate-700 transition-all"
+                  >
+                    Cancel
+                  </button>
+                )}
+                <button
+                  type="submit"
+                  disabled={!inputUserName.trim()}
+                  className="flex-1 min-h-[46px] rounded-full bg-cyan-500 font-bold text-sm text-slate-950 hover:bg-cyan-400 active:scale-95 transition-all shadow-lg shadow-cyan-500/25 disabled:opacity-50"
+                >
+                  Get Started 🚀
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* 7. SOURCE SNIPPET VIEWER MODAL */}
       {activeSourceModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 animate-in fade-in duration-200">
           <div className="w-full max-w-xl rounded-3xl border border-white/10 bg-slate-900 p-6 shadow-2xl space-y-4">
