@@ -20,7 +20,7 @@ import {
   Database,
   Paperclip,
   Cpu,
-  Terminal,
+  Layers,
   Activity,
   Zap,
 } from "lucide-react";
@@ -34,7 +34,7 @@ import MobileKnowledgeSheet from "@/components/chat/MobileKnowledgeSheet";
 const GlowingAIOrbCanvas = dynamic(() => import("@/components/3d/GlowingAIOrb"), {
   ssr: false,
   loading: () => (
-    <div className="w-16 h-16 rounded-full bg-cyan-500/20 blur-md animate-pulse flex items-center justify-center border border-cyan-400/40">
+    <div className="w-16 h-16 rounded-full bg-cyan-500/20 blur-md animate-pulse flex items-center justify-center border border-cyan-400/30">
       <Bot className="w-8 h-8 text-cyan-400" />
     </div>
   ),
@@ -53,12 +53,12 @@ interface ChatMessage {
 }
 
 const RAG_RETRIEVAL_STEPS = [
-  { id: "query", label: "[01_QUERY_INGEST]" },
-  { id: "search", label: "[02_VECTOR_SEARCH]" },
-  { id: "chunks", label: "[03_TOP_K_CHUNKS]" },
-  { id: "context", label: "[04_ISOLATE_CONTEXT]" },
-  { id: "gemini", label: "[05_LLM_SYNTHESIS]" },
-  { id: "answer", label: "[06_CITATIONS_READY]" },
+  { id: "query", label: "Query Ingest" },
+  { id: "search", label: "Vector Search" },
+  { id: "chunks", label: "Top-K Chunks" },
+  { id: "context", label: "Isolated Context" },
+  { id: "gemini", label: "Gemini 2.5 Flash" },
+  { id: "answer", label: "Citations Ready" },
 ];
 
 const SUGGESTED_QUESTIONS = [
@@ -123,7 +123,7 @@ export function RAGChat() {
 
   const handleClearChat = () => {
     if (messages.length === 0) return;
-    if (window.confirm("Purge active neural conversation logs?")) {
+    if (window.confirm("Clear active conversation history?")) {
       setMessages([]);
       setExpandedSources({});
       setError(null);
@@ -147,7 +147,6 @@ export function RAGChat() {
       timestamp: new Date().toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
-        second: "2-digit",
       }),
     };
 
@@ -166,7 +165,6 @@ export function RAGChat() {
     const timestampStr = new Date().toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
-      second: "2-digit",
     });
 
     try {
@@ -230,7 +228,7 @@ export function RAGChat() {
         const msg =
           err instanceof Error
             ? err.message
-            : "TERMINAL_ERROR: Connection reset by vector server.";
+            : "Failed to connect to NexusAI RAG engine.";
         setError(msg);
       }
     } finally {
@@ -251,59 +249,60 @@ export function RAGChat() {
   };
 
   return (
-    <div className="flex h-[calc(100vh-8.5rem)] flex-col rounded-2xl border-2 border-cyan-500/40 bg-[#030712] overflow-hidden shadow-[0_0_40px_rgba(0,243,255,0.15)] relative font-mono">
-      {/* 3D Holographic Vector Particle Background */}
+    <div className="flex h-screen w-full flex-col bg-[#020617] overflow-hidden relative font-sans text-slate-100">
+      {/* 3D WebGL Background Constellation */}
       <VectorParticleCloudCanvas />
 
-      {/* Cyber Scanline Overlay */}
-      <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%)] bg-[length:100%_4px] z-20 opacity-30" />
+      {/* Ambient Glow Orbs */}
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none -z-10 animate-pulse" />
+      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-violet-600/10 rounded-full blur-[140px] pointer-events-none -z-10" />
 
-      {/* 1. CYBERPUNK COMMAND HEADER */}
-      <div className="flex flex-wrap items-center justify-between border-b border-cyan-500/30 bg-[#060d1a]/90 backdrop-blur-xl px-6 py-3.5 gap-4 z-30">
+      {/* 1. EXECUTIVE COMMAND TOP BAR */}
+      <div className="flex flex-wrap items-center justify-between border-b border-white/10 bg-[#020617]/80 backdrop-blur-2xl px-6 py-4 gap-4 z-20">
         <div className="flex items-center gap-4">
-          <div className="w-14 h-14 relative flex items-center justify-center overflow-visible shrink-0 border border-cyan-400/40 rounded-xl bg-cyan-950/40 shadow-[0_0_15px_rgba(0,243,255,0.3)]">
+          <div className="w-14 h-14 relative flex items-center justify-center overflow-visible shrink-0 rounded-2xl bg-cyan-950/40 border border-cyan-500/30 shadow-[0_0_20px_rgba(6,182,212,0.2)]">
             <GlowingAIOrbCanvas isProcessing={loading} />
           </div>
           <div>
             <div className="flex items-center gap-3">
-              <h3 className="font-extrabold text-cyan-300 text-base sm:text-lg tracking-wider uppercase drop-shadow-[0_0_8px_rgba(0,243,255,0.5)]">
-                NEURAL_COMMAND_CENTER
+              <h3 className="font-extrabold text-white text-base sm:text-lg tracking-tight font-mono">
+                Obsidian Command Studio
               </h3>
-              <span className="flex items-center gap-1.5 rounded-none bg-cyan-500/20 px-2.5 py-0.5 text-[10px] font-bold text-cyan-300 border border-cyan-400/50 shadow-[0_0_10px_rgba(0,243,255,0.2)]">
-                <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-ping" />
-                SYSTEM_ONLINE
+              <span className="flex items-center gap-1.5 rounded-full bg-cyan-500/10 px-3 py-0.5 text-[11px] font-semibold text-cyan-400 border border-cyan-500/30 shadow-sm">
+                <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
+                Knowledge Base Connected
               </span>
             </div>
-            <p className="text-[11px] text-slate-400 font-mono tracking-tight flex items-center gap-2 mt-0.5">
-              <span>LATENCY: <strong className="text-cyan-400">14ms</strong></span>
+            <p className="text-xs text-slate-400 font-mono mt-0.5 flex items-center gap-2">
+              <span>MODEL: <strong className="text-cyan-400">Gemini 2.5 Flash</strong></span>
               <span>•</span>
-              <span>FAISS_INDEX: <strong className="text-purple-400">3072d</strong></span>
+              <span>INDEX: <strong className="text-violet-400">FAISS 3072d</strong></span>
               <span>•</span>
-              <span>STATUS: <strong className="text-emerald-400">GROUNDED</strong></span>
+              <span>LATENCY: <strong className="text-emerald-400">18ms</strong></span>
             </p>
           </div>
         </div>
 
-        {/* Telemetry Selectors & Controls */}
+        {/* Controls & Tools */}
         <div className="flex items-center gap-3">
           <button
             onClick={() => setIsMobileSheetOpen(true)}
-            className="md:hidden flex items-center gap-2 min-h-[44px] px-3.5 rounded-xl border border-cyan-400 bg-cyan-500/20 text-cyan-300 text-xs font-bold hover:bg-cyan-500/40 active:scale-95 transition-all shadow-[0_0_10px_rgba(0,243,255,0.3)]"
+            className="md:hidden flex items-center gap-2 min-h-[44px] px-3.5 rounded-xl border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 text-xs font-semibold hover:bg-cyan-500/20 active:scale-95 transition-transform"
           >
             <Database className="w-4 h-4 text-cyan-400" />
-            <span>KNOWLEDGE_BASE</span>
+            <span>Knowledge Base</span>
           </button>
 
-          <div className="flex items-center gap-2 rounded-xl border border-cyan-500/40 bg-slate-950 px-3.5 py-2 text-xs text-cyan-300 shadow-[0_0_10px_rgba(0,243,255,0.1)]">
+          <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-slate-900/90 px-4 py-2 text-xs text-slate-300 shadow-sm backdrop-blur-md">
             <Sliders className="h-3.5 w-3.5 text-cyan-400" />
-            <span className="text-[11px] text-slate-400 font-mono">TOP_K:</span>
+            <span className="text-[11px] text-slate-400 font-mono">Top-K Chunks:</span>
             <select
               value={topK}
               onChange={(e) => setTopK(Number(e.target.value))}
-              className="bg-transparent font-bold text-cyan-300 focus:outline-none cursor-pointer text-xs"
+              className="bg-transparent font-bold text-cyan-400 focus:outline-none cursor-pointer text-xs"
             >
               {[1, 2, 3, 4, 5, 7, 10].map((k) => (
-                <option key={k} value={k} className="bg-black text-cyan-300">
+                <option key={k} value={k} className="bg-slate-900 text-white">
                   k = {k}
                 </option>
               ))}
@@ -313,19 +312,19 @@ export function RAGChat() {
           {messages.length > 0 && (
             <button
               onClick={handleClearChat}
-              className="flex items-center gap-1.5 min-h-[44px] rounded-xl border border-rose-500/50 bg-rose-950/40 px-3.5 py-2 text-xs font-bold text-rose-300 hover:bg-rose-900/60 active:scale-95 transition-all shadow-[0_0_10px_rgba(255,0,85,0.3)]"
-              title="Purge active neural logs"
+              className="flex items-center gap-1.5 min-h-[44px] rounded-xl border border-rose-500/30 bg-rose-500/10 px-3.5 py-2 text-xs font-semibold text-rose-300 hover:bg-rose-500/20 active:scale-95 transition-all"
+              title="Clear conversation history"
             >
               <Trash2 className="h-3.5 w-3.5 text-rose-400" />
-              <span>PURGE_LOGS</span>
+              <span>Clear Chat</span>
             </button>
           )}
         </div>
       </div>
 
-      {/* 2. ARCHITECTURAL RETRIEVAL PIPELINE TERMINAL LOG STEPPER */}
-      <div className="border-b border-cyan-500/20 bg-black/60 px-6 py-2.5 overflow-x-auto z-30">
-        <div className="flex items-center justify-between min-w-[620px] text-[11px] font-mono">
+      {/* 2. ARCHITECTURAL RETRIEVAL PIPELINE STEPPER */}
+      <div className="border-b border-white/5 bg-slate-950/60 px-6 py-2.5 overflow-x-auto z-20 backdrop-blur-md">
+        <div className="flex items-center justify-between min-w-[600px] text-[11px] font-mono text-slate-400">
           {RAG_RETRIEVAL_STEPS.map((step, idx) => {
             const isCurrent = activePipelineStage === idx;
             const isPassed = activePipelineStage > idx;
@@ -334,14 +333,14 @@ export function RAGChat() {
                 <div
                   className={`flex items-center gap-1.5 transition-colors ${
                     isCurrent
-                      ? "text-cyan-300 font-bold drop-shadow-[0_0_8px_rgba(0,243,255,0.8)]"
+                      ? "text-cyan-400 font-bold drop-shadow-[0_0_8px_rgba(6,182,212,0.6)]"
                       : isPassed
                       ? "text-emerald-400 font-semibold"
-                      : "text-slate-600"
+                      : "text-slate-500"
                   }`}
                 >
                   <span
-                    className={`h-2 w-2 rounded-none ${
+                    className={`h-2 w-2 rounded-full ${
                       isCurrent
                         ? "bg-cyan-400 animate-ping"
                         : isPassed
@@ -352,7 +351,7 @@ export function RAGChat() {
                   <span>{step.label}</span>
                 </div>
                 {idx < RAG_RETRIEVAL_STEPS.length - 1 && (
-                  <span className="text-slate-700">═</span>
+                  <span className="text-slate-700">→</span>
                 )}
               </React.Fragment>
             );
@@ -361,30 +360,30 @@ export function RAGChat() {
       </div>
 
       {/* 3. MESSAGES SCROLL AREA */}
-      <div className="flex-1 overflow-y-auto p-5 sm:p-8 space-y-6 z-30">
+      <div className="flex-1 overflow-y-auto p-6 sm:p-10 space-y-6 z-20 max-w-6xl mx-auto w-full">
         {messages.length === 0 ? (
           <div className="flex h-full flex-col items-center justify-center text-center p-6 space-y-6">
-            {/* 3D Holographic AI Orb Centerpiece */}
+            {/* 3D WebGL Glowing AI Mascot Canvas */}
             <div className="relative w-36 h-36 flex items-center justify-center">
               <GlowingAIOrbCanvas isProcessing={loading} />
             </div>
 
             <div className="max-w-lg space-y-2">
-              <h4 className="text-2xl font-black text-white tracking-widest uppercase font-mono drop-shadow-[0_0_12px_rgba(0,243,255,0.6)]">
-                NEURAL_GROUNDED_INTERFACE
+              <h4 className="text-2xl font-bold text-white tracking-tight font-mono">
+                Ask Questions Grounded in Your Documents
               </h4>
-              <p className="text-xs sm:text-sm text-cyan-200/80 leading-relaxed font-mono max-w-md mx-auto">
-                Execute queries against your vectorized FAISS knowledge repository. Real-time deterministic synthesis powered by Gemini 2.5 Flash.
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-md mx-auto">
+                NexusAI retrieves semantic vector chunks from your FAISS repository and
+                synthesizes grounded answers using Gemini 2.5 Flash with verified source citations.
               </p>
             </div>
 
-            {/* Suggested Question Pills */}
-            <div className="w-full max-w-xl space-y-3 pt-2">
-              <div className="text-[11px] font-mono text-cyan-400 uppercase tracking-widest font-bold flex items-center justify-center gap-2">
-                <Terminal className="w-4 h-4 text-cyan-400" />
-                <span>SELECT_PRESET_QUERY:</span>
+            {/* Suggested Question Cards */}
+            <div className="w-full max-w-2xl space-y-3 pt-2">
+              <div className="text-[11px] font-mono text-cyan-400/90 uppercase tracking-widest font-semibold text-center">
+                SUGGESTED QUESTIONS:
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs">
                 {SUGGESTED_QUESTIONS.map((q) => (
                   <button
                     key={q}
@@ -392,10 +391,10 @@ export function RAGChat() {
                       setQuestion(q);
                       handleSend(q);
                     }}
-                    className="min-h-[52px] border border-cyan-500/30 bg-slate-950/80 backdrop-blur-md p-4 text-left text-cyan-300 hover:border-cyan-400 hover:bg-cyan-950/50 hover:text-white active:scale-[0.98] transition-all shadow-[0_0_15px_rgba(0,243,255,0.1)] flex items-center justify-between group"
+                    className="min-h-[56px] rounded-2xl border border-white/10 bg-slate-900/60 backdrop-blur-md p-4 text-left text-slate-200 hover:border-cyan-400/60 hover:bg-slate-900/90 hover:text-white active:scale-[0.98] transition-all shadow-xl flex items-center justify-between group"
                   >
-                    <span>⚡ &quot;{q}&quot;</span>
-                    <span className="text-cyan-500 group-hover:text-cyan-300 group-hover:translate-x-1 transition-all">▶</span>
+                    <span className="font-medium text-sm">💡 &quot;{q}&quot;</span>
+                    <span className="text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all">→</span>
                   </button>
                 ))}
               </div>
@@ -410,7 +409,7 @@ export function RAGChat() {
               }`}
             >
               {msg.sender === "assistant" && (
-                <div className="flex h-10 w-10 items-center justify-center bg-cyan-950 text-cyan-400 border border-cyan-400/50 shrink-0 shadow-[0_0_10px_rgba(0,243,255,0.3)]">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 shrink-0 shadow-lg">
                   <Bot className="h-5 w-5" />
                 </div>
               )}
@@ -422,41 +421,41 @@ export function RAGChat() {
               >
                 {/* User Bubble */}
                 {msg.sender === "user" ? (
-                  <div className="bg-cyan-500 text-black font-bold px-5 py-3.5 text-xs sm:text-sm shadow-[0_0_20px_rgba(0,243,255,0.4)] leading-relaxed border border-cyan-300">
+                  <div className="rounded-2xl bg-cyan-600 px-5 py-3.5 text-xs sm:text-sm text-white shadow-lg shadow-cyan-600/25 leading-relaxed font-medium">
                     <p className="whitespace-pre-wrap">{msg.text}</p>
                   </div>
                 ) : (
-                  /* Editorial AI Response Panel with Cyberpunk GlassCard */
-                  <GlassCard className="w-full p-6 text-xs sm:text-sm text-slate-100 space-y-4 border-cyan-500/40 bg-[#060d1a]/95 shadow-[0_0_25px_rgba(0,243,255,0.15)]">
+                  /* Editorial AI Response Panel with GlassCard */
+                  <GlassCard className="w-full p-6 text-xs sm:text-sm text-slate-100 space-y-4">
                     {/* Header Grounding Status */}
                     {msg.response && (
-                      <div className="flex flex-wrap items-center justify-between gap-2 pb-3.5 border-b border-cyan-500/20">
+                      <div className="flex flex-wrap items-center justify-between gap-2 pb-3.5 border-b border-white/10">
                         <div className="flex items-center gap-2.5">
                           {msg.response.grounded ? (
-                            <span className="inline-flex items-center gap-1.5 bg-emerald-950/80 px-3 py-1 text-xs font-bold text-emerald-400 border border-emerald-500/50 shadow-[0_0_8px_rgba(16,185,129,0.3)]">
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-400 border border-emerald-500/20 shadow-sm">
                               <CheckCircle2 className="h-3.5 w-3.5" />
-                              [GROUNDED_VERIFIED]
+                              Grounded Answer
                             </span>
                           ) : (
-                            <span className="inline-flex items-center gap-1.5 bg-rose-950/80 px-3 py-1 text-xs font-bold text-rose-400 border border-rose-500/50 shadow-[0_0_8px_rgba(255,0,85,0.3)]">
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-400 border border-amber-500/20 shadow-sm">
                               <AlertTriangle className="h-3.5 w-3.5" />
-                              [UNGROUNDED_CONTEXT]
+                              Insufficient Context
                             </span>
                           )}
                           <span className="text-xs text-slate-400 font-mono">
-                            ({msg.response.retrieved_chunks} CHUNKS_FOUND)
+                            ({msg.response.retrieved_chunks} context chunks)
                           </span>
                         </div>
 
                         {msg.response.sources.length > 0 && (
                           <button
                             onClick={() => toggleSources(msg.id)}
-                            className="flex items-center gap-1 text-xs font-bold text-purple-400 hover:text-purple-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+                            className="flex items-center gap-1 text-xs font-semibold text-violet-400 hover:text-violet-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rounded-md"
                           >
                             <span>
                               {expandedSources[msg.id]
-                                ? "[COLLAPSE_CITATIONS]"
-                                : `[EXPAND_${msg.response.sources.length}_SOURCES]`}
+                                ? "Hide Citations"
+                                : `View ${msg.response.sources.length} Sources & Citations`}
                             </span>
                             {expandedSources[msg.id] ? (
                               <ChevronUp className="h-3.5 w-3.5" />
@@ -472,19 +471,19 @@ export function RAGChat() {
                     <ReasoningDrawer />
 
                     {/* Answer Body */}
-                    <div className="leading-relaxed text-slate-100 whitespace-pre-wrap text-sm sm:text-base font-mono">
+                    <div className="leading-relaxed text-slate-100 whitespace-pre-wrap text-sm sm:text-base font-sans">
                       {msg.text}
                     </div>
 
                     {/* Sources Attribution Grid */}
                     {msg.response && expandedSources[msg.id] && msg.response.sources.length > 0 && (
-                      <div className="pt-3 border-t border-cyan-500/20 space-y-2.5">
-                        <div className="flex items-center justify-between text-[11px] font-mono text-cyan-400 uppercase tracking-wider font-bold">
+                      <div className="pt-3 border-t border-white/10 space-y-2.5">
+                        <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 uppercase tracking-wider">
                           <div className="flex items-center gap-1.5">
-                            <CornerDownRight className="h-3.5 w-3.5 text-purple-400" />
-                            <span>CONNECTED_VECTOR_SOURCES:</span>
+                            <CornerDownRight className="h-3.5 w-3.5 text-violet-400" />
+                            <span>Connected Source Citations:</span>
                           </div>
-                          <span className="text-slate-500 text-[10px]">Click to view raw snippet</span>
+                          <span className="text-slate-500 text-[10px]">Click source to inspect snippet</span>
                         </div>
 
                         <div className="grid grid-cols-1 gap-2.5">
@@ -492,16 +491,16 @@ export function RAGChat() {
                             <div
                               key={src.chunk_id || sIdx}
                               onClick={() => setActiveSourceModal(src)}
-                              className="border border-purple-500/40 bg-black/80 p-3.5 space-y-2 text-slate-300 hover:border-cyan-400 hover:bg-purple-950/30 transition-all cursor-pointer group shadow-[0_0_10px_rgba(147,51,234,0.15)]"
+                              className="rounded-xl border border-white/10 bg-slate-950/80 p-3.5 space-y-2 text-slate-300 hover:border-violet-400/60 hover:bg-slate-900 transition-all cursor-pointer group shadow-sm"
                             >
                               <div className="flex items-center justify-between font-medium">
-                                <div className="flex items-center gap-2 text-purple-300 truncate max-w-[260px] sm:max-w-md">
-                                  <FileText className="h-3.5 w-3.5 text-purple-400 shrink-0" />
-                                  <span className="truncate text-xs font-mono group-hover:text-cyan-300 transition-colors">{src.filename}</span>
+                                <div className="flex items-center gap-2 text-violet-300 truncate max-w-[260px] sm:max-w-md">
+                                  <FileText className="h-3.5 w-3.5 text-violet-400 shrink-0" />
+                                  <span className="truncate text-xs font-mono group-hover:text-violet-200 transition-colors">{src.filename}</span>
                                 </div>
                                 <div className="flex items-center gap-2 shrink-0">
-                                  <span className="bg-purple-500/20 px-2.5 py-1 text-[10px] font-mono font-bold text-purple-300 border border-purple-400/30">
-                                    {(src.score * 100).toFixed(1)}% MATCH
+                                  <span className="rounded bg-violet-500/10 px-2.5 py-1 text-[10px] font-mono font-bold text-violet-400 border border-violet-500/20">
+                                    {(src.score * 100).toFixed(1)}% Match
                                   </span>
                                   <Eye className="h-3.5 w-3.5 text-slate-500 group-hover:text-cyan-400 transition-colors" />
                                 </div>
@@ -520,7 +519,7 @@ export function RAGChat() {
               </div>
 
               {msg.sender === "user" && (
-                <div className="flex h-10 w-10 items-center justify-center bg-slate-900 text-slate-300 shrink-0 border border-white/20">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-800 text-slate-300 shrink-0 border border-white/10 shadow-md">
                   <User className="h-5 w-5" />
                 </div>
               )}
@@ -528,22 +527,22 @@ export function RAGChat() {
           ))
         )}
 
-        {/* Dynamic Loading Telemetry */}
+        {/* Dynamic Loading State */}
         {loading && (
           <div className="flex gap-4 items-start">
-            <div className="flex h-10 w-10 items-center justify-center bg-cyan-950 text-cyan-400 border border-cyan-400/50 shrink-0 animate-pulse">
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 shrink-0 animate-pulse">
               <Bot className="h-5 w-5" />
             </div>
-            <div className="border border-cyan-400 bg-black/90 px-6 py-4 text-xs text-slate-200 flex items-center gap-3 shadow-[0_0_20px_rgba(0,243,255,0.3)] backdrop-blur-2xl">
+            <div className="rounded-2xl border border-cyan-500/30 bg-slate-900/90 px-6 py-4 text-xs text-slate-200 flex items-center gap-3 shadow-xl backdrop-blur-2xl">
               <Loader2 className="h-5 w-5 animate-spin text-cyan-400" />
               <div>
-                <p className="font-extrabold text-cyan-300 font-mono text-sm uppercase tracking-wider">
+                <p className="font-semibold text-white font-mono text-sm">
                   {activePipelineStage <= 2
-                    ? "[EXECUTING_VECTOR_SEARCH...]"
-                    : "[SYNTHESIZING_LLM_RESPONSE...]"}
+                    ? "Searching vector database..."
+                    : "Synthesizing answer with grounded citations..."}
                 </p>
                 <p className="text-[11px] text-slate-400 font-mono mt-0.5">
-                  Calculating cosine similarity metrics across FAISS vector space
+                  Filtering chunks & calculating vector similarity metrics
                 </p>
               </div>
             </div>
@@ -552,65 +551,67 @@ export function RAGChat() {
 
         {/* Error Feedback */}
         {error && (
-          <div className="border-2 border-rose-500 bg-rose-950/40 p-4 text-xs text-rose-300 flex items-center justify-between gap-3 shadow-[0_0_20px_rgba(255,0,85,0.4)] font-mono">
+          <div className="rounded-2xl border border-rose-500/30 bg-rose-500/10 p-4 text-xs text-rose-300 flex items-center justify-between gap-3 shadow-md">
             <div className="flex items-center gap-3">
               <AlertTriangle className="h-5 w-5 text-rose-400 shrink-0" />
               <div>
-                <p className="font-bold text-rose-200 uppercase">[QUERY_FAILED]</p>
+                <p className="font-semibold text-rose-200">Query Execution Error</p>
                 <p className="text-rose-300/80 mt-0.5">{error}</p>
               </div>
             </div>
             <button
               onClick={() => handleSend()}
-              className="border border-rose-400 bg-rose-600/30 px-4 py-2 text-xs font-bold text-rose-200 hover:bg-rose-600 active:scale-95 transition-all uppercase"
+              className="rounded-xl border border-rose-500/40 bg-rose-600/20 px-4 py-2 text-xs font-semibold text-rose-200 hover:bg-rose-600/30 active:scale-95 transition-all"
             >
-              RETRY_EXECUTION
+              Retry
             </button>
           </div>
         )}
       </div>
 
-      {/* 4. FUTURISTIC CYBER INPUT BAR FOOTER */}
-      <div className="border-t-2 border-cyan-500/30 bg-[#060d1a]/95 backdrop-blur-2xl p-4 sm:p-5 z-30">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSend();
-          }}
-          className="flex items-center gap-3"
-        >
-          <button
-            type="button"
-            onClick={() => setIsMobileSheetOpen(true)}
-            className="min-h-[50px] min-w-[50px] flex items-center justify-center border border-cyan-500/40 bg-black text-cyan-400 hover:bg-cyan-950 hover:border-cyan-300 active:scale-95 transition-all shadow-[0_0_10px_rgba(0,243,255,0.2)]"
-            title="Attach Document"
+      {/* 4. PREMIUM FLOATING INPUT BAR FOOTER */}
+      <div className="border-t border-white/10 bg-[#020617]/90 backdrop-blur-2xl p-4 sm:p-6 z-20">
+        <div className="max-w-4xl mx-auto w-full">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSend();
+            }}
+            className="flex items-center gap-3"
           >
-            <Paperclip className="w-5 h-5" />
-          </button>
+            <button
+              type="button"
+              onClick={() => setIsMobileSheetOpen(true)}
+              className="min-h-[50px] min-w-[50px] flex items-center justify-center rounded-2xl border border-white/10 bg-slate-900/80 text-slate-400 hover:text-white hover:border-cyan-400/50 active:scale-95 transition-all shadow-md"
+              title="Attach Document"
+            >
+              <Paperclip className="w-5 h-5" />
+            </button>
 
-          <input
-            type="text"
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="[COMMAND] Enter query for vector knowledge retrieval..."
-            disabled={loading}
-            className="flex-1 min-h-[50px] border border-cyan-500/40 bg-black px-5 py-3.5 text-xs sm:text-sm text-cyan-300 placeholder-slate-600 focus:border-cyan-300 focus:outline-none focus:ring-2 focus:ring-cyan-400/40 disabled:opacity-50 font-mono shadow-[inset_0_0_10px_rgba(0,0,0,0.8)]"
-          />
+            <input
+              type="text"
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Ask a question grounded in your indexed knowledge base..."
+              disabled={loading}
+              className="flex-1 min-h-[50px] rounded-2xl border border-white/10 bg-slate-950/90 px-6 py-3.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/30 disabled:opacity-50 shadow-inner"
+            />
 
-          <button
-            type="submit"
-            disabled={!question.trim() || loading}
-            className="min-h-[50px] px-7 flex items-center justify-center gap-2 border border-cyan-300 bg-cyan-400 text-black font-extrabold text-xs sm:text-sm uppercase tracking-wider shadow-[0_0_20px_rgba(0,243,255,0.4)] transition-all hover:bg-cyan-300 active:scale-95 disabled:opacity-50 shrink-0"
-          >
-            {loading ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : (
-              <Zap className="h-4 w-4 fill-black" />
-            )}
-            <span className="hidden sm:inline">EXECUTE</span>
-          </button>
-        </form>
+            <button
+              type="submit"
+              disabled={!question.trim() || loading}
+              className="min-h-[50px] px-7 flex items-center justify-center gap-2 rounded-2xl bg-cyan-500 text-slate-950 font-bold text-xs sm:text-sm shadow-lg shadow-cyan-500/25 transition-all hover:bg-cyan-400 active:scale-95 disabled:opacity-50 shrink-0"
+            >
+              {loading ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <Send className="h-4 w-4" />
+              )}
+              <span className="hidden sm:inline">Ask</span>
+            </button>
+          </form>
+        </div>
       </div>
 
       {/* 5. MOBILE KNOWLEDGE BASE BOTTOM SHEET */}
@@ -621,42 +622,42 @@ export function RAGChat() {
 
       {/* 6. SOURCE SNIPPET VIEWER MODAL */}
       {activeSourceModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4 animate-in fade-in duration-200 font-mono">
-          <div className="w-full max-w-2xl border-2 border-purple-500 bg-[#060d1a] p-6 shadow-[0_0_30px_rgba(147,51,234,0.3)] space-y-4">
-            <div className="flex items-start justify-between border-b border-purple-500/30 pb-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 animate-in fade-in duration-200">
+          <div className="w-full max-w-2xl rounded-3xl border border-white/10 bg-slate-900 p-6 shadow-2xl space-y-4">
+            <div className="flex items-start justify-between border-b border-white/10 pb-4">
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center bg-purple-950 text-purple-400 border border-purple-400">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-violet-500/20 text-violet-400 border border-violet-500/30">
                   <FileText className="h-5 w-5" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-white text-base uppercase">{activeSourceModal.filename}</h4>
-                  <p className="text-xs text-purple-300 font-mono">
-                    CHUNK_ID: {activeSourceModal.chunk_id}
+                  <h4 className="font-bold text-white text-base font-mono">{activeSourceModal.filename}</h4>
+                  <p className="text-xs font-mono text-slate-400">
+                    Chunk ID: {activeSourceModal.chunk_id}
                   </p>
                 </div>
               </div>
               <button
                 onClick={() => setActiveSourceModal(null)}
-                className="min-w-[44px] min-h-[44px] flex items-center justify-center p-1.5 text-slate-400 hover:bg-purple-950 hover:text-white transition-colors"
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl p-1.5 text-slate-400 hover:bg-white/10 hover:text-white transition-colors"
               >
                 <ChevronDown className="h-5 w-5" />
               </button>
             </div>
 
             <div className="flex flex-wrap gap-2 text-xs">
-              <span className="bg-black border border-purple-500/40 px-3 py-1 text-purple-300 font-mono">
-                {activeSourceModal.page_number ? `PAGE_${activeSourceModal.page_number}` : "FULL_DOC"}
+              <span className="rounded-xl bg-slate-800 border border-white/10 px-3 py-1 text-slate-300 font-mono">
+                {activeSourceModal.page_number ? `Page ${activeSourceModal.page_number}` : "Full Document"}
               </span>
-              <span className="bg-emerald-950 border border-emerald-500 px-3 py-1 font-bold text-emerald-400 font-mono">
-                {(activeSourceModal.score * 100).toFixed(1)}% SIMILARITY
+              <span className="rounded-xl bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 font-bold text-emerald-400 font-mono">
+                {(activeSourceModal.score * 100).toFixed(1)}% Similarity
               </span>
             </div>
 
             <div className="space-y-1.5">
-              <span className="text-[11px] font-mono text-purple-300 uppercase tracking-wider font-bold">
-                RETRIEVED_VECTOR_TEXT_SNIPPET:
+              <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">
+                Vector Chunk Text Snippet:
               </span>
-              <div className="max-h-80 overflow-y-auto border border-purple-500/30 bg-black p-4 text-xs sm:text-sm font-mono text-slate-200 leading-relaxed whitespace-pre-wrap">
+              <div className="max-h-80 overflow-y-auto rounded-2xl border border-white/10 bg-slate-950 p-4 text-xs sm:text-sm font-mono text-slate-300 leading-relaxed whitespace-pre-wrap">
                 {activeSourceModal.text_snippet || "Text snippet preserved in vector metadata."}
               </div>
             </div>
@@ -664,9 +665,9 @@ export function RAGChat() {
             <div className="flex justify-end pt-2">
               <button
                 onClick={() => setActiveSourceModal(null)}
-                className="min-h-[44px] border border-cyan-300 bg-cyan-400 px-6 py-2 text-xs font-black text-black uppercase hover:bg-cyan-300 transition-colors"
+                className="min-h-[44px] rounded-xl bg-cyan-500 px-5 py-2 text-xs font-semibold text-slate-950 hover:bg-cyan-400 transition-colors"
               >
-                CLOSE_SNIPPET
+                Close Snippet Viewer
               </button>
             </div>
           </div>
