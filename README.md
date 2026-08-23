@@ -109,6 +109,33 @@ flowchart TD
 
 ---
 
+## 🔄 End-to-End RAG Pipeline Workflow
+
+NexusAI processes every document Q&A query through a structured 6-stage pipeline:
+
+```mermaid
+flowchart TD
+    A["👤 User Input Query<br/>(e.g., 'What are the specs?')"] --> B["1️⃣ Query Ingest & Session Scoping<br/>(Attaches X-User-ID context & sanitizes input)"]
+    B --> C["2️⃣ Embedding Generation<br/>(Gemini text-embedding-004 ➔ 3072d Vector)"]
+    C --> D["3️⃣ Vector Similarity Search<br/>(FAISS / Pinecone Database ➔ Top-K Chunks, default k=5)"]
+    D --> E["4️⃣ Relevance Filtering & Context Isolation<br/>(Filters low-scoring chunks & formats prompt)"]
+    E --> F["5️⃣ Gemini 2.5 Flash LLM Generation<br/>(Strictly grounded system instructions)"]
+    F --> G["6️⃣ SSE Token Streaming & Citation Attribution<br/>(Streams answer + attaches source badges)"]
+```
+
+### Execution Stage Matrix
+
+| Stage # | Pipeline Phase | Technical Operation | Output / Result |
+| :--- | :--- | :--- | :--- |
+| **1** | **Query Ingest** | Validates query text, scopes request to user session (`X-User-ID`), and routes casual greetings vs. document queries. | Clean query string |
+| **2** | **Vector Embedding** | Passes query to Google Gemini Embedding API (`text-embedding-004`) to convert text into semantic numerical vectors. | `3072-dimensional` vector array |
+| **3** | **FAISS / Pinecone Search** | Performs high-speed Cosine Similarity search across document chunks stored in FAISS / Pinecone vector index. | Top-K (e.g. 5) most relevant document chunks |
+| **4** | **Context Building** | Filters out weak matches (similarity < 0.30), formats text chunks into structured context blocks with filename & page numbers. | Isolated document context payload |
+| **5** | **Gemini 2.5 Flash** | Sends isolated context + strict grounding prompt + user question to `gemini-2.5-flash`. | Streamed response tokens |
+| **6** | **Citations & UI** | Streams tokens live via Server-Sent Events (SSE), marks response as **Grounded Answer**, and attaches clickable source citation cards. | Formatted answer + source chips |
+
+---
+
 ## 🌟 Current Features
 
 1. **Interactive Landing Page** — Modern dark-mode UI with hero CTAs, workflow action cards, technology marquee, feature breakdown, and pricing tiers.
