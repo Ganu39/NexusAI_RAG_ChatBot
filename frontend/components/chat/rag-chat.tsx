@@ -19,7 +19,6 @@ import {
   Eye,
   Database,
   Plus,
-  Mic,
   Smile,
   Frown,
   ArrowRight,
@@ -36,8 +35,8 @@ import MobileKnowledgeSheet from "@/components/chat/MobileKnowledgeSheet";
 const NexusBotAvatarCanvas = dynamic(() => import("@/components/3d/GlowingAIOrb"), {
   ssr: false,
   loading: () => (
-    <div className="w-16 h-16 rounded-2xl bg-cyan-950/60 border border-cyan-500/30 flex items-center justify-center">
-      <Bot className="w-8 h-8 text-cyan-400" />
+    <div className="w-9 h-9 rounded-xl bg-slate-900 border border-cyan-500/30 flex items-center justify-center">
+      <Bot className="w-5 h-5 text-cyan-400" />
     </div>
   ),
 });
@@ -278,27 +277,23 @@ export function RAGChat() {
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none -z-10 animate-pulse" />
       <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-violet-600/10 rounded-full blur-[140px] pointer-events-none -z-10" />
 
-      {/* 1. DARK STUDIO TOP BAR */}
-      <div className="flex flex-wrap items-center justify-between border-b border-white/10 bg-[#020617]/90 backdrop-blur-2xl px-8 py-4 gap-4 z-20 shadow-xl">
-        <div className="flex items-center gap-4">
-          <div className="w-14 h-14 relative flex items-center justify-center overflow-visible shrink-0 rounded-2xl bg-slate-900 border border-cyan-500/40 shadow-[0_0_20px_rgba(6,182,212,0.25)]">
-            <NexusBotAvatarCanvas isProcessing={loading} />
-          </div>
-          <div>
-            <div className="flex items-center gap-3">
-              <h3 className="font-extrabold text-white text-base sm:text-lg tracking-tight font-mono">
-                Nexus_Bot
-              </h3>
-              <span className="flex items-center gap-1.5 rounded-full bg-cyan-500/10 px-3 py-0.5 text-[11px] font-semibold text-cyan-400 border border-cyan-500/30 shadow-sm">
-                <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
-                Online
-              </span>
-            </div>
-            <p className="text-xs text-slate-400 font-mono mt-0.5 flex items-center gap-2">
-              <span>MODEL: <strong className="text-cyan-400">Gemini 2.5 Flash</strong></span>
-              <span>•</span>
-              <span>INDEX: <strong className="text-violet-400">FAISS 3072d</strong></span>
-            </p>
+      {/* 1. COMPACT TOP HEADER BAR */}
+      <div className="flex flex-wrap items-center justify-between border-b border-white/10 bg-[#020617]/90 backdrop-blur-2xl px-6 py-3.5 gap-4 z-20 shadow-xl">
+        <div className="flex items-center gap-3.5">
+          {/* Compact 36px Nexus_Bot Logo */}
+          <NexusBotAvatarCanvas size="sm" isProcessing={loading} />
+
+          <div className="flex items-center gap-3">
+            <h3 className="font-extrabold text-white text-base sm:text-lg tracking-tight font-mono">
+              Nexus_Bot
+            </h3>
+            <span className="flex items-center gap-1.5 rounded-full bg-cyan-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-cyan-400 border border-cyan-500/30 shadow-sm">
+              <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
+              Online
+            </span>
+            <span className="hidden sm:inline text-xs text-slate-400 font-mono">
+              MODEL: <strong className="text-cyan-400">Gemini 2.5 Flash</strong> • INDEX: <strong className="text-violet-400">FAISS 3072d</strong>
+            </span>
           </div>
         </div>
 
@@ -306,13 +301,13 @@ export function RAGChat() {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setIsMobileSheetOpen(true)}
-            className="md:hidden flex items-center gap-2 min-h-[44px] px-4 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 text-xs font-semibold hover:bg-cyan-500/20 active:scale-95 transition-all"
+            className="md:hidden flex items-center gap-2 min-h-[40px] px-3.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 text-xs font-semibold hover:bg-cyan-500/20 active:scale-95 transition-all"
           >
             <Database className="w-4 h-4 text-cyan-400" />
             <span>Knowledge Base</span>
           </button>
 
-          <div className="flex items-center gap-2 rounded-full border border-white/10 bg-slate-900/90 px-4 py-2 text-xs text-slate-300 backdrop-blur-md shadow-md">
+          <div className="flex items-center gap-2 rounded-full border border-white/10 bg-slate-900/90 px-3.5 py-1.5 text-xs text-slate-300 backdrop-blur-md shadow-md">
             <Sliders className="h-3.5 w-3.5 text-cyan-400" />
             <span className="text-[11px] text-slate-400 font-mono">Top-K:</span>
             <select
@@ -331,7 +326,7 @@ export function RAGChat() {
           {messages.length > 0 && (
             <button
               onClick={handleClearChat}
-              className="flex items-center gap-1.5 min-h-[44px] rounded-full border border-rose-500/30 bg-rose-500/10 px-4 py-2 text-xs font-semibold text-rose-300 hover:bg-rose-500/20 active:scale-95 transition-all shadow-md"
+              className="flex items-center gap-1.5 min-h-[40px] rounded-full border border-rose-500/30 bg-rose-500/10 px-3.5 py-1.5 text-xs font-semibold text-rose-300 hover:bg-rose-500/20 active:scale-95 transition-all shadow-md"
               title="Clear conversation history"
             >
               <Trash2 className="h-3.5 w-3.5 text-rose-400" />
@@ -342,7 +337,7 @@ export function RAGChat() {
       </div>
 
       {/* 2. PIPELINE STEPPER BADGE */}
-      <div className="border-b border-white/5 bg-slate-950/70 px-8 py-2.5 overflow-x-auto z-20 backdrop-blur-md">
+      <div className="border-b border-white/5 bg-slate-950/70 px-6 py-2 overflow-x-auto z-20 backdrop-blur-md">
         <div className="flex items-center justify-between min-w-[580px] text-[11px] font-mono text-slate-400">
           {RAG_RETRIEVAL_STEPS.map((step, idx) => {
             const isCurrent = activePipelineStage === idx;
@@ -382,24 +377,24 @@ export function RAGChat() {
       <div className="flex-1 overflow-y-auto p-6 sm:p-10 space-y-6 z-20 max-w-4xl mx-auto w-full">
         {messages.length === 0 ? (
           <div className="flex h-full flex-col items-center justify-center text-center p-6 space-y-6">
-            {/* 3D Robot Mascot (Nexus_Bot) Avatar */}
-            <div className="relative w-36 h-36 flex items-center justify-center">
-              <NexusBotAvatarCanvas isProcessing={loading} />
-              <div className="absolute top-0 -right-6 rounded-full bg-cyan-500/20 border border-cyan-400/40 px-3.5 py-1 text-xs font-bold text-cyan-300 backdrop-blur-md shadow-lg animate-bounce font-mono">
-                Nexus_Bot Online ⚡
-              </div>
+            {/* 3D Robot Mascot (Nexus_Bot) Avatar - Clean with no popping badge */}
+            <div className="relative w-32 h-32 flex items-center justify-center">
+              <NexusBotAvatarCanvas size="lg" isProcessing={loading} />
             </div>
 
             <div className="max-w-md space-y-1.5">
               <span className="text-xs font-mono uppercase tracking-widest text-cyan-400">
-                AI Knowledge Assistant
+                AI KNOWLEDGE ASSISTANT
               </span>
               <h4 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-sans">
-                How may I help you today
+                Welcome back, Ganu 👋<br />
+                <span className="text-slate-300 font-normal text-xl sm:text-2xl">
+                  How may I help you today?
+                </span>
               </h4>
             </div>
 
-            {/* Dark Topic Cards */}
+            {/* Topic Cards */}
             <div className="w-full max-w-lg grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               {SUGGESTED_TOPICS.map((topic) => (
                 <div
@@ -618,7 +613,7 @@ export function RAGChat() {
         )}
       </div>
 
-      {/* 4. FLOATING DARK PILL INPUT BAR */}
+      {/* 4. FLOATING DARK PILL INPUT BAR (No Mic Button) */}
       <div className="p-6 pb-8 z-20 flex justify-center w-full">
         <div className="max-w-2xl w-full">
           <form
@@ -646,14 +641,6 @@ export function RAGChat() {
               disabled={loading}
               className="flex-1 bg-transparent px-2 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none disabled:opacity-50 font-sans"
             />
-
-            <button
-              type="button"
-              className="h-10 w-10 flex items-center justify-center rounded-full text-slate-400 hover:text-white hover:bg-white/10 active:scale-95 transition-all shrink-0"
-              title="Voice Input"
-            >
-              <Mic className="w-4 h-4" />
-            </button>
 
             <button
               type="submit"

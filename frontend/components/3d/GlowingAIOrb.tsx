@@ -1,11 +1,47 @@
 'use client';
 
 import React from 'react';
-import { Bot, Sparkles, Cpu } from 'lucide-react';
+import { Bot, Cpu } from 'lucide-react';
 
-export function GlowingAIOrbCanvas({ isProcessing = false }: { isProcessing?: boolean }) {
+interface GlowingAIOrbCanvasProps {
+  isProcessing?: boolean;
+  size?: 'sm' | 'md' | 'lg';
+}
+
+export function GlowingAIOrbCanvas({
+  isProcessing = false,
+  size = 'lg',
+}: GlowingAIOrbCanvasProps) {
+  if (size === 'sm') {
+    return (
+      <div className="w-9 h-9 relative flex items-center justify-center shrink-0">
+        {/* Compact Glow */}
+        <div
+          className={`absolute inset-0 rounded-xl transition-all duration-500 blur-sm ${
+            isProcessing ? 'bg-cyan-500/50 animate-pulse' : 'bg-cyan-500/20'
+          }`}
+        />
+        {/* Compact Bot Head */}
+        <div className="relative w-9 h-9 rounded-xl bg-slate-900 border border-cyan-400/50 p-1 flex flex-col items-center justify-center shadow-md">
+          <div className="w-full h-full rounded-lg bg-slate-950 border border-cyan-500/40 flex items-center justify-center gap-1">
+            <div
+              className={`w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_rgba(34,211,238,1)] ${
+                isProcessing ? 'animate-pulse bg-emerald-400' : ''
+              }`}
+            />
+            <div
+              className={`w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_rgba(34,211,238,1)] ${
+                isProcessing ? 'animate-pulse bg-emerald-400' : ''
+              }`}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="w-full h-full min-h-[120px] min-w-[120px] relative flex items-center justify-center">
+    <div className="w-full h-full relative flex items-center justify-center">
       {/* Ambient Pulsing Glow Rings */}
       <div
         className={`absolute inset-0 rounded-full transition-all duration-700 blur-2xl ${
