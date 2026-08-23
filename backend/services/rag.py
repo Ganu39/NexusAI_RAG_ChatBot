@@ -150,6 +150,7 @@ class RAGService:
                     "Hello! 👋 I am Nexus_Bot, your AI document intelligence assistant. "
                     "How can I help you analyze your documents today?"
                 )
+
                 def greeting_gen():
                     yield greeting_text
 
