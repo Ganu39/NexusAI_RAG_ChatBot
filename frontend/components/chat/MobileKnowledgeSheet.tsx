@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X, FileText, Upload, CheckCircle2, Database, Loader2, AlertCircle } from 'lucide-react';
 import { apiClient } from '@/lib/api';
-import { Document } from '@/types';
+import { IngestedDocumentSummary } from '@/types';
 
 interface MobileKnowledgeSheetProps {
   isOpen: boolean;
@@ -16,7 +16,7 @@ export function MobileKnowledgeSheet({
   onClose,
   onUploadSuccess,
 }: MobileKnowledgeSheetProps) {
-  const [documents, setDocuments] = useState<Document[]>([]);
+  const [documents, setDocuments] = useState<IngestedDocumentSummary[]>([]);
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -26,8 +26,8 @@ export function MobileKnowledgeSheet({
     setLoading(true);
     setError(null);
     try {
-      const docs = await apiClient.getDocuments();
-      setDocuments(docs);
+      const res = await apiClient.listDocuments();
+      setDocuments(res.documents || []);
     } catch {
       // Use fallback if offline or backend error
     } finally {
@@ -148,7 +148,7 @@ export function MobileKnowledgeSheet({
           ) : (
             documents.map((doc) => (
               <div
-                key={doc.id}
+                key={doc.document_id}
                 className="p-4 rounded-2xl bg-slate-950/70 border border-white/10 flex items-center justify-between hover:border-cyan-500/30 transition-all"
               >
                 <div className="flex items-center gap-3">
@@ -156,7 +156,7 @@ export function MobileKnowledgeSheet({
                   <div className="truncate max-w-[240px] sm:max-w-md">
                     <p className="text-sm font-medium text-slate-200 truncate">{doc.filename}</p>
                     <p className="text-xs font-mono text-slate-400">
-                      {doc.chunk_count ? `${doc.chunk_count} Chunks` : 'Vector Indexed'} • {doc.status || 'READY'}
+                      {doc.chunks_created ? `${doc.chunks_created} Chunks` : 'Vector Indexed'} • {doc.processing_status || 'READY'}
                     </p>
                   </div>
                 </div>
