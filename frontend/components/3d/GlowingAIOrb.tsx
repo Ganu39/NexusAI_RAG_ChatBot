@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Bot, Cpu } from 'lucide-react';
+import Image from 'next/image';
 
 interface GlowingAIOrbCanvasProps {
   isProcessing?: boolean;
@@ -15,26 +15,23 @@ export function GlowingAIOrbCanvas({
   if (size === 'sm') {
     return (
       <div className="w-9 h-9 relative flex items-center justify-center shrink-0">
-        {/* Compact Glow */}
+        {/* Ambient Glow */}
         <div
-          className={`absolute inset-0 rounded-xl transition-all duration-500 blur-sm ${
-            isProcessing ? 'bg-cyan-500/50 animate-pulse' : 'bg-cyan-500/20'
+          className={`absolute inset-0 rounded-full transition-all duration-500 blur-sm ${
+            isProcessing ? 'bg-cyan-400/60 animate-pulse' : 'bg-cyan-500/25'
           }`}
         />
-        {/* Compact Bot Head */}
-        <div className="relative w-9 h-9 rounded-xl bg-slate-900 border border-cyan-400/50 p-1 flex flex-col items-center justify-center shadow-md">
-          <div className="w-full h-full rounded-lg bg-slate-950 border border-cyan-500/40 flex items-center justify-center gap-1">
-            <div
-              className={`w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_rgba(34,211,238,1)] ${
-                isProcessing ? 'animate-pulse bg-emerald-400' : ''
-              }`}
-            />
-            <div
-              className={`w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_rgba(34,211,238,1)] ${
-                isProcessing ? 'animate-pulse bg-emerald-400' : ''
-              }`}
-            />
-          </div>
+        {/* Compact Avatar */}
+        <div className="relative w-9 h-9 rounded-full overflow-hidden border border-cyan-400/50 shadow-md bg-slate-950 flex items-center justify-center">
+          <Image
+            src="/nexusbot-avatar.jpg"
+            alt="Nexus_Bot Logo"
+            width={36}
+            height={36}
+            className={`w-full h-full object-cover transition-transform duration-300 ${
+              isProcessing ? 'scale-110' : 'scale-100'
+            }`}
+          />
         </div>
       </div>
     );
@@ -42,59 +39,27 @@ export function GlowingAIOrbCanvas({
 
   return (
     <div className="w-full h-full relative flex items-center justify-center">
-      {/* Ambient Pulsing Glow Rings */}
+      {/* Ambient Pulsing Ring */}
       <div
-        className={`absolute inset-0 rounded-full transition-all duration-700 blur-2xl ${
+        className={`absolute inset-0 rounded-full transition-all duration-700 blur-xl ${
           isProcessing
-            ? 'bg-cyan-500/40 scale-125 animate-pulse'
-            : 'bg-indigo-500/25 scale-100'
+            ? 'bg-cyan-400/50 scale-125 animate-pulse'
+            : 'bg-violet-500/20 scale-100'
         }`}
       />
 
       {/* 3D Robot Head Mascot (Nexus_Bot) Container */}
-      <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-gradient-to-b from-slate-800/90 to-slate-950/90 border border-cyan-400/40 p-3 shadow-[0_0_30px_rgba(6,182,212,0.3)] flex flex-col items-center justify-center backdrop-blur-xl group hover:border-cyan-300 transition-all duration-300">
-        {/* Antenna Light */}
-        <div className="absolute -top-3 flex flex-col items-center">
-          <div
-            className={`w-3 h-3 rounded-full border border-white/40 shadow-sm ${
-              isProcessing
-                ? 'bg-cyan-400 animate-ping shadow-[0_0_12px_rgba(34,211,238,1)]'
-                : 'bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.8)]'
-            }`}
-          />
-          <div className="w-1 h-3 bg-slate-700" />
-        </div>
-
-        {/* Robot Face Visor Screen */}
-        <div className="w-full h-14 sm:h-16 rounded-2xl bg-slate-950 border border-cyan-500/50 flex items-center justify-center relative overflow-hidden shadow-inner px-2">
-          {/* Scanlines Effect */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_50%,rgba(6,182,212,0.08)_50%)] bg-[length:100%_4px] pointer-events-none" />
-
-          {/* Animated Glowing Eyes */}
-          <div className="flex items-center gap-3.5 z-10">
-            <div
-              className={`w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,1)] transition-transform ${
-                isProcessing ? 'scale-125 animate-pulse bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,1)]' : ''
-              }`}
-            />
-            <div
-              className={`w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,1)] transition-transform ${
-                isProcessing ? 'scale-125 animate-pulse bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,1)]' : ''
-              }`}
-            />
-          </div>
-
-          {/* Curved Digital Smile Expression */}
-          <div className="absolute bottom-2 w-8 h-1 rounded-full bg-cyan-400/80 shadow-[0_0_6px_rgba(34,211,238,0.8)]" />
-        </div>
-
-        {/* Bot Name Badge */}
-        <div className="mt-1.5 flex items-center gap-1">
-          <Cpu className="w-3 h-3 text-cyan-400" />
-          <span className="text-[10px] font-extrabold tracking-wider text-white font-mono uppercase">
-            Nexus_Bot
-          </span>
-        </div>
+      <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-3xl overflow-hidden border-2 border-cyan-400/50 p-0.5 shadow-[0_0_35px_rgba(6,182,212,0.35)] backdrop-blur-xl group hover:border-cyan-300 transition-all duration-300 bg-slate-950">
+        <Image
+          src="/nexusbot-avatar.jpg"
+          alt="Nexus_Bot Mascot"
+          width={128}
+          height={128}
+          className={`w-full h-full object-cover transition-transform duration-500 ${
+            isProcessing ? 'scale-105 animate-pulse' : 'group-hover:scale-105'
+          }`}
+          priority
+        />
       </div>
     </div>
   );

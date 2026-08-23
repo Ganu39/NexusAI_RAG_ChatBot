@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
@@ -54,11 +55,17 @@ export function Sidebar() {
     <>
       {/* Mobile Top Bar */}
       <div className="flex items-center justify-between border-b border-[#1E293B] bg-[#080B11] px-4 py-3 md:hidden">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30">
-            <Sparkles className="h-4 w-4 text-indigo-400" />
+        <Link href="/" className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-xl overflow-hidden border border-cyan-500/40 shrink-0">
+            <Image
+              src="/nexusai-logo.jpg"
+              alt="NexusAI Logo"
+              width={32}
+              height={32}
+              className="w-full h-full object-cover"
+            />
           </div>
-          <span className="font-bold text-white">NexusAI</span>
+          <span className="font-bold text-white tracking-tight">NexusAI</span>
         </Link>
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
@@ -85,16 +92,22 @@ export function Sidebar() {
       >
         {/* Brand Header */}
         <div className="flex h-16 items-center justify-between border-b border-[#1E293B] px-6">
-          <Link href="/" className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 shadow-sm">
-              <Sparkles className="h-4 w-4 text-indigo-400" />
+          <Link href="/" className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl overflow-hidden border border-cyan-500/40 shadow-sm shrink-0">
+              <Image
+                src="/nexusai-logo.jpg"
+                alt="NexusAI Logo"
+                width={36}
+                height={36}
+                className="w-full h-full object-cover"
+              />
             </div>
             <div className="flex flex-col">
-              <span className="text-base font-bold text-white tracking-tight">
+              <span className="text-base font-extrabold text-white tracking-tight font-mono">
                 NexusAI
               </span>
-              <span className="text-[10px] uppercase tracking-wider text-zinc-500 font-mono">
-                Knowledge Workspace
+              <span className="text-[10px] uppercase tracking-wider text-cyan-400 font-mono">
+                RAG Chatbot
               </span>
             </div>
           </Link>
@@ -108,10 +121,7 @@ export function Sidebar() {
 
         {/* Navigation Section */}
         <div className="flex-1 overflow-y-auto px-3 py-6">
-          <div className="mb-2 px-3 text-[11px] font-bold uppercase tracking-wider text-zinc-500">
-            Workspace
-          </div>
-          <nav className="space-y-1">
+          <div className="space-y-1">
             {navItems.map((item) => {
               const isActive = pathname === item.href;
               const Icon = item.icon;
@@ -120,15 +130,14 @@ export function Sidebar() {
                 return (
                   <div
                     key={item.name}
-                    className="flex cursor-not-allowed items-center justify-between rounded-xl px-3 py-2.5 text-xs font-medium text-zinc-600"
-                    title="Settings will be available in Phase 4"
+                    className="flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-medium text-zinc-600 cursor-not-allowed"
                   >
                     <div className="flex items-center gap-3">
                       <Icon className="h-4 w-4" />
                       <span>{item.name}</span>
                     </div>
                     {item.badge && (
-                      <span className="rounded bg-[#0E131F] px-1.5 py-0.5 text-[10px] font-semibold text-zinc-500 border border-[#1E293B]">
+                      <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-[10px] text-zinc-500 font-mono">
                         {item.badge}
                       </span>
                     )}
@@ -141,54 +150,40 @@ export function Sidebar() {
                   key={item.name}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-xs font-medium transition-all ${
+                  className={`flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-medium transition-colors ${
                     isActive
-                      ? "bg-indigo-600/15 font-semibold text-indigo-400 border border-indigo-500/30 shadow-sm"
-                      : "text-zinc-400 hover:bg-[#0E131F] hover:text-white"
+                      ? "bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-semibold"
+                      : "text-zinc-400 hover:bg-[#0E131F] hover:text-zinc-200"
                   }`}
                 >
-                  <Icon
-                    className={`h-4 w-4 ${
-                      isActive ? "text-indigo-400" : "text-zinc-400"
-                    }`}
-                  />
-                  <span>{item.name}</span>
+                  <div className="flex items-center gap-3">
+                    <Icon className={`h-4 w-4 ${isActive ? "text-cyan-400" : ""}`} />
+                    <span>{item.name}</span>
+                  </div>
                 </Link>
               );
             })}
-          </nav>
-
-          {/* Landing Page Return Link */}
-          <div className="mt-8 mb-2 px-3 text-[11px] font-bold uppercase tracking-wider text-zinc-500">
-            Shortcuts
           </div>
-          <Link
-            href="/"
-            className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-xs font-medium text-zinc-400 transition-colors hover:bg-[#0E131F] hover:text-white"
-          >
-            <ExternalLink className="h-4 w-4 text-zinc-500" />
-            <span>Landing Page</span>
-          </Link>
         </div>
 
-        {/* Footer Info */}
+        {/* User Workspace Info Footer */}
         <div className="border-t border-[#1E293B] p-4">
-          <div className="flex items-center justify-between rounded-xl bg-[#0E131F] p-3 border border-[#1E293B]">
-            <div className="flex items-center gap-2">
-              <ShieldAlert className="h-4 w-4 text-emerald-400" />
-              <div className="flex flex-col">
-                <span className="text-xs font-medium text-zinc-300">
-                  RAG Pipeline
-                </span>
-                <span className="text-[10px] text-zinc-500 font-mono">Gemini 2.5 Grounded</span>
-              </div>
+          <div className="rounded-xl bg-[#0E131F] border border-white/5 p-3 space-y-1">
+            <div className="flex items-center justify-between text-xs text-zinc-400">
+              <span className="font-mono text-[10px] text-zinc-500">Status</span>
+              <span className="flex items-center gap-1 text-[10px] text-emerald-400 font-mono font-bold">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                Online
+              </span>
             </div>
-            <span className="rounded bg-indigo-500/10 px-2 py-0.5 text-[10px] font-semibold font-mono text-indigo-400 border border-indigo-500/20">
-              v0.4.0
-            </span>
+            <p className="text-xs font-semibold text-white font-mono truncate">
+              Nexus_Bot Active
+            </p>
           </div>
         </div>
       </aside>
     </>
   );
 }
+
+export default Sidebar;
