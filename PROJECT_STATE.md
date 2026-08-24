@@ -1,53 +1,59 @@
 # NexusAI Project State
 
-**Current Phase:** Phase 5 — Advanced Infrastructure & Scale
-**Status:** COMPLETED (100%)
-**Latest Stable Release:** v0.5.0
-**Production Frontend:** https://nexusai-sage-beta.vercel.app/
-**Production Backend:** https://nexusai-1xq9.onrender.com
+**Current Status:** All 6 Phases Fully Completed (100%)  
+**Latest Production Release:** `v1.7.0` (Latest)  
+**Production Frontend:** https://nexusai-sage-beta.vercel.app/  
+**Production Backend:** https://nexusai-1xq9.onrender.com  
 
 ---
 
-## Completed Phases
+## 🚦 Project Phase Status Summary
 
-### ✅ Phase 1: Premium Landing Page
-- Initialized Next.js frontend with Tailwind CSS and TypeScript.
-- Established design system and reusable UI components.
-- Implemented responsive, animated landing page sections.
+| Phase | Title | Focus Area | Status | Release |
+| :---: | :--- | :--- | :---: | :---: |
+| **Phase 1** | **Landing Page** | Next.js 15, Tailwind, Obsidian Dark Studio UI | ✅ **COMPLETED** | `v0.1.0` |
+| **Phase 2** | **Core RAG Engine** | PDF/TXT/DOCX Extractors, Gemini Embeddings, FAISS Vector Store, LLM Grounding | ✅ **COMPLETED** | `v0.3.0` |
+| **Phase 3** | **Production Deployments** | Render Backend API, Vercel Edge Frontend, RAG Q&A Chat UI | ✅ **COMPLETED** | `v0.4.0` |
+| **Phase 4** | **Production Hardening** | Persistent Document States, Snippet Modal, Real-Time Search & Filters, Clear Chat | ✅ **COMPLETED** | `v0.4.5` |
+| **Phase 5** | **Scale & Security** | Dual Vector Factory (FAISS+Pinecone), SSE Token Streaming, `X-User-ID` Workspace Isolation | ✅ **COMPLETED** | `v0.5.0` |
+| **Phase 6** | **Brand & UX Polishing** | 3D Mascot Avatar, Onboarding Popup, Dynamic Greeting, Spacious Markdown | ✅ **COMPLETED** | `v1.7.0` |
 
-### ✅ Phase 2: Core RAG Engine (v0.3.0)
-- **Phase 2A (Ingestion):** File upload endpoint `POST /upload` (PDF, TXT, DOCX) with modular text extractors.
-- **Phase 2B (Vector Store):** Page-aware text chunker, provider-isolated Gemini embeddings (`models/gemini-embedding-001`), FAISS L2-normalized Inner Product vector store, and search API.
-- **Phase 2C (Grounded RAG):** `GeminiLLMProvider` (`gemini-2.5-flash`), `ContextBuilder`, grounded prompts with prompt-injection defense, citation attribution, and insufficient-context fallback.
-- Verified with 44+ backend unit tests, 0 flake8 errors, live Gemini integration, and GitHub release `v0.3.0`.
+---
 
-### ✅ Phase 3A: Production Backend Deployment
-- Configured FastAPI startup for Render Web Service deployment using `render.yaml` with persistent disk storage (`/data`).
-- Environment variable configuration for `GEMINI_API_KEY`, CORS allowed origins, upload sizes, embedding models, and storage directories.
+## 📋 Comprehensive Phase Details
 
-### ✅ Phase 3B: Frontend Document Management + Grounded RAG Chat
-- Built Document Repository UI with drag-and-drop uploader supporting PDF, TXT, DOCX files.
-- Connected Document Listing, Document Details, Document Indexing, and Safe Deletion APIs.
-- Implemented Grounded RAG Q&A Chat UI (`/chat`) connected directly to production Render backend `/ask` endpoint with source citations.
+### ✅ Phase 1: Premium Landing Page (`v0.1.0`)
+- Initialized Next.js 15 frontend with Tailwind CSS 3 and TypeScript.
+- Built obsidian glassmorphic design system and reusable UI components.
+- Implemented interactive landing page sections, feature breakdown, and pricing tiers.
 
-### ✅ Phase 3C: Frontend UX, Navigation & Production Deployment
-- Fixed Next.js App Router DOM hydration nesting bugs across all landing page CTAs using Radix UI `asChild` pattern.
-- Added interactive Product Workflows component and header shortcut actions.
-- Deployed frontend to Vercel production (`https://nexusai-sage-beta.vercel.app/`) with `Cache-Control: public, max-age=0, must-revalidate` no-cache headers for instant edge revalidation.
+### ✅ Phase 2: Core RAG Engine (`v0.3.0`)
+- **Ingestion:** Upload endpoint `POST /upload` supporting PDF, TXT, DOCX with format-specific extractors.
+- **Vector Store:** Page-aware chunker (`RecursiveCharacterTextSplitter`), Gemini embeddings (`models/gemini-embedding-001`), FAISS L2-normalized vector store.
+- **Grounded RAG:** `GeminiLLMProvider` (`gemini-2.5-flash`), `ContextBuilder`, grounded prompts with prompt injection defense, and source citation attribution.
+- Verified with 44+ backend unit tests, 0 flake8 errors, and GitHub release `v0.3.0`.
 
-### ✅ Phase 4: Production Hardening & RAG Quality
-- Persistent document indexing status (`is_indexed`) and chunk/embedding metrics.
+### ✅ Phase 3: Production Frontend & Backend Deployments (`v0.4.0`)
+- **Backend Deployment:** Render Web Service with persistent disk storage (`/data`).
+- **Frontend Document Repository:** Document listing, uploader, details, and safe file deletion.
+- **Production Frontend:** Deployed to Vercel CDN (`https://nexusai-sage-beta.vercel.app/`).
+
+### ✅ Phase 4: Production Hardening & Quality (`v0.4.5`)
 - Document processing state machine (`Uploaded` ➔ `Indexing` ➔ `Indexed` / `Failed`).
 - Source text snippet viewer modal and detailed metadata inspection.
-- Chat session history persistence (`sessionStorage`) and one-click **Clear Chat** action.
-- Enhanced upload/indexing/RAG error handling and retry workflows.
-- Document search, file-type filtering (`PDF`, `TXT`, `DOCX`), sorting, and re-indexing.
-- 54 Pytest unit tests, 0 Flake8 errors, 0 ESLint errors, and clean Next.js production build.
+- Conversation history persistence (`sessionStorage`) and one-click **Clear Chat** action.
+- Verified with 54 Pytest unit tests, 0 Flake8 errors, 0 ESLint errors, and clean production build.
 
-### ✅ Phase 5: Advanced Infrastructure & Scale (v0.5.0)
-- **Dual Vector Store Factory**: Local FAISS CPU index by default, with optional cloud Pinecone index integration (`VECTOR_STORE_PROVIDER`).
-- **Real-Time Token Streaming**: Server-Sent Events endpoint (`POST /api/v1/ask/stream`) with real-time typethrough text rendering.
-- **Browser User ID Workspace Isolation**: Automatic unique client User ID in `localStorage`, customizable workspace names (`/settings`), and `X-User-ID` vector search filtering (zero cross-tenant data leakage).
-- **Workspace Settings Page (`/settings`)**: Dedicated settings dashboard for workspace ID management, system telemetry metrics (`GET /api/v1/metrics`), and chat cache maintenance.
-- **API Key Security & Telemetry**: Header API Key verification (`X-API-Key`) and operational metrics API.
-- Verified with 57 Pytest unit tests, 0 Flake8 errors, 0 ESLint errors, 8/8 Next.js static pages compiled, and deployed live to production.
+### ✅ Phase 5: Advanced Infrastructure & Scale (`v0.5.0`)
+- **Dual Vector Store Factory**: Local CPU FAISS index + Cloud Pinecone provider toggle (`VECTOR_STORE_PROVIDER`).
+- **Real-Time Token Streaming**: Server-Sent Events endpoint (`POST /api/v1/ask/stream`) with typethrough animation.
+- **Workspace Data Isolation (`X-User-ID`)**: Unique client session identity in `localStorage` & backend vector filtering (zero cross-tenant leakage).
+- **Workspace Settings Page (`/settings`)**: Dedicated dashboard for user ID management, system telemetry (`GET /api/v1/metrics`), and cache maintenance.
+- Verified with 57 Pytest unit tests, 0 Flake8 errors, 8/8 Next.js static pages compiled.
+
+### ✅ Phase 6: Brand Identity & UI Polishing (`v1.7.0`)
+- **3D Interactive Mascot Avatar (`Nexus_Bot`)**: Custom high-resolution 3D robot mascot head avatar with glowing cyan visor eyes.
+- **First-Time User Onboarding Popup**: Interactive *"What should we call you?"* modal with persistent memory.
+- **Dynamic Hero Greeting**: Personalized greeting heading (`Welcome back, Ganu 👋 — How may I help you today?`) with inline edit pencil icon.
+- **Spacious Markdown Formatting**: Custom Markdown list components (`space-y-2`), bold cyan section headers, and inline dark skill badges.
+- **Documentation & Workflow Upgrade**: Minimalist `README.md` layout, horizontal `flowchart LR` RAG pipeline diagram, and 7-stage stage matrix.
