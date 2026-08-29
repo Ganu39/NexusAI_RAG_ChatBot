@@ -21,22 +21,46 @@
 
 ## 🔄 End-to-End RAG Pipeline Workflow
 
-NexusAI processes every document Q&A query through a structured 6-stage pipeline:
+NexusAI processes document knowledge through a synchronized **Ingestion & Retrieval Pipeline**:
 
 ```mermaid
-flowchart LR
-    classDef cyanNode fill:#0f172a,stroke:#06b6d4,stroke-width:2px,color:#fff;
-    classDef purpleNode fill:#0f172a,stroke:#8b5cf6,stroke-width:2px,color:#fff;
-    classDef pinkNode fill:#0f172a,stroke:#ec4899,stroke-width:2px,color:#fff;
-    classDef emeraldNode fill:#0f172a,stroke:#10b981,stroke-width:2px,color:#fff;
+flowchart TD
+    %% Styling Configuration
+    classDef ingestNode fill:#0f172a,stroke:#8b5cf6,stroke-width:2px,color:#fff;
+    classDef queryNode fill:#0f172a,stroke:#06b6d4,stroke-width:2px,color:#fff;
+    classDef vectorNode fill:#0f172a,stroke:#ec4899,stroke-width:2px,color:#fff;
+    classDef genNode fill:#0f172a,stroke:#10b981,stroke-width:2px,color:#fff;
 
-    A["👤 1. User Query"]:::cyanNode --> B["🔒 2. X-User-ID Scope"]:::cyanNode
-    B --> C["⚡ 3. Gemini Embedding (3072d)"]:::purpleNode
-    C --> D["🗄️ 4. Cosine Search (FAISS/Pinecone)"]:::pinkNode
-    D --> E["🎯 5. Relevance Filter (Score >= 0.30)"]:::emeraldNode
-    E --> F["🧠 6. Gemini 2.5 Flash LLM"]:::emeraldNode
-    F --> G["📡 7. SSE Token Stream & Citations"]:::emeraldNode
+    %% Ingestion Track
+    subgraph INGEST ["📥 1. DOCUMENT INGESTION WORKFLOW"]
+        direction LR
+        DOC["📄 Upload (PDF/TXT/DOCX)"]:::ingestNode --> EXTRACT["📑 Text Extractor"]:::ingestNode
+        EXTRACT --> CHUNK["✂️ Chunker (1000ch / 150ov)"]:::ingestNode
+        CHUNK --> BATCH_EMB["⚡ Gemini Embeddings (3072d)"]:::ingestNode
+    end
+
+    %% Storage Node
+    subgraph STORAGE ["🗄️ 2. VECTOR STORAGE"]
+        VEC_DB[("🗄️ FAISS / Pinecone Index<br/>(user_id Scoped)")]:::vectorNode
+    end
+
+    %% Query & Retrieval Track
+    subgraph QUERY ["🧠 3. QUERY RETRIEVAL & SYNTHESIS WORKFLOW"]
+        direction LR
+        Q_IN["👤 User Query"]:::queryNode --> Q_AUTH["🔒 X-User-ID Session"]:::queryNode
+        Q_AUTH --> Q_EMB["⚡ Query Embedding"]:::queryNode
+        Q_EMB --> Q_SEARCH["🎯 Cosine Search (Top-K=5)"]:::queryNode
+        Q_SEARCH --> Q_FILTER["🛡️ Relevance Filter (>= 0.30)"]:::genNode
+        Q_FILTER --> Q_LLM["🧠 Gemini 2.5 Flash"]:::genNode
+        Q_LLM --> Q_STREAM["📡 SSE Stream & Citations"]:::genNode
+    end
+
+    %% Cross-Pipeline Connections
+    BATCH_EMB -->|"Index Chunks + Metadata"| VEC_DB
+    VEC_DB <-->|"Pre-filtered Cosine Match"| Q_SEARCH
 ```
+
+> 📖 **Full System Architecture**: For detailed sequence diagrams, multi-tenant security specifications, and master AI prompts, see **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)**.
 
 ### Execution Stage Matrix
 
@@ -46,7 +70,7 @@ flowchart LR
 | **2** | **Session Scope** | 🔒 | Attaches `X-User-ID` session context ensuring multi-tenant workspace isolation. | User-scoped session | 🟢 Active |
 | **3** | **Embedding** | ⚡ | Converts query text into a high-dimensional vector via Google Gemini (`text-embedding-004`). | `3072d` Vector Array | 🟢 Active |
 | **4** | **Vector Search** | 🗄️ | High-speed Cosine Similarity search across FAISS / Pinecone vector database. | Top-K (k=5) Chunks | 🟢 Active |
-| **5** | **Context Building**| 🎯 | Filters weak matches (< 0.30 score) & formats text into structured context blocks. | Grounded Context | 🟢 Active |
+| **5** | **Context Building**| 🎯 | Filters weak matches (< 0.30 score) & formats text into structured XML context blocks. | Grounded Context | 🟢 Active |
 | **6** | **LLM Synthesis** | 🧠 | Sends isolated context + strict grounding instructions to `gemini-2.5-flash`. | Streamed Tokens | 🟢 Active |
 | **7** | **SSE & Citations**| 📡 | Streams tokens live via Server-Sent Events with interactive source citation cards. | Cited Answer | 🟢 Active |
 
