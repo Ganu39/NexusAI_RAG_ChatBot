@@ -12,6 +12,7 @@ Thank you for your interest in contributing to NexusAI! We welcome and appreciat
   - [Suggesting Features](#suggesting-features)
   - [Code Contributions](#code-contributions)
 - [Development Setup](#-development-setup)
+- [Development Workflow Cycle](#-development-workflow-cycle)
 - [Branch Naming Convention](#-branch-naming-convention)
 - [Commit Message Format](#-commit-message-format)
 - [Pull Request Process](#-pull-request-process)
@@ -81,6 +82,12 @@ Feature requests are tracked as GitHub issues. When suggesting a feature, please
    ```bash
    cp .env.example .env
    ```
+
+---
+
+## 🔄 Development Workflow Cycle
+
+NexusAI adheres to a structured, wave-based AI development cycle. For details on phase planning, subagent execution, and test verification, refer to the **[Standard Workflow Guide](docs/WORKFLOW.md)**.
 
 ---
 
