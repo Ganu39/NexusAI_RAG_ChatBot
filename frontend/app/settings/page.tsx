@@ -115,7 +115,7 @@ export default function SettingsPage() {
       title="Workspace Settings"
       description="Manage workspace isolation, custom user IDs, vector store provider, and operational telemetry."
     >
-      <div className="max-w-5xl space-y-6">
+      <div className="w-full min-w-0 space-y-6">
         {/* 1. USER ID & WORKSPACE ISOLATION */}
         <div className="rounded-3xl border border-border bg-surface p-6 sm:p-7 shadow-sm space-y-5">
           <div className="flex items-start justify-between border-b border-border pb-4">
