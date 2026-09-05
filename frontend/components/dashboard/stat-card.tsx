@@ -42,9 +42,9 @@ export function StatCard({
   const style = colorMap[color] || colorMap.indigo;
 
   return (
-    <div className="flex flex-col justify-between rounded-2xl border border-[#1E293B] bg-[#0E131F] p-5 shadow-sm">
+    <div className="flex flex-col justify-between rounded-2xl border border-border bg-surface p-5 shadow-sm">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
+        <span className="text-xs font-semibold uppercase tracking-wider text-text-secondary">
           {title}
         </span>
         <div
@@ -54,11 +54,11 @@ export function StatCard({
         </div>
       </div>
       <div className="mt-4">
-        <div className="text-2xl font-bold tracking-tight text-white md:text-3xl font-mono">
+        <div className="text-2xl font-bold tracking-tight text-text-primary md:text-3xl font-mono">
           {value}
         </div>
         {subtitle && (
-          <p className="mt-1 text-xs text-zinc-500">{subtitle}</p>
+          <p className="mt-1 text-xs text-text-muted">{subtitle}</p>
         )}
       </div>
     </div>

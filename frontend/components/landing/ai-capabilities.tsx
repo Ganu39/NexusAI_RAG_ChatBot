@@ -28,7 +28,7 @@ const CAPABILITIES = [
 
 export function AiCapabilities() {
   return (
-    <section className="py-24 relative bg-[#080B11]">
+    <section className="py-24 relative bg-background-subtle border-b border-border">
       <div className="container mx-auto px-4">
         <SectionHeader 
           badge="Intelligence"
@@ -41,21 +41,21 @@ export function AiCapabilities() {
             const Icon = cap.icon;
             return (
               <AnimatedContainer key={i} variants={staggerChild}>
-                <div className="h-full rounded-2xl border border-[#1E293B] bg-[#0E131F] p-6 hover:border-indigo-500/40 hover:bg-[#141B2D] transition-all duration-300 flex flex-col justify-between shadow-sm">
+                <div className="h-full rounded-2xl border border-border bg-surface p-6 hover:border-accent/40 hover:bg-surface-elevated transition-all duration-300 flex flex-col justify-between shadow-sm">
                   <div>
-                    <div className="h-12 w-12 rounded-xl bg-indigo-600/10 border border-indigo-500/20 flex items-center justify-center mb-4">
-                      <Icon className="w-6 h-6 text-indigo-400" />
+                    <div className="h-12 w-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center mb-4">
+                      <Icon className="w-6 h-6 text-accent" />
                     </div>
-                    <h3 className="text-xl font-bold text-white mb-2">{cap.title}</h3>
-                    <p className="text-xs text-zinc-400 mb-6 leading-relaxed">
+                    <h3 className="text-xl font-bold text-text-primary mb-2">{cap.title}</h3>
+                    <p className="text-xs text-text-secondary mb-6 leading-relaxed">
                       {cap.description}
                     </p>
                   </div>
-                  <ul className="space-y-2.5 border-t border-[#1E293B] pt-4">
+                  <ul className="space-y-2.5 border-t border-border pt-4">
                     {cap.bullets.map((bullet, j) => (
                       <li key={j} className="flex items-start gap-2 text-xs">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                        <span className="text-zinc-300">{bullet}</span>
+                        <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                        <span className="text-text-primary">{bullet}</span>
                       </li>
                     ))}
                   </ul>

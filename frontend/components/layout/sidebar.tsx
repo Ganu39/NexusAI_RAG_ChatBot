@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NexusLogo } from "@/components/ui/nexus-logo";
+import { ThemeToggle } from "@/components/theme/theme-toggle";
 import {
   LayoutDashboard,
   FileText,
@@ -54,17 +55,20 @@ export function Sidebar() {
   return (
     <>
       {/* Mobile Top Bar */}
-      <div className="flex items-center justify-between border-b border-[#1E293B] bg-[#080B11] px-4 py-3 md:hidden">
+      <div className="flex items-center justify-between border-b border-border bg-background px-4 py-3 md:hidden">
         <Link href="/" className="flex items-center">
           <NexusLogo size="sm" showText />
         </Link>
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="rounded-lg p-2 text-zinc-400 hover:bg-[#0E131F] hover:text-white"
-          aria-label="Toggle Navigation Menu"
-        >
-          {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="rounded-lg p-2 text-text-secondary hover:bg-surface hover:text-text-primary"
+            aria-label="Toggle Navigation Menu"
+          >
+            {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
       </div>
 
       {/* Overlay for Mobile */}
@@ -77,18 +81,18 @@ export function Sidebar() {
 
       {/* Sidebar Container */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex w-64 flex-col border-r border-[#1E293B] bg-[#080B11] transition-transform duration-300 md:static md:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 flex w-64 flex-col border-r border-border bg-background transition-colors duration-200 md:static md:translate-x-0 ${
           mobileOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         {/* Brand Header */}
-        <div className="flex h-16 items-center justify-between border-b border-[#1E293B] px-6">
+        <div className="flex h-16 items-center justify-between border-b border-border px-6">
           <Link href="/" className="flex items-center">
             <NexusLogo size="md" showText subtitle="RAG Chatbot" />
           </Link>
           <button
             onClick={() => setMobileOpen(false)}
-            className="rounded-lg p-1 text-zinc-400 hover:text-white md:hidden"
+            className="rounded-lg p-1 text-text-secondary hover:text-text-primary md:hidden"
           >
             <X className="h-5 w-5" />
           </button>
@@ -105,14 +109,14 @@ export function Sidebar() {
                 return (
                   <div
                     key={item.name}
-                    className="flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-medium text-zinc-600 cursor-not-allowed"
+                    className="flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-medium text-text-muted cursor-not-allowed"
                   >
                     <div className="flex items-center gap-3">
                       <Icon className="h-4 w-4" />
                       <span>{item.name}</span>
                     </div>
                     {item.badge && (
-                      <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-[10px] text-zinc-500 font-mono">
+                      <span className="rounded-full bg-surface-muted px-2 py-0.5 text-[10px] text-text-muted font-mono">
                         {item.badge}
                       </span>
                     )}
@@ -127,12 +131,12 @@ export function Sidebar() {
                   onClick={() => setMobileOpen(false)}
                   className={`flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-medium transition-colors ${
                     isActive
-                      ? "bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-semibold"
-                      : "text-zinc-400 hover:bg-[#0E131F] hover:text-zinc-200"
+                      ? "bg-accent/10 text-accent border border-accent/20 font-semibold"
+                      : "text-text-secondary hover:bg-surface hover:text-text-primary"
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <Icon className={`h-4 w-4 ${isActive ? "text-cyan-400" : ""}`} />
+                    <Icon className={`h-4 w-4 ${isActive ? "text-accent" : ""}`} />
                     <span>{item.name}</span>
                   </div>
                 </Link>
@@ -141,17 +145,18 @@ export function Sidebar() {
           </div>
         </div>
 
-        {/* User Workspace Info Footer */}
-        <div className="border-t border-[#1E293B] p-4">
-          <div className="rounded-xl bg-[#0E131F] border border-white/5 p-3 space-y-1">
-            <div className="flex items-center justify-between text-xs text-zinc-400">
-              <span className="font-mono text-[10px] text-zinc-500">Status</span>
+        {/* User Workspace Info & Theme Switcher Footer */}
+        <div className="border-t border-border p-4 space-y-3">
+          <ThemeToggle showLabel className="w-full justify-between px-3 py-2 bg-surface text-text-secondary hover:text-text-primary" />
+          <div className="rounded-xl bg-surface border border-border p-3 space-y-1">
+            <div className="flex items-center justify-between text-xs text-text-secondary">
+              <span className="font-mono text-[10px] text-text-tertiary">Status</span>
               <span className="flex items-center gap-1 text-[10px] text-emerald-400 font-mono font-bold">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
                 Online
               </span>
             </div>
-            <p className="text-xs font-semibold text-white font-mono truncate">
+            <p className="text-xs font-semibold text-text-primary font-mono truncate">
               Nexus_Bot Active
             </p>
           </div>

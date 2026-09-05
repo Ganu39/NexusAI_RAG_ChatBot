@@ -117,29 +117,29 @@ export default function SettingsPage() {
     >
       <div className="max-w-5xl space-y-6">
         {/* 1. USER ID & WORKSPACE ISOLATION */}
-        <div className="rounded-3xl border border-[#1E293B] bg-[#0E131F] p-6 sm:p-7 shadow-lg space-y-5">
-          <div className="flex items-start justify-between border-b border-[#1E293B] pb-4">
+        <div className="rounded-3xl border border-border bg-surface p-6 sm:p-7 shadow-sm space-y-5">
+          <div className="flex items-start justify-between border-b border-border pb-4">
             <div className="flex items-center gap-3.5">
-              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 shadow-sm">
+              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-accent/15 text-accent border border-accent/30 shadow-sm">
                 <User className="h-5 w-5" />
               </div>
               <div>
-                <h3 className="font-bold text-white text-base">
+                <h3 className="font-bold text-text-primary text-base">
                   Browser Workspace Isolation
                 </h3>
-                <p className="text-xs text-zinc-400 font-mono">
+                <p className="text-xs text-text-tertiary font-mono">
                   Unique client identifier isolating your document repository and vector searches.
                 </p>
               </div>
             </div>
-            <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-400 border border-emerald-500/20">
+            <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-500 border border-emerald-500/20">
               Active Workspace
             </span>
           </div>
 
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <label className="text-[11px] font-mono uppercase tracking-wider text-zinc-400">
+              <label className="text-[11px] font-mono uppercase tracking-wider text-text-tertiary">
                 Your Workspace User ID:
               </label>
               {!isEditingUserId && (
@@ -149,7 +149,7 @@ export default function SettingsPage() {
                     setCustomInput(userId);
                     setIdError(null);
                   }}
-                  className="flex items-center gap-1.5 text-xs font-medium text-indigo-400 hover:text-indigo-300 transition-colors"
+                  className="flex items-center gap-1.5 text-xs font-medium text-accent hover:underline transition-colors"
                 >
                   <Edit3 className="h-3.5 w-3.5" />
                   <span>Customize User ID</span>
@@ -165,13 +165,13 @@ export default function SettingsPage() {
                     value={customInput}
                     onChange={(e) => setCustomInput(e.target.value)}
                     placeholder="Enter custom User ID (e.g. my_workspace_1)..."
-                    className="flex-1 rounded-2xl border border-indigo-500/50 bg-[#080B11] px-4 py-3 font-mono text-xs text-indigo-300 font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="flex-1 rounded-2xl border border-accent/50 bg-surface-elevated px-4 py-3 font-mono text-xs text-accent font-semibold focus:outline-none focus:ring-2 focus:ring-accent"
                     autoFocus
                   />
                   <div className="flex items-center gap-2">
                     <button
                       onClick={handleSaveCustomUserId}
-                      className="flex flex-1 sm:flex-initial items-center justify-center gap-2 rounded-2xl bg-indigo-600 px-4 py-3 text-xs font-semibold text-white hover:bg-indigo-500 transition-all shadow-sm"
+                      className="flex flex-1 sm:flex-initial items-center justify-center gap-2 rounded-2xl bg-accent px-4 py-3 text-xs font-semibold text-white hover:bg-accent-hover transition-all shadow-sm"
                     >
                       <Save className="h-4 w-4" />
                       <span>Save & Switch</span>
@@ -181,7 +181,7 @@ export default function SettingsPage() {
                         setIsEditingUserId(false);
                         setIdError(null);
                       }}
-                      className="flex items-center justify-center rounded-2xl border border-[#1E293B] bg-[#141B2D] p-3 text-zinc-400 hover:text-white transition-colors"
+                      className="flex items-center justify-center rounded-2xl border border-border bg-surface-muted p-3 text-text-tertiary hover:text-text-primary hover:bg-surface-elevated transition-colors"
                       title="Cancel"
                     >
                       <X className="h-4 w-4" />
@@ -189,30 +189,30 @@ export default function SettingsPage() {
                   </div>
                 </div>
                 {idError && (
-                  <p className="text-xs text-rose-400">{idError}</p>
+                  <p className="text-xs text-destructive">{idError}</p>
                 )}
-                <p className="text-[11px] text-zinc-400 leading-relaxed">
-                  Type any custom workspace name (e.g., <code className="text-indigo-300 font-mono">my_workspace</code> or <code className="text-indigo-300 font-mono font-semibold">team_alpha</code>). You can switch between custom IDs anytime!
+                <p className="text-[11px] text-text-tertiary leading-relaxed">
+                  Type any custom workspace name (e.g., <code className="text-accent font-mono">my_workspace</code> or <code className="text-accent font-mono font-semibold">team_alpha</code>). You can switch between custom IDs anytime!
                 </p>
               </div>
             ) : (
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                <div className="flex-1 rounded-2xl border border-[#1E293B] bg-[#080B11] px-4 py-3 font-mono text-xs text-indigo-300 font-semibold select-all truncate">
+                <div className="flex-1 rounded-2xl border border-border bg-surface-elevated px-4 py-3 font-mono text-xs text-accent font-semibold select-all truncate">
                   {userId || "Loading User ID..."}
                 </div>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={handleCopyUserId}
-                    className="flex flex-1 sm:flex-initial items-center justify-center gap-2 rounded-2xl border border-[#1E293B] bg-[#141B2D] px-4 py-3 text-xs font-semibold text-zinc-200 hover:bg-[#1E293B] hover:text-white transition-all shadow-sm"
+                    className="flex flex-1 sm:flex-initial items-center justify-center gap-2 rounded-2xl border border-border bg-surface-elevated px-4 py-3 text-xs font-semibold text-text-secondary hover:bg-surface-muted hover:text-text-primary transition-all shadow-sm"
                   >
                     {copied ? (
                       <>
-                        <Check className="h-4 w-4 text-emerald-400" />
-                        <span className="text-emerald-400">Copied!</span>
+                        <Check className="h-4 w-4 text-emerald-500" />
+                        <span className="text-emerald-500">Copied!</span>
                       </>
                     ) : (
                       <>
-                        <Copy className="h-4 w-4 text-indigo-400" />
+                        <Copy className="h-4 w-4 text-accent" />
                         <span>Copy ID</span>
                       </>
                     )}
@@ -220,34 +220,34 @@ export default function SettingsPage() {
 
                   <button
                     onClick={handleResetUserId}
-                    className="flex flex-1 sm:flex-initial items-center justify-center gap-2 rounded-2xl border border-rose-500/20 bg-rose-500/10 px-4 py-3 text-xs font-semibold text-rose-300 hover:bg-rose-500/20 transition-all shadow-sm"
+                    className="flex flex-1 sm:flex-initial items-center justify-center gap-2 rounded-2xl border border-destructive/20 bg-destructive-subtle px-4 py-3 text-xs font-semibold text-destructive hover:bg-destructive/20 transition-all shadow-sm"
                     title="Generate a new random isolated workspace ID"
                   >
-                    <RefreshCw className="h-4 w-4 text-rose-400" />
+                    <RefreshCw className="h-4 w-4 text-destructive" />
                     <span>Randomize</span>
                   </button>
                 </div>
               </div>
             )}
 
-            <p className="text-[11px] text-zinc-500 leading-relaxed">
-              Your User ID is saved in your browser&apos;s <code className="text-indigo-400 font-mono">localStorage</code>. Documents uploaded under this ID remain isolated to your session.
+            <p className="text-[11px] text-text-inactive leading-relaxed">
+              Your User ID is saved in your browser&apos;s <code className="text-accent font-mono">localStorage</code>. Documents uploaded under this ID remain isolated to your session.
             </p>
           </div>
         </div>
 
         {/* 2. VECTOR STORE INFRASTRUCTURE & TELEMETRY */}
-        <div className="rounded-3xl border border-[#1E293B] bg-[#0E131F] p-6 sm:p-7 shadow-lg space-y-5">
-          <div className="flex items-start justify-between border-b border-[#1E293B] pb-4">
+        <div className="rounded-3xl border border-border bg-surface p-6 sm:p-7 shadow-sm space-y-5">
+          <div className="flex items-start justify-between border-b border-border pb-4">
             <div className="flex items-center gap-3.5">
-              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-purple-600/20 text-purple-400 border border-purple-500/30 shadow-sm">
+              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-accent/15 text-accent border border-accent/30 shadow-sm">
                 <Database className="h-5 w-5" />
               </div>
               <div>
-                <h3 className="font-bold text-white text-base">
+                <h3 className="font-bold text-text-primary text-base">
                   Vector Store & System Telemetry
                 </h3>
-                <p className="text-xs text-zinc-400 font-mono">
+                <p className="text-xs text-text-tertiary font-mono">
                   Operational metrics for vector embeddings and document indexing.
                 </p>
               </div>
@@ -255,54 +255,54 @@ export default function SettingsPage() {
             <button
               onClick={fetchMetrics}
               disabled={loadingMetrics}
-              className="rounded-xl border border-[#1E293B] bg-[#141B2D] p-2 text-zinc-400 hover:text-white disabled:opacity-50 transition-colors"
+              className="rounded-xl border border-border bg-surface-elevated p-2 text-text-secondary hover:text-text-primary hover:bg-surface-muted disabled:opacity-50 transition-colors"
               title="Refresh Telemetry"
             >
-              <RefreshCw className={`h-4 w-4 ${loadingMetrics ? "animate-spin text-indigo-400" : ""}`} />
+              <RefreshCw className={`h-4 w-4 ${loadingMetrics ? "animate-spin text-accent" : ""}`} />
             </button>
           </div>
 
           {loadingMetrics ? (
-            <div className="flex items-center justify-center p-8 text-xs text-zinc-400 gap-3">
-              <Loader2 className="h-5 w-5 animate-spin text-indigo-400" />
+            <div className="flex items-center justify-center p-8 text-xs text-text-tertiary gap-3">
+              <Loader2 className="h-5 w-5 animate-spin text-accent" />
               <span>Fetching telemetry metrics from production backend...</span>
             </div>
           ) : metricsError ? (
-            <div className="flex items-center gap-3 rounded-2xl border border-rose-500/20 bg-rose-500/10 p-4 text-xs text-rose-300">
-              <AlertCircle className="h-5 w-5 text-rose-400 shrink-0" />
+            <div className="flex items-center gap-3 rounded-2xl border border-destructive/30 bg-destructive-subtle p-4 text-xs text-destructive">
+              <AlertCircle className="h-5 w-5 text-destructive shrink-0" />
               <span>{metricsError}</span>
             </div>
           ) : metrics ? (
             <div className="space-y-4">
-              <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-[#1E293B] bg-[#080B11] p-4">
-                <div className="flex items-center gap-2 text-xs text-zinc-300">
-                  <Cpu className="h-4 w-4 text-purple-400" />
+              <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border bg-surface-elevated p-4">
+                <div className="flex items-center gap-2 text-xs text-text-secondary">
+                  <Cpu className="h-4 w-4 text-accent" />
                   <span className="font-semibold">Active Vector Provider:</span>
                 </div>
-                <span className="rounded-full bg-purple-500/10 px-3.5 py-1 text-xs font-bold text-purple-300 border border-purple-500/20 font-mono uppercase">
+                <span className="rounded-full bg-accent/10 px-3.5 py-1 text-xs font-bold text-accent border border-accent/20 font-mono uppercase">
                   {metrics.vector_provider} (Inner Product Cosine Similarity)
                 </span>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                <div className="rounded-2xl border border-[#1E293B] bg-[#080B11] p-4 space-y-1">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500">Total Documents</span>
-                  <div className="text-lg font-bold text-white font-mono">{metrics.total_documents}</div>
+                <div className="rounded-2xl border border-border bg-surface-elevated p-4 space-y-1">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-text-tertiary">Total Documents</span>
+                  <div className="text-lg font-bold text-text-primary font-mono">{metrics.total_documents}</div>
                 </div>
 
-                <div className="rounded-2xl border border-[#1E293B] bg-[#080B11] p-4 space-y-1">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500">Indexed Documents</span>
-                  <div className="text-lg font-bold text-emerald-400 font-mono">{metrics.total_indexed_documents}</div>
+                <div className="rounded-2xl border border-border bg-surface-elevated p-4 space-y-1">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-text-tertiary">Indexed Documents</span>
+                  <div className="text-lg font-bold text-emerald-500 font-mono">{metrics.total_indexed_documents}</div>
                 </div>
 
-                <div className="rounded-2xl border border-[#1E293B] bg-[#080B11] p-4 space-y-1">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500">Total Chunks</span>
-                  <div className="text-lg font-bold text-purple-400 font-mono">{metrics.total_chunks_created}</div>
+                <div className="rounded-2xl border border-border bg-surface-elevated p-4 space-y-1">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-text-tertiary">Total Chunks</span>
+                  <div className="text-lg font-bold text-accent font-mono">{metrics.total_chunks_created}</div>
                 </div>
 
-                <div className="rounded-2xl border border-[#1E293B] bg-[#080B11] p-4 space-y-1">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500">Embeddings Created</span>
-                  <div className="text-lg font-bold text-indigo-400 font-mono">{metrics.total_embeddings_created}</div>
+                <div className="rounded-2xl border border-border bg-surface-elevated p-4 space-y-1">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-text-tertiary">Embeddings Created</span>
+                  <div className="text-lg font-bold text-accent font-mono">{metrics.total_embeddings_created}</div>
                 </div>
               </div>
             </div>
@@ -310,35 +310,35 @@ export default function SettingsPage() {
         </div>
 
         {/* 3. RAG ARCHITECTURE CONFIGURATION */}
-        <div className="rounded-3xl border border-[#1E293B] bg-[#0E131F] p-6 sm:p-7 shadow-lg space-y-5">
-          <div className="flex items-center gap-3.5 border-b border-[#1E293B] pb-4">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 shadow-sm">
+        <div className="rounded-3xl border border-border bg-surface p-6 sm:p-7 shadow-sm space-y-5">
+          <div className="flex items-center gap-3.5 border-b border-border pb-4">
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-accent/15 text-accent border border-accent/30 shadow-sm">
               <Sparkles className="h-5 w-5" />
             </div>
             <div>
-              <h3 className="font-bold text-white text-base">
+              <h3 className="font-bold text-text-primary text-base">
                 RAG Engine Architecture
               </h3>
-              <p className="text-xs text-zinc-400 font-mono">
+              <p className="text-xs text-text-tertiary font-mono">
                 System parameters and LLM synthesis configurations.
               </p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-            <div className="rounded-2xl border border-[#1E293B] bg-[#080B11] p-4 space-y-1">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500">LLM Synthesis Engine</span>
-              <div className="font-semibold text-white">Google Gemini 2.5 Flash</div>
+            <div className="rounded-2xl border border-border bg-surface-elevated p-4 space-y-1">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-text-tertiary">LLM Synthesis Engine</span>
+              <div className="font-semibold text-text-primary">Google Gemini 2.5 Flash</div>
             </div>
 
-            <div className="rounded-2xl border border-[#1E293B] bg-[#080B11] p-4 space-y-1">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500">Embedding Model</span>
-              <div className="font-mono text-indigo-300 font-semibold">models/gemini-embedding-001 (3072d)</div>
+            <div className="rounded-2xl border border-border bg-surface-elevated p-4 space-y-1">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-text-tertiary">Embedding Model</span>
+              <div className="font-mono text-accent font-semibold">models/gemini-embedding-001 (3072d)</div>
             </div>
 
-            <div className="rounded-2xl border border-[#1E293B] bg-[#080B11] p-4 space-y-1">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500">Security Status</span>
-              <div className="flex items-center gap-1.5 font-semibold text-emerald-400">
+            <div className="rounded-2xl border border-border bg-surface-elevated p-4 space-y-1">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-text-tertiary">Security Status</span>
+              <div className="flex items-center gap-1.5 font-semibold text-emerald-500">
                 <ShieldCheck className="h-4 w-4" />
                 <span>Prompt Injection Defense Active</span>
               </div>
@@ -347,16 +347,16 @@ export default function SettingsPage() {
         </div>
 
         {/* 4. LOCAL STORAGE MAINTENANCE */}
-        <div className="rounded-3xl border border-[#1E293B] bg-[#0E131F] p-6 sm:p-7 shadow-lg space-y-5">
-          <div className="flex items-center gap-3.5 border-b border-[#1E293B] pb-4">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-rose-600/20 text-rose-400 border border-rose-500/30 shadow-sm">
+        <div className="rounded-3xl border border-border bg-surface p-6 sm:p-7 shadow-sm space-y-5">
+          <div className="flex items-center gap-3.5 border-b border-border pb-4">
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-destructive-subtle text-destructive border border-destructive/30 shadow-sm">
               <Trash2 className="h-5 w-5" />
             </div>
             <div>
-              <h3 className="font-bold text-white text-base">
+              <h3 className="font-bold text-text-primary text-base">
                 Storage & Cache Maintenance
               </h3>
-              <p className="text-xs text-zinc-400 font-mono">
+              <p className="text-xs text-text-tertiary font-mono">
                 Clear locally cached chat sessions and transient browser data.
               </p>
             </div>
@@ -364,17 +364,17 @@ export default function SettingsPage() {
 
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-              <h4 className="text-xs font-semibold text-white">Clear Chat Session History</h4>
-              <p className="text-[11px] text-zinc-400 mt-0.5">
+              <h4 className="text-xs font-semibold text-text-primary">Clear Chat Session History</h4>
+              <p className="text-[11px] text-text-secondary mt-0.5">
                 Resets locally persisted conversation turns stored in your browser session.
               </p>
             </div>
 
             <button
               onClick={handleClearChatHistory}
-              className="flex items-center gap-2 rounded-2xl border border-rose-500/20 bg-rose-500/10 px-4 py-2.5 text-xs font-semibold text-rose-300 hover:bg-rose-500/20 transition-all shrink-0"
+              className="flex items-center gap-2 rounded-2xl border border-destructive/30 bg-destructive-subtle px-4 py-2.5 text-xs font-semibold text-destructive hover:bg-destructive/20 transition-all shrink-0"
             >
-              <Trash2 className="h-4 w-4 text-rose-400" />
+              <Trash2 className="h-4 w-4 text-destructive" />
               <span>{cacheCleared ? "Chat History Cleared!" : "Clear Chat History"}</span>
             </button>
           </div>

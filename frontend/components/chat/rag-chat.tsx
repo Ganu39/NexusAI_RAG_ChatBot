@@ -37,8 +37,8 @@ import ReactMarkdown from "react-markdown";
 const NexusBotAvatarCanvas = dynamic(() => import("@/components/3d/GlowingAIOrb"), {
   ssr: false,
   loading: () => (
-    <div className="w-9 h-9 rounded-xl bg-slate-900 border border-cyan-500/30 flex items-center justify-center">
-      <Bot className="w-5 h-5 text-cyan-400" />
+    <div className="w-9 h-9 rounded-xl bg-surface-elevated border border-accent/30 flex items-center justify-center">
+      <Bot className="w-5 h-5 text-accent" />
     </div>
   ),
 });
@@ -61,16 +61,16 @@ const SUGGESTED_TOPICS = [
     id: "time-tracking",
     title: "Document Requirements",
     subtitle: "Explore key specs & rules",
-    bgColor: "bg-slate-900/80 border-cyan-500/30 hover:border-cyan-400",
-    textColor: "text-slate-100",
+    bgColor: "bg-surface-elevated/90 border-border hover:border-accent/50",
+    textColor: "text-text-primary",
     icon: Clock,
   },
   {
     id: "notion-pages",
     title: "Summarize Findings",
     subtitle: "Get instant executive summaries",
-    bgColor: "bg-slate-900/80 border-violet-500/30 hover:border-violet-400",
-    textColor: "text-slate-100",
+    bgColor: "bg-surface-elevated/90 border-border hover:border-accent/50",
+    textColor: "text-text-primary",
     icon: BookOpen,
   },
 ];
@@ -337,7 +337,7 @@ export function RAGChat() {
   };
 
   return (
-    <div className="flex h-screen w-full flex-col bg-[#020617] overflow-hidden relative font-sans text-slate-100">
+    <div className="flex h-screen w-full flex-col bg-background overflow-hidden relative font-sans text-text-primary">
       {/* Hidden Direct File Picker */}
       <input
         type="file"
@@ -351,24 +351,24 @@ export function RAGChat() {
       <VectorParticleCloudCanvas />
 
       {/* Dark Ambient Glow Halos */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none -z-10 animate-pulse" />
-      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-violet-600/10 rounded-full blur-[140px] pointer-events-none -z-10" />
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[140px] pointer-events-none -z-10 animate-pulse" />
+      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[140px] pointer-events-none -z-10" />
 
       {/* 1. COMPACT TOP HEADER BAR */}
-      <div className="flex flex-wrap items-center justify-between border-b border-white/10 bg-[#020617]/90 backdrop-blur-2xl px-6 py-3.5 gap-4 z-20 shadow-xl">
+      <div className="flex flex-wrap items-center justify-between border-b border-border bg-surface/90 backdrop-blur-2xl px-6 py-3.5 gap-4 z-20 shadow-sm">
         <div className="flex items-center gap-3.5">
           <NexusBotAvatarCanvas size="sm" isProcessing={loading} />
 
           <div className="flex items-center gap-3">
-            <h3 className="font-extrabold text-white text-base sm:text-lg tracking-tight font-mono">
+            <h3 className="font-extrabold text-text-primary text-base sm:text-lg tracking-tight font-mono">
               Nexus_Bot
             </h3>
-            <span className="flex items-center gap-1.5 rounded-full bg-cyan-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-cyan-400 border border-cyan-500/30 shadow-sm">
-              <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
+            <span className="flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-500 border border-emerald-500/20 shadow-sm">
+              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
               Online
             </span>
-            <span className="hidden sm:inline text-xs text-slate-400 font-mono">
-              MODEL: <strong className="text-cyan-400">Gemini 2.5 Flash</strong> • INDEX: <strong className="text-violet-400">FAISS 3072d</strong>
+            <span className="hidden sm:inline text-xs text-text-tertiary font-mono">
+              MODEL: <strong className="text-accent">Gemini 2.5 Flash</strong> • INDEX: <strong className="text-accent">FAISS 3072d</strong>
             </span>
           </div>
         </div>
@@ -377,22 +377,22 @@ export function RAGChat() {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setIsMobileSheetOpen(true)}
-            className="flex items-center gap-2 min-h-[40px] px-4 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 text-xs font-semibold hover:bg-cyan-500/20 active:scale-95 transition-all shadow-md"
+            className="flex items-center gap-2 min-h-[40px] px-4 rounded-full border border-border bg-surface-elevated text-text-primary text-xs font-semibold hover:border-accent/40 active:scale-95 transition-all shadow-sm"
           >
-            <Database className="w-4 h-4 text-cyan-400" />
+            <Database className="w-4 h-4 text-accent" />
             <span>Knowledge Base</span>
           </button>
 
-          <div className="flex items-center gap-2 rounded-full border border-white/10 bg-slate-900/90 px-3.5 py-1.5 text-xs text-slate-300 backdrop-blur-md shadow-md">
-            <Sliders className="h-3.5 w-3.5 text-cyan-400" />
-            <span className="text-[11px] text-slate-400 font-mono">Top-K:</span>
+          <div className="flex items-center gap-2 rounded-full border border-border bg-surface-elevated/90 px-3.5 py-1.5 text-xs text-text-secondary backdrop-blur-md shadow-sm">
+            <Sliders className="h-3.5 w-3.5 text-accent" />
+            <span className="text-[11px] text-text-tertiary font-mono">Top-K:</span>
             <select
               value={topK}
               onChange={(e) => setTopK(Number(e.target.value))}
-              className="bg-transparent font-bold text-cyan-400 focus:outline-none cursor-pointer text-xs"
+              className="bg-transparent font-bold text-accent focus:outline-none cursor-pointer text-xs"
             >
               {[1, 2, 3, 4, 5, 7, 10].map((k) => (
-                <option key={k} value={k} className="bg-slate-900 text-white">
+                <option key={k} value={k} className="bg-surface text-text-primary">
                   k = {k}
                 </option>
               ))}
@@ -402,10 +402,10 @@ export function RAGChat() {
           {messages.length > 0 && (
             <button
               onClick={handleClearChat}
-              className="flex items-center gap-1.5 min-h-[40px] rounded-full border border-rose-500/30 bg-rose-500/10 px-3.5 py-1.5 text-xs font-semibold text-rose-300 hover:bg-rose-500/20 active:scale-95 transition-all shadow-md"
+              className="flex items-center gap-1.5 min-h-[40px] rounded-full border border-destructive/30 bg-destructive-subtle px-3.5 py-1.5 text-xs font-semibold text-destructive hover:bg-destructive/20 active:scale-95 transition-all shadow-sm"
               title="Clear conversation history"
             >
-              <Trash2 className="h-3.5 w-3.5 text-rose-400" />
+              <Trash2 className="h-3.5 w-3.5 text-destructive" />
               <span>Clear</span>
             </button>
           )}
@@ -413,8 +413,8 @@ export function RAGChat() {
       </div>
 
       {/* 2. PIPELINE STEPPER BADGE */}
-      <div className="border-b border-white/5 bg-slate-950/70 px-6 py-2 overflow-x-auto z-20 backdrop-blur-md">
-        <div className="flex items-center justify-between min-w-[580px] text-[11px] font-mono text-slate-400">
+      <div className="border-b border-border-subtle bg-surface-muted/70 px-6 py-2 overflow-x-auto z-20 backdrop-blur-md">
+        <div className="flex items-center justify-between min-w-[580px] text-[11px] font-mono text-text-tertiary">
           {RAG_RETRIEVAL_STEPS.map((step, idx) => {
             const isCurrent = activePipelineStage === idx;
             const isPassed = activePipelineStage > idx;
@@ -423,25 +423,25 @@ export function RAGChat() {
                 <div
                   className={`flex items-center gap-1.5 transition-colors ${
                     isCurrent
-                      ? "text-cyan-400 font-bold drop-shadow-[0_0_8px_rgba(6,182,212,0.6)]"
+                      ? "text-accent font-bold drop-shadow-sm"
                       : isPassed
-                      ? "text-emerald-400 font-semibold"
-                      : "text-slate-500"
+                      ? "text-emerald-500 font-semibold"
+                      : "text-text-inactive"
                   }`}
                 >
                   <span
                     className={`h-2 w-2 rounded-full ${
                       isCurrent
-                        ? "bg-cyan-400 animate-ping"
+                        ? "bg-accent animate-ping"
                         : isPassed
-                        ? "bg-emerald-400"
-                        : "bg-slate-800"
+                        ? "bg-emerald-500"
+                        : "bg-border"
                     }`}
                   />
                   <span>{step.label}</span>
                 </div>
                 {idx < RAG_RETRIEVAL_STEPS.length - 1 && (
-                  <span className="text-slate-700">→</span>
+                  <span className="text-text-inactive">→</span>
                 )}
               </React.Fragment>
             );
@@ -459,23 +459,23 @@ export function RAGChat() {
             </div>
 
             <div className="max-w-md space-y-1.5">
-              <span className="text-xs font-mono uppercase tracking-widest text-cyan-400">
+              <span className="text-xs font-mono uppercase tracking-widest text-accent">
                 AI KNOWLEDGE ASSISTANT
               </span>
-              <h4 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-sans items-center justify-center">
+              <h4 className="text-2xl sm:text-3xl font-extrabold text-text-primary tracking-tight font-sans items-center justify-center">
                 <span>Welcome back, {userName || "Explorer"} 👋</span>
                 <button
                   onClick={() => {
                     setInputUserName(userName);
                     setShowOnboardingModal(true);
                   }}
-                  className="ml-2 inline-flex items-center text-xs text-slate-400 hover:text-cyan-400 transition-colors p-1"
+                  className="ml-2 inline-flex items-center text-xs text-text-tertiary hover:text-accent transition-colors p-1"
                   title="Change your name"
                 >
                   <Edit3 className="w-4 h-4" />
                 </button>
                 <br />
-                <span className="text-slate-300 font-normal text-xl sm:text-2xl">
+                <span className="text-text-secondary font-normal text-xl sm:text-2xl">
                   How may I help you today?
                 </span>
               </h4>
@@ -490,15 +490,15 @@ export function RAGChat() {
                     setQuestion(topic.title);
                     handleSend(topic.title);
                   }}
-                  className={`rounded-3xl ${topic.bgColor} p-5 text-left transition-all cursor-pointer hover:shadow-2xl active:scale-[0.98] border space-y-3 group backdrop-blur-xl`}
+                  className={`rounded-3xl ${topic.bgColor} p-5 text-left transition-all cursor-pointer hover:shadow-md active:scale-[0.98] border space-y-3 group backdrop-blur-xl`}
                 >
                   <div className="flex items-center justify-between">
-                    <topic.icon className="w-6 h-6 text-cyan-400" />
-                    <span className="text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all">→</span>
+                    <topic.icon className="w-6 h-6 text-accent" />
+                    <span className="text-text-inactive group-hover:text-accent group-hover:translate-x-1 transition-all">→</span>
                   </div>
                   <div>
-                    <h5 className="font-bold text-white text-sm font-mono">{topic.title}</h5>
-                    <p className="text-xs text-slate-400 mt-0.5">{topic.subtitle}</p>
+                    <h5 className="font-bold text-text-primary text-sm font-mono">{topic.title}</h5>
+                    <p className="text-xs text-text-secondary mt-0.5">{topic.subtitle}</p>
                   </div>
                 </div>
               ))}
@@ -513,8 +513,8 @@ export function RAGChat() {
               }`}
             >
               {msg.sender === "assistant" && (
-                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 shrink-0 shadow-lg">
-                  <Bot className="h-5 w-5 text-cyan-400" />
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-accent/15 text-accent border border-accent/30 shrink-0 shadow-sm">
+                  <Bot className="h-5 w-5 text-accent" />
                 </div>
               )}
 
@@ -525,28 +525,28 @@ export function RAGChat() {
               >
                 {/* User Message Bubble */}
                 {msg.sender === "user" ? (
-                  <div className="rounded-3xl bg-cyan-600 px-6 py-4 text-xs sm:text-sm text-white font-medium shadow-lg shadow-cyan-600/20 leading-relaxed">
+                  <div className="rounded-3xl bg-accent px-6 py-4 text-xs sm:text-sm text-white font-medium shadow-md leading-relaxed">
                     <p className="whitespace-pre-wrap">{msg.text}</p>
                   </div>
                 ) : (
-                  /* Assistant Dark Glass Card */
-                  <div className="w-full rounded-3xl border border-white/10 bg-slate-900/80 backdrop-blur-2xl p-6 text-xs sm:text-sm text-slate-100 space-y-4 shadow-2xl">
+                  /* Assistant Glass Card */
+                  <div className="w-full rounded-3xl border border-border bg-surface/90 backdrop-blur-2xl p-6 text-xs sm:text-sm text-text-primary space-y-4 shadow-sm">
                     {/* Grounding Status Header */}
                     {msg.response && (
-                      <div className="flex flex-wrap items-center justify-between gap-2 pb-3.5 border-b border-white/10">
+                      <div className="flex flex-wrap items-center justify-between gap-2 pb-3.5 border-b border-border-subtle">
                         <div className="flex items-center gap-2">
                           {msg.response.grounded ? (
-                            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-400 border border-emerald-500/20">
-                              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-500 border border-emerald-500/20">
+                              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
                               Grounded Answer
                             </span>
                           ) : (
-                            <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-400 border border-amber-500/20">
-                              <AlertTriangle className="h-3.5 w-3.5 text-amber-400" />
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-500 border border-amber-500/20">
+                              <AlertTriangle className="h-3.5 w-3.5 text-amber-500" />
                               Insufficient Context
                             </span>
                           )}
-                          <span className="text-xs text-slate-400 font-mono">
+                          <span className="text-xs text-text-tertiary font-mono">
                             ({msg.response.retrieved_chunks} context chunks)
                           </span>
                         </div>
@@ -554,7 +554,7 @@ export function RAGChat() {
                         {msg.response.sources.length > 0 && (
                           <button
                             onClick={() => toggleSources(msg.id)}
-                            className="flex items-center gap-1 text-xs font-semibold text-cyan-400 hover:text-cyan-300 transition-colors"
+                            className="flex items-center gap-1 text-xs font-semibold text-accent hover:underline transition-colors"
                           >
                             <span>
                               {expandedSources[msg.id]
@@ -575,35 +575,35 @@ export function RAGChat() {
                     <ReasoningDrawer />
 
                     {/* Answer Body */}
-                    <div className="leading-relaxed text-slate-100 text-sm sm:text-base font-sans font-normal p-1">
+                    <div className="leading-relaxed text-text-primary text-sm sm:text-base font-sans font-normal p-1">
                       <ReactMarkdown
                         components={{
                           ul: ({ node, ...props }) => (
-                            <ul className="list-disc pl-5 my-3 space-y-2 text-slate-200" {...props} />
+                            <ul className="list-disc pl-5 my-3 space-y-2 text-text-secondary" {...props} />
                           ),
                           ol: ({ node, ...props }) => (
-                            <ol className="list-decimal pl-5 my-3 space-y-2 text-slate-200" {...props} />
+                            <ol className="list-decimal pl-5 my-3 space-y-2 text-text-secondary" {...props} />
                           ),
                           li: ({ node, ...props }) => (
-                            <li className="leading-relaxed text-slate-200" {...props} />
+                            <li className="leading-relaxed text-text-secondary" {...props} />
                           ),
                           p: ({ node, ...props }) => (
-                            <p className="mb-3.5 leading-relaxed text-slate-200 font-sans" {...props} />
+                            <p className="mb-3.5 leading-relaxed text-text-secondary font-sans" {...props} />
                           ),
                           strong: ({ node, ...props }) => (
-                            <strong className="font-bold text-cyan-300 drop-shadow-sm" {...props} />
+                            <strong className="font-bold text-text-primary" {...props} />
                           ),
                           h1: ({ node, ...props }) => (
-                            <h1 className="text-lg font-bold text-cyan-400 mt-4 mb-2 tracking-wide font-mono border-b border-cyan-500/20 pb-1" {...props} />
+                            <h1 className="text-lg font-bold text-text-primary mt-4 mb-2 tracking-wide font-mono border-b border-border-subtle pb-1" {...props} />
                           ),
                           h2: ({ node, ...props }) => (
-                            <h2 className="text-base font-bold text-cyan-400 mt-4 mb-2 tracking-wide font-mono border-b border-cyan-500/20 pb-1" {...props} />
+                            <h2 className="text-base font-bold text-text-primary mt-4 mb-2 tracking-wide font-mono border-b border-border-subtle pb-1" {...props} />
                           ),
                           h3: ({ node, ...props }) => (
-                            <h3 className="text-sm font-bold text-cyan-400 mt-3 mb-1.5 tracking-wide font-mono uppercase" {...props} />
+                            <h3 className="text-sm font-bold text-text-primary mt-3 mb-1.5 tracking-wide font-mono uppercase" {...props} />
                           ),
                           code: ({ node, ...props }) => (
-                            <code className="bg-slate-950 text-cyan-300 px-2 py-0.5 rounded-md border border-cyan-500/30 font-mono text-xs shadow-inner" {...props} />
+                            <code className="bg-surface-elevated text-accent px-2 py-0.5 rounded-md border border-border font-mono text-xs shadow-inner" {...props} />
                           ),
                         }}
                       >
@@ -613,13 +613,13 @@ export function RAGChat() {
 
                     {/* Connected Sources Attribution Grid */}
                     {msg.response && expandedSources[msg.id] && msg.response.sources.length > 0 && (
-                      <div className="pt-3 border-t border-white/10 space-y-2.5">
-                        <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 uppercase tracking-wider">
+                      <div className="pt-3 border-t border-border-subtle space-y-2.5">
+                        <div className="flex items-center justify-between text-[11px] font-mono text-text-tertiary uppercase tracking-wider">
                           <div className="flex items-center gap-1.5">
-                            <CornerDownRight className="h-3.5 w-3.5 text-cyan-400" />
+                            <CornerDownRight className="h-3.5 w-3.5 text-accent" />
                             <span>Connected Source Citations:</span>
                           </div>
-                          <span className="text-slate-500 text-[10px]">Click to view snippet</span>
+                          <span className="text-text-inactive text-[10px]">Click to view snippet</span>
                         </div>
 
                         <div className="grid grid-cols-1 gap-2.5">
@@ -627,18 +627,18 @@ export function RAGChat() {
                             <div
                               key={src.chunk_id || sIdx}
                               onClick={() => setActiveSourceModal(src)}
-                              className="rounded-2xl border border-white/10 bg-slate-950/80 p-3.5 space-y-2 text-slate-300 hover:border-cyan-400/60 hover:bg-slate-900 transition-all cursor-pointer group shadow-sm"
+                              className="rounded-2xl border border-border bg-surface-elevated/80 p-3.5 space-y-2 text-text-secondary hover:border-accent/60 hover:bg-surface-elevated transition-all cursor-pointer group shadow-sm"
                             >
                               <div className="flex items-center justify-between font-medium">
-                                <div className="flex items-center gap-2 text-cyan-300 truncate max-w-[260px] sm:max-w-md">
-                                  <FileText className="h-3.5 w-3.5 text-cyan-400 shrink-0" />
-                                  <span className="truncate text-xs font-mono group-hover:text-white transition-colors">{src.filename}</span>
+                                <div className="flex items-center gap-2 text-accent truncate max-w-[260px] sm:max-w-md">
+                                  <FileText className="h-3.5 w-3.5 text-accent shrink-0" />
+                                  <span className="truncate text-xs font-mono group-hover:text-text-primary transition-colors">{src.filename}</span>
                                 </div>
                                 <div className="flex items-center gap-2 shrink-0">
-                                  <span className="rounded-full bg-cyan-500/10 px-3 py-0.5 text-[10px] font-mono font-bold text-cyan-400 border border-cyan-500/20">
+                                  <span className="rounded-full bg-accent/10 px-3 py-0.5 text-[10px] font-mono font-bold text-accent border border-accent/20">
                                     {(src.score * 100).toFixed(1)}% Match
                                   </span>
-                                  <Eye className="h-3.5 w-3.5 text-slate-500 group-hover:text-cyan-400 transition-colors" />
+                                  <Eye className="h-3.5 w-3.5 text-text-tertiary group-hover:text-accent transition-colors" />
                                 </div>
                               </div>
                             </div>
@@ -648,16 +648,16 @@ export function RAGChat() {
                     )}
 
                     {/* Reaction Feedback Pills */}
-                    <div className="flex items-center gap-2 pt-2 border-t border-white/10">
+                    <div className="flex items-center gap-2 pt-2 border-t border-border-subtle">
                       <button
                         onClick={() => handleFeedback(msg.id, "great")}
                         className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium border transition-all ${
                           msg.feedback === "great"
-                            ? "bg-emerald-500/20 border-emerald-500/40 text-emerald-300 font-bold"
-                            : "bg-slate-800/80 border-white/10 text-slate-300 hover:bg-slate-800"
+                            ? "bg-emerald-500/20 border-emerald-500/40 text-emerald-500 font-bold"
+                            : "bg-surface-elevated border-border text-text-secondary hover:bg-surface"
                         }`}
                       >
-                        <Smile className="w-3.5 h-3.5 text-emerald-400" />
+                        <Smile className="w-3.5 h-3.5 text-emerald-500" />
                         <span>Great 🥳</span>
                       </button>
 
@@ -665,24 +665,24 @@ export function RAGChat() {
                         onClick={() => handleFeedback(msg.id, "bad")}
                         className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium border transition-all ${
                           msg.feedback === "bad"
-                            ? "bg-rose-500/20 border-rose-500/40 text-rose-300 font-bold"
-                            : "bg-slate-800/80 border-white/10 text-slate-300 hover:bg-slate-800"
+                            ? "bg-destructive-subtle border-destructive/40 text-destructive font-bold"
+                            : "bg-surface-elevated border-border text-text-secondary hover:bg-surface"
                         }`}
                       >
-                        <Frown className="w-3.5 h-3.5 text-rose-400" />
+                        <Frown className="w-3.5 h-3.5 text-destructive" />
                         <span>Bad 😢</span>
                       </button>
                     </div>
                   </div>
                 )}
 
-                <span className="text-[10px] text-slate-500 font-mono px-2">
+                <span className="text-[10px] text-text-tertiary font-mono px-2">
                   {msg.timestamp}
                 </span>
               </div>
 
               {msg.sender === "user" && (
-                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-800 text-slate-300 shrink-0 border border-white/10 shadow-md font-mono text-xs font-bold text-cyan-400">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-surface-elevated text-accent shrink-0 border border-border shadow-sm font-mono text-xs font-bold">
                   {userName ? userName.slice(0, 2).toUpperCase() : "US"}
                 </div>
               )}
@@ -693,20 +693,20 @@ export function RAGChat() {
         {/* Dynamic Loading State */}
         {(loading || uploading) && (
           <div className="flex gap-4 items-start">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 shrink-0 animate-pulse">
-              <Bot className="h-5 w-5 text-cyan-400" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-accent/15 text-accent border border-accent/30 shrink-0 animate-pulse">
+              <Bot className="h-5 w-5 text-accent" />
             </div>
-            <div className="rounded-3xl border border-cyan-500/30 bg-slate-900/90 px-6 py-4 text-xs text-slate-200 flex items-center gap-3 shadow-xl backdrop-blur-2xl">
-              <Loader2 className="h-5 w-5 animate-spin text-cyan-400" />
+            <div className="rounded-3xl border border-accent/30 bg-surface/90 px-6 py-4 text-xs text-text-secondary flex items-center gap-3 shadow-md backdrop-blur-2xl">
+              <Loader2 className="h-5 w-5 animate-spin text-accent" />
               <div>
-                <p className="font-semibold text-white font-mono text-sm">
+                <p className="font-semibold text-text-primary font-mono text-sm">
                   {uploading
                     ? "Uploading & Vectorizing Document into FAISS..."
                     : activePipelineStage <= 2
                     ? "Searching vector database..."
                     : "Synthesizing answer with grounded citations..."}
                 </p>
-                <p className="text-[11px] text-slate-400 font-mono mt-0.5">
+                <p className="text-[11px] text-text-tertiary font-mono mt-0.5">
                   Nexus_Bot processing embeddings & metrics
                 </p>
               </div>
@@ -716,17 +716,17 @@ export function RAGChat() {
 
         {/* Error Feedback */}
         {error && (
-          <div className="rounded-3xl border border-rose-500/30 bg-rose-500/10 p-5 text-xs text-rose-300 flex items-center justify-between gap-3 shadow-md backdrop-blur-md">
+          <div className="rounded-3xl border border-destructive/30 bg-destructive-subtle p-5 text-xs text-destructive flex items-center justify-between gap-3 shadow-sm backdrop-blur-md">
             <div className="flex items-center gap-3">
-              <AlertTriangle className="h-5 w-5 text-rose-400 shrink-0" />
+              <AlertTriangle className="h-5 w-5 text-destructive shrink-0" />
               <div>
-                <p className="font-semibold text-rose-200">Query Execution Error</p>
-                <p className="text-rose-300/80 mt-0.5">{error}</p>
+                <p className="font-semibold text-destructive">Query Execution Error</p>
+                <p className="text-destructive/80 mt-0.5">{error}</p>
               </div>
             </div>
             <button
               onClick={() => handleSend()}
-              className="rounded-full border border-rose-500/40 bg-rose-600/20 px-5 py-2 text-xs font-semibold text-rose-200 hover:bg-rose-600/30 active:scale-95 transition-all"
+              className="rounded-full border border-destructive/40 bg-destructive/10 px-5 py-2 text-xs font-semibold text-destructive hover:bg-destructive/20 active:scale-95 transition-all"
             >
               Retry
             </button>
@@ -742,17 +742,17 @@ export function RAGChat() {
               e.preventDefault();
               handleSend();
             }}
-            className="flex items-center gap-3 rounded-full border border-white/10 bg-slate-950/90 backdrop-blur-2xl p-2 pl-4 shadow-2xl"
+            className="flex items-center gap-3 rounded-full border border-border bg-surface-elevated/95 backdrop-blur-2xl p-2 pl-4 shadow-lg"
           >
             <button
               type="button"
               onClick={() => directFileInputRef.current?.click()}
               disabled={uploading || loading}
-              className="h-10 w-10 flex items-center justify-center rounded-full text-slate-400 hover:text-cyan-400 hover:bg-cyan-500/10 active:scale-95 transition-all shrink-0 border border-transparent hover:border-cyan-500/30"
+              className="h-10 w-10 flex items-center justify-center rounded-full text-text-tertiary hover:text-accent hover:bg-accent/10 active:scale-95 transition-all shrink-0 border border-transparent hover:border-accent/30"
               title="Attach & Upload Document (PDF, TXT, DOCX)"
             >
               {uploading ? (
-                <Loader2 className="w-5 h-5 animate-spin text-cyan-400" />
+                <Loader2 className="w-5 h-5 animate-spin text-accent" />
               ) : (
                 <Plus className="w-5 h-5" />
               )}
@@ -765,13 +765,13 @@ export function RAGChat() {
               onKeyDown={handleKeyDown}
               placeholder="Ask Nexus_Bot anything..."
               disabled={loading || uploading}
-              className="flex-1 bg-transparent px-2 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none disabled:opacity-50 font-sans"
+              className="flex-1 bg-transparent px-2 text-xs sm:text-sm text-text-primary placeholder:text-text-inactive focus:outline-none disabled:opacity-50 font-sans"
             />
 
             <button
               type="submit"
               disabled={!question.trim() || loading || uploading}
-              className="h-11 px-6 flex items-center justify-center gap-2 rounded-full bg-cyan-500 text-slate-950 font-bold text-xs sm:text-sm shadow-lg shadow-cyan-500/25 transition-all hover:bg-cyan-400 active:scale-95 disabled:opacity-50 shrink-0"
+              className="h-11 px-6 flex items-center justify-center gap-2 rounded-full bg-accent text-white font-bold text-xs sm:text-sm shadow-md transition-all hover:bg-accent-hover active:scale-95 disabled:opacity-50 shrink-0"
             >
               {loading ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -805,10 +805,10 @@ export function RAGChat() {
 
       {/* 6. FIRST-TIME USER ONBOARDING NAME POPUP MODAL */}
       {showOnboardingModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4 animate-in fade-in duration-300">
-          <div className="w-full max-w-md rounded-3xl border border-cyan-500/40 bg-slate-900 p-7 shadow-2xl space-y-6 text-center relative overflow-hidden">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md p-4 animate-in fade-in duration-300">
+          <div className="w-full max-w-md rounded-3xl border border-border bg-surface p-7 shadow-2xl space-y-6 text-center relative overflow-hidden">
             {/* Glow Halo */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-48 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-48 bg-accent/15 rounded-full blur-3xl pointer-events-none" />
 
             {/* Mascot Avatar */}
             <div className="relative w-24 h-24 mx-auto flex items-center justify-center">
@@ -816,13 +816,13 @@ export function RAGChat() {
             </div>
 
             <div className="space-y-2">
-              <span className="text-xs font-mono uppercase tracking-widest text-cyan-400">
+              <span className="text-xs font-mono uppercase tracking-widest text-accent">
                 Welcome to NexusAI 🧠⚡
               </span>
-              <h3 className="text-2xl font-extrabold text-white tracking-tight font-sans">
+              <h3 className="text-2xl font-extrabold text-text-primary tracking-tight font-sans">
                 What should we call you?
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-text-secondary">
                 Nexus_Bot will use this name to personalize your workspace identity & greetings.
               </p>
             </div>
@@ -841,7 +841,7 @@ export function RAGChat() {
                   onChange={(e) => setInputUserName(e.target.value)}
                   placeholder="Enter your name (e.g. Ganu, Alex)..."
                   autoFocus
-                  className="w-full rounded-full border border-white/20 bg-slate-950 px-5 py-3 text-sm text-white placeholder-slate-500 focus:border-cyan-400 focus:outline-none font-sans text-center shadow-inner"
+                  className="w-full rounded-full border border-border bg-surface-elevated px-5 py-3 text-sm text-text-primary placeholder:text-text-inactive focus:border-accent focus:outline-none font-sans text-center shadow-inner"
                 />
               </div>
 
@@ -850,7 +850,7 @@ export function RAGChat() {
                   <button
                     type="button"
                     onClick={() => setShowOnboardingModal(false)}
-                    className="w-1/3 min-h-[46px] rounded-full border border-white/10 bg-slate-800 text-xs font-bold text-slate-300 hover:bg-slate-700 transition-all"
+                    className="w-1/3 min-h-[46px] rounded-full border border-border bg-surface-muted text-xs font-bold text-text-secondary hover:bg-surface-elevated transition-all"
                   >
                     Cancel
                   </button>
@@ -858,7 +858,7 @@ export function RAGChat() {
                 <button
                   type="submit"
                   disabled={!inputUserName.trim()}
-                  className="flex-1 min-h-[46px] rounded-full bg-cyan-500 font-bold text-sm text-slate-950 hover:bg-cyan-400 active:scale-95 transition-all shadow-lg shadow-cyan-500/25 disabled:opacity-50"
+                  className="flex-1 min-h-[46px] rounded-full bg-accent font-bold text-sm text-white hover:bg-accent-hover active:scale-95 transition-all shadow-md disabled:opacity-50"
                 >
                   Get Started 🚀
                 </button>
@@ -870,42 +870,42 @@ export function RAGChat() {
 
       {/* 7. SOURCE SNIPPET VIEWER MODAL */}
       {activeSourceModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 animate-in fade-in duration-200">
-          <div className="w-full max-w-xl rounded-3xl border border-white/10 bg-slate-900 p-6 shadow-2xl space-y-4">
-            <div className="flex items-start justify-between border-b border-white/10 pb-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md p-4 animate-in fade-in duration-200">
+          <div className="w-full max-w-xl rounded-3xl border border-border bg-surface p-6 shadow-2xl space-y-4">
+            <div className="flex items-start justify-between border-b border-border pb-4">
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-accent/15 text-accent border border-accent/30">
                   <FileText className="h-5 w-5" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-white text-base font-mono">{activeSourceModal.filename}</h4>
-                  <p className="text-xs font-mono text-slate-400">
+                  <h4 className="font-bold text-text-primary text-base font-mono">{activeSourceModal.filename}</h4>
+                  <p className="text-xs font-mono text-text-tertiary">
                     Chunk ID: {activeSourceModal.chunk_id}
                   </p>
                 </div>
               </div>
               <button
                 onClick={() => setActiveSourceModal(null)}
-                className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl p-1.5 text-slate-400 hover:bg-white/10 hover:text-white transition-colors"
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl p-1.5 text-text-tertiary hover:bg-surface-elevated hover:text-text-primary transition-colors"
               >
                 <ChevronDown className="h-5 w-5" />
               </button>
             </div>
 
             <div className="flex flex-wrap gap-2 text-xs">
-              <span className="rounded-full bg-slate-800 border border-white/10 px-3.5 py-1 text-slate-300 font-mono">
+              <span className="rounded-full bg-surface-elevated border border-border px-3.5 py-1 text-text-secondary font-mono">
                 {activeSourceModal.page_number ? `Page ${activeSourceModal.page_number}` : "Full Document"}
               </span>
-              <span className="rounded-full bg-emerald-500/10 border border-emerald-500/20 px-3.5 py-1 font-bold text-emerald-400 font-mono">
+              <span className="rounded-full bg-emerald-500/10 border border-emerald-500/20 px-3.5 py-1 font-bold text-emerald-500 font-mono">
                 {(activeSourceModal.score * 100).toFixed(1)}% Match
               </span>
             </div>
 
             <div className="space-y-1.5">
-              <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">
+              <span className="text-[11px] font-mono text-text-tertiary uppercase tracking-wider">
                 Vector Chunk Text Snippet:
               </span>
-              <div className="max-h-80 overflow-y-auto rounded-2xl border border-white/10 bg-slate-950 p-4 text-xs sm:text-sm font-mono text-slate-300 leading-relaxed whitespace-pre-wrap">
+              <div className="max-h-80 overflow-y-auto rounded-2xl border border-border bg-surface-elevated p-4 text-xs sm:text-sm font-mono text-text-secondary leading-relaxed whitespace-pre-wrap">
                 {activeSourceModal.text_snippet || "Text snippet preserved in vector metadata."}
               </div>
             </div>
@@ -913,7 +913,7 @@ export function RAGChat() {
             <div className="flex justify-end pt-2">
               <button
                 onClick={() => setActiveSourceModal(null)}
-                className="min-h-[44px] rounded-full bg-cyan-500 px-6 py-2 text-xs font-bold text-slate-950 hover:bg-cyan-400 transition-colors shadow-md"
+                className="min-h-[44px] rounded-full bg-accent px-6 py-2 text-xs font-bold text-white hover:bg-accent-hover transition-colors shadow-md"
               >
                 Close Snippet Viewer
               </button>

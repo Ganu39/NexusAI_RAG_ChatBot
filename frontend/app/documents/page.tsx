@@ -48,14 +48,14 @@ export default function DocumentsPage() {
         <div className="flex flex-wrap items-center gap-2.5">
           <button
             onClick={scrollToUpload}
-            className="flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2 text-xs font-semibold text-white shadow-md shadow-indigo-600/20 hover:bg-indigo-500 transition-all"
+            className="flex items-center gap-2 rounded-xl bg-accent px-4 py-2 text-xs font-semibold text-white shadow-md hover:bg-accent-hover transition-all"
           >
             <Plus className="h-4 w-4" />
             <span>+ Upload Document</span>
           </button>
           <Link
             href="/chat"
-            className="flex items-center gap-2 rounded-xl border border-indigo-500/30 bg-[#0E131F] px-4 py-2 text-xs font-semibold text-indigo-300 hover:bg-[#141B2D] hover:text-white transition-all"
+            className="flex items-center gap-2 rounded-xl border border-border bg-surface px-4 py-2 text-xs font-semibold text-text-primary hover:bg-surface-elevated transition-all"
           >
             <MessageSquare className="h-4 w-4" />
             <span>Open RAG Chat</span>
@@ -63,9 +63,9 @@ export default function DocumentsPage() {
           <button
             onClick={fetchDocuments}
             disabled={loading}
-            className="flex items-center gap-2 rounded-xl border border-[#1E293B] bg-[#0E131F] px-3.5 py-2 text-xs font-medium text-zinc-300 hover:bg-[#141B2D] hover:text-white transition-all disabled:opacity-50"
+            className="flex items-center gap-2 rounded-xl border border-border bg-surface px-3.5 py-2 text-xs font-medium text-text-secondary hover:bg-surface-elevated hover:text-text-primary transition-all disabled:opacity-50"
           >
-            <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin text-indigo-400" : ""}`} />
+            <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin text-accent" : ""}`} />
             <span className="hidden sm:inline">Refresh</span>
           </button>
         </div>
@@ -76,16 +76,16 @@ export default function DocumentsPage() {
         <section ref={uploadSectionRef} className="space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Plus className="h-4 w-4 text-indigo-400" />
-              <h2 className="text-sm font-bold uppercase tracking-wider text-zinc-300">
+              <Plus className="h-4 w-4 text-accent" />
+              <h2 className="text-sm font-bold uppercase tracking-wider text-text-primary">
                 Document Ingestion
               </h2>
             </div>
-            <span className="text-[11px] text-zinc-500 font-mono">
+            <span className="text-[11px] text-text-tertiary font-mono">
               PDF • TXT • DOCX (Max 10MB)
             </span>
           </div>
-          <div className="rounded-2xl border border-[#1E293B] bg-[#0E131F] p-6 shadow-sm">
+          <div className="rounded-2xl border border-border bg-surface p-6 shadow-sm">
             <DocumentUploader onUploadSuccess={() => fetchDocuments()} />
           </div>
         </section>
@@ -94,14 +94,14 @@ export default function DocumentsPage() {
         <section className="space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Library className="h-4 w-4 text-indigo-400" />
-              <h2 className="text-sm font-bold uppercase tracking-wider text-zinc-300">
+              <Library className="h-4 w-4 text-accent" />
+              <h2 className="text-sm font-bold uppercase tracking-wider text-text-primary">
                 Indexed Documents
               </h2>
-              <span className="rounded-full bg-[#141B2D] border border-[#1E293B] px-2.5 py-0.5 text-xs font-semibold text-indigo-400 font-mono">
-                {documents.length}
-              </span>
             </div>
+            <span className="rounded-full bg-surface-muted border border-border px-2.5 py-0.5 text-xs font-semibold text-accent font-mono">
+              {documents.length}
+            </span>
           </div>
 
           <DocumentList

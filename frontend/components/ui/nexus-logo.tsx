@@ -127,7 +127,7 @@ export function NexusLogo({
           {subtitle && (
             <span
               className={cn(
-                "uppercase tracking-wider text-accent font-mono font-medium leading-none mt-0.5",
+                "uppercase tracking-wider text-indigo-400 font-mono font-medium leading-none mt-0.5",
                 config.subtitle
               )}
             >

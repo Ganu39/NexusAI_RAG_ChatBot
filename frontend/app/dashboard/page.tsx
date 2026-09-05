@@ -81,7 +81,7 @@ export default function DashboardPage() {
           </Link>
           <Link
             href="/chat"
-            className="flex items-center gap-2 rounded-xl border border-indigo-500/30 bg-[#0E131F] px-4 py-2 text-xs font-semibold text-indigo-300 hover:bg-[#141B2D] hover:text-white transition-all"
+            className="flex items-center gap-2 rounded-xl border border-border bg-surface px-4 py-2 text-xs font-semibold text-text-primary hover:bg-surface-elevated transition-all"
           >
             <MessageSquare className="h-4 w-4" />
             <span>Open RAG Chat</span>
@@ -91,7 +91,7 @@ export default function DashboardPage() {
     >
       <div className="space-y-6">
         {/* COMPACT SYSTEM STATUS PANEL */}
-        <div className="rounded-2xl border border-[#1E293B] bg-[#0E131F] p-4 sm:p-5 shadow-sm">
+        <div className="rounded-2xl border border-border bg-surface p-4 sm:p-5 shadow-sm">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
@@ -99,13 +99,13 @@ export default function DashboardPage() {
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-bold text-white">NexusAI Engine</span>
+                  <span className="text-sm font-bold text-text-primary">NexusAI Engine</span>
                   <span className="flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-400 border border-emerald-500/20">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
                     Operational
                   </span>
                 </div>
-                <p className="text-[11px] text-zinc-500 font-mono">
+                <p className="text-[11px] text-text-tertiary font-mono">
                   FAISS Normalized Vector Index • Gemini 2.5 Flash Grounding
                 </p>
               </div>
@@ -113,17 +113,17 @@ export default function DashboardPage() {
 
             {/* Real Pipeline State Indicators */}
             <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs font-mono">
-              <div className="flex items-center gap-1.5 rounded-xl border border-[#1E293B] bg-[#141B2D] px-3 py-1.5 text-zinc-300">
-                <FileText className="h-3.5 w-3.5 text-indigo-400" />
+              <div className="flex items-center gap-1.5 rounded-xl border border-border bg-surface-muted px-3 py-1.5 text-text-secondary">
+                <FileText className="h-3.5 w-3.5 text-accent" />
                 <span>Document Ingestion:</span>
                 <span className="text-emerald-400 font-semibold">Active</span>
               </div>
-              <div className="flex items-center gap-1.5 rounded-xl border border-[#1E293B] bg-[#141B2D] px-3 py-1.5 text-zinc-300">
+              <div className="flex items-center gap-1.5 rounded-xl border border-border bg-surface-muted px-3 py-1.5 text-text-secondary">
                 <Cpu className="h-3.5 w-3.5 text-purple-400" />
                 <span>Vector Indexing:</span>
                 <span className="text-emerald-400 font-semibold">Active</span>
               </div>
-              <div className="flex items-center gap-1.5 rounded-xl border border-[#1E293B] bg-[#141B2D] px-3 py-1.5 text-zinc-300">
+              <div className="flex items-center gap-1.5 rounded-xl border border-border bg-surface-muted px-3 py-1.5 text-text-secondary">
                 <Search className="h-3.5 w-3.5 text-blue-400" />
                 <span>RAG Retrieval:</span>
                 <span className="text-emerald-400 font-semibold">Ready</span>
@@ -170,35 +170,35 @@ export default function DashboardPage() {
           <div className="lg:col-span-7 space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <FileText className="h-4 w-4 text-indigo-400" />
-                <h3 className="text-sm font-bold uppercase tracking-wider text-zinc-200">
+                <FileText className="h-4 w-4 text-accent" />
+                <h3 className="text-sm font-bold uppercase tracking-wider text-text-primary">
                   Knowledge Base
                 </h3>
               </div>
               <Link
                 href="/documents"
-                className="flex items-center gap-1 text-xs font-semibold text-indigo-400 hover:text-indigo-300 transition-colors"
+                className="flex items-center gap-1 text-xs font-semibold text-accent hover:underline transition-colors"
               >
                 <span>View Knowledge Library</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
 
-            <div className="rounded-2xl border border-[#1E293B] bg-[#0E131F] p-4 shadow-sm min-h-[300px] flex flex-col justify-between">
+            <div className="rounded-2xl border border-border bg-surface p-4 shadow-sm min-h-[300px] flex flex-col justify-between">
               {loading ? (
                 <div className="space-y-3 p-2">
                   {[1, 2, 3, 4].map((i) => (
                     <div
                       key={i}
-                      className="h-12 w-full animate-pulse rounded-xl bg-[#141B2D]"
+                      className="h-12 w-full animate-pulse rounded-xl bg-surface-muted"
                     />
                   ))}
                 </div>
               ) : error ? (
                 <div className="p-6 text-xs text-rose-400 text-center">{error}</div>
               ) : recentDocs.length === 0 ? (
-                <div className="py-12 text-center text-xs text-zinc-500 space-y-3">
-                  <FileText className="h-8 w-8 mx-auto text-zinc-600" />
+                <div className="py-12 text-center text-xs text-text-muted space-y-3">
+                  <FileText className="h-8 w-8 mx-auto text-text-muted" />
                   <p>No documents uploaded yet.</p>
                   <Link
                     href="/documents"
@@ -209,21 +209,21 @@ export default function DashboardPage() {
                   </Link>
                 </div>
               ) : (
-                <div className="divide-y divide-[#1E293B]">
+                <div className="divide-y divide-border">
                   {recentDocs.map((doc) => (
                     <div
                       key={doc.document_id}
-                      className="flex items-center justify-between py-3 px-2 first:pt-0 last:pb-0 hover:bg-[#141B2D]/40 rounded-xl transition-colors"
+                      className="flex items-center justify-between py-3 px-2 first:pt-0 last:pb-0 hover:bg-surface-elevated/60 rounded-xl transition-colors"
                     >
                       <div className="flex items-center gap-3 min-w-0">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#141B2D] text-indigo-400 border border-[#1E293B] shrink-0">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-surface-muted text-accent border border-border shrink-0">
                           <FileText className="h-4 w-4" />
                         </div>
                         <div className="flex flex-col min-w-0">
-                          <span className="text-xs font-semibold text-white truncate max-w-[200px] sm:max-w-[280px]">
+                          <span className="text-xs font-semibold text-text-primary truncate max-w-[200px] sm:max-w-[280px]">
                             {doc.filename}
                           </span>
-                          <span className="text-[10px] text-zinc-500 font-mono">
+                          <span className="text-[10px] text-text-tertiary font-mono">
                             {formatBytes(doc.file_size)} • {doc.page_count} {doc.page_count === 1 ? "page" : "pages"} • {doc.file_type.toUpperCase()}
                           </span>
                         </div>
@@ -234,7 +234,7 @@ export default function DashboardPage() {
                         </span>
                         <Link
                           href={`/documents/${doc.document_id}`}
-                          className="rounded-xl p-1.5 text-zinc-400 hover:bg-[#141B2D] hover:text-white transition-colors"
+                          className="rounded-xl p-1.5 text-text-secondary hover:bg-surface-elevated hover:text-text-primary transition-colors"
                           title="Inspect Document"
                         >
                           <ExternalLink className="h-4 w-4" />
@@ -245,9 +245,9 @@ export default function DashboardPage() {
                 </div>
               )}
 
-              <div className="pt-3 border-t border-[#1E293B] flex items-center justify-between text-[11px] font-mono text-zinc-500">
+              <div className="pt-3 border-t border-border flex items-center justify-between text-[11px] font-mono text-text-tertiary">
                 <span>Displaying latest {recentDocs.length} of {totalDocs} indexed files</span>
-                <Link href="/documents" className="text-indigo-400 hover:underline">Manage All →</Link>
+                <Link href="/documents" className="text-accent hover:underline">Manage All →</Link>
               </div>
             </div>
           </div>
@@ -257,7 +257,7 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Bot className="h-4 w-4 text-purple-400" />
-                <h3 className="text-sm font-bold uppercase tracking-wider text-zinc-200">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-text-primary">
                   RAG Assistant
                 </h3>
               </div>
@@ -267,31 +267,31 @@ export default function DashboardPage() {
               </span>
             </div>
 
-            <div className="rounded-2xl border border-[#1E293B] bg-[#0E131F] p-5 shadow-sm space-y-4 min-h-[300px] flex flex-col justify-between">
+            <div className="rounded-2xl border border-border bg-surface p-5 shadow-sm space-y-4 min-h-[300px] flex flex-col justify-between">
               <div className="space-y-3">
-                <div className="flex items-center gap-2.5 rounded-xl border border-indigo-500/20 bg-indigo-600/10 p-3 text-xs text-indigo-300">
-                  <Sparkles className="h-4 w-4 text-indigo-400 shrink-0" />
+                <div className="flex items-center gap-2.5 rounded-xl border border-accent/20 bg-accent-soft p-3 text-xs text-accent">
+                  <Sparkles className="h-4 w-4 text-accent shrink-0" />
                   <span>
                     Ask natural questions grounded strictly in your indexed documents.
                   </span>
                 </div>
 
-                <div className="rounded-xl border border-[#1E293B] bg-[#141B2D]/70 p-3.5 space-y-2 text-xs">
-                  <div className="flex items-center justify-between font-semibold text-zinc-300 text-[11px]">
+                <div className="rounded-xl border border-border bg-surface-muted p-3.5 space-y-2 text-xs">
+                  <div className="flex items-center justify-between font-semibold text-text-primary text-[11px]">
                     <span>Sample Grounded Query:</span>
                     <span className="text-[10px] font-mono text-emerald-400">96.4% Match</span>
                   </div>
-                  <p className="text-zinc-400 italic">
+                  <p className="text-text-secondary italic">
                     &quot;What does the documentation state about vector retrieval?&quot;
                   </p>
-                  <div className="text-[10px] font-mono text-zinc-500 border-t border-[#1E293B] pt-2 flex items-center gap-1">
+                  <div className="text-[10px] font-mono text-text-tertiary border-t border-border pt-2 flex items-center gap-1">
                     <CheckCircle2 className="h-3 w-3 text-emerald-400" />
                     <span>Cites exact page boundaries & chunk IDs</span>
                   </div>
                 </div>
               </div>
 
-              <div className="space-y-2 pt-2 border-t border-[#1E293B]">
+              <div className="space-y-2 pt-2 border-t border-border">
                 <Button
                   asChild
                   className="w-full h-11 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs shadow-md shadow-indigo-600/20 transition-all"
@@ -301,7 +301,7 @@ export default function DashboardPage() {
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
-                <p className="text-[10px] text-center text-zinc-500 font-mono">
+                <p className="text-[10px] text-center text-text-tertiary font-mono">
                   Synthesizes answers with Google Gemini 2.5 Flash
                 </p>
               </div>

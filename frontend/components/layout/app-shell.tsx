@@ -19,22 +19,22 @@ export function AppShell({
   fullBleed = false,
 }: AppShellProps) {
   return (
-    <div className="flex min-h-screen bg-[#080B11] text-slate-100 font-sans">
+    <div className="flex min-h-screen bg-background text-text-primary font-sans transition-colors duration-200">
       {/* Sidebar Navigation */}
       <Sidebar />
 
       {/* Main Content Area */}
-      <div className="flex flex-1 flex-col overflow-hidden bg-[#080B11]">
+      <div className="flex flex-1 flex-col overflow-hidden bg-background">
         {/* Header (Hidden in Full-Bleed mode to eliminate double-headers) */}
         {!fullBleed && (
-          <header className="border-b border-white/10 bg-[#080B11]/90 px-6 py-5 backdrop-blur-md sticky top-0 z-30 shadow-sm">
+          <header className="border-b border-border bg-background/90 px-6 py-5 backdrop-blur-md sticky top-0 z-30 shadow-sm">
             <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
               <div>
-                <h1 className="text-xl font-bold tracking-tight text-white md:text-2xl font-mono">
+                <h1 className="text-xl font-bold tracking-tight text-text-primary md:text-2xl font-mono">
                   {title}
                 </h1>
                 {description && (
-                  <p className="mt-1 text-xs text-slate-400">{description}</p>
+                  <p className="mt-1 text-xs text-text-secondary">{description}</p>
                 )}
               </div>
               {action && <div className="mt-2 md:mt-0">{action}</div>}
@@ -44,7 +44,7 @@ export function AppShell({
 
         {/* Content Body */}
         <main
-          className={`flex-1 overflow-y-auto bg-[#080B11] ${
+          className={`flex-1 overflow-y-auto bg-background ${
             fullBleed ? "p-0 h-full" : "p-5 md:p-8"
           }`}
         >
