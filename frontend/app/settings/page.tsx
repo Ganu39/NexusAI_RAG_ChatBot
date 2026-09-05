@@ -165,13 +165,13 @@ export default function SettingsPage() {
                     value={customInput}
                     onChange={(e) => setCustomInput(e.target.value)}
                     placeholder="Enter custom User ID (e.g. my_workspace_1)..."
-                    className="flex-1 rounded-2xl border border-accent/50 bg-surface-elevated px-4 py-3 font-mono text-xs text-accent font-semibold focus:outline-none focus:ring-2 focus:ring-accent"
+                    className="flex-1 rounded-2xl border border-accent/50 bg-surface-elevated px-4 py-3 font-mono text-xs text-accent font-semibold focus:outline-none focus:ring-2 focus:ring-accent/25 focus:border-accent transition-all duration-200"
                     autoFocus
                   />
                   <div className="flex items-center gap-2">
                     <button
                       onClick={handleSaveCustomUserId}
-                      className="flex flex-1 sm:flex-initial items-center justify-center gap-2 rounded-2xl bg-accent px-4 py-3 text-xs font-semibold text-white hover:bg-accent-hover transition-all shadow-sm"
+                      className="flex flex-1 sm:flex-initial items-center justify-center gap-2 rounded-2xl bg-accent px-4 py-3 text-xs font-semibold text-white hover:bg-accent-hover transition-all shadow-sm active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent btn-hover-shadow"
                     >
                       <Save className="h-4 w-4" />
                       <span>Save & Switch</span>
@@ -181,7 +181,7 @@ export default function SettingsPage() {
                         setIsEditingUserId(false);
                         setIdError(null);
                       }}
-                      className="flex items-center justify-center rounded-2xl border border-border bg-surface-muted p-3 text-text-tertiary hover:text-text-primary hover:bg-surface-elevated transition-colors"
+                      className="flex items-center justify-center rounded-2xl border border-border bg-surface-muted p-3 text-text-tertiary hover:text-text-primary hover:bg-surface-elevated transition-colors active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent btn-hover-shadow"
                       title="Cancel"
                     >
                       <X className="h-4 w-4" />
@@ -203,7 +203,7 @@ export default function SettingsPage() {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={handleCopyUserId}
-                    className="flex flex-1 sm:flex-initial items-center justify-center gap-2 rounded-2xl border border-border bg-surface-elevated px-4 py-3 text-xs font-semibold text-text-secondary hover:bg-surface-muted hover:text-text-primary transition-all shadow-sm"
+                    className="flex flex-1 sm:flex-initial items-center justify-center gap-2 rounded-2xl border border-border bg-surface-elevated px-4 py-3 text-xs font-semibold text-text-secondary hover:bg-surface-muted hover:text-text-primary transition-all shadow-sm active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent btn-hover-shadow"
                   >
                     {copied ? (
                       <>
@@ -220,7 +220,7 @@ export default function SettingsPage() {
 
                   <button
                     onClick={handleResetUserId}
-                    className="flex flex-1 sm:flex-initial items-center justify-center gap-2 rounded-2xl border border-destructive/20 bg-destructive-subtle px-4 py-3 text-xs font-semibold text-destructive hover:bg-destructive/20 transition-all shadow-sm"
+                    className="flex flex-1 sm:flex-initial items-center justify-center gap-2 rounded-2xl border border-destructive/20 bg-destructive-subtle px-4 py-3 text-xs font-semibold text-destructive hover:bg-destructive/20 transition-all shadow-sm active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive btn-hover-shadow"
                     title="Generate a new random isolated workspace ID"
                   >
                     <RefreshCw className="h-4 w-4 text-destructive" />
@@ -255,7 +255,7 @@ export default function SettingsPage() {
             <button
               onClick={fetchMetrics}
               disabled={loadingMetrics}
-              className="rounded-xl border border-border bg-surface-elevated p-2 text-text-secondary hover:text-text-primary hover:bg-surface-muted disabled:opacity-50 transition-colors"
+              className="rounded-xl border border-border bg-surface-elevated p-2 text-text-secondary hover:text-text-primary hover:bg-surface-muted disabled:opacity-50 transition-all active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent btn-hover-shadow"
               title="Refresh Telemetry"
             >
               <RefreshCw className={`h-4 w-4 ${loadingMetrics ? "animate-spin text-accent" : ""}`} />
@@ -372,7 +372,7 @@ export default function SettingsPage() {
 
             <button
               onClick={handleClearChatHistory}
-              className="flex items-center gap-2 rounded-2xl border border-destructive/30 bg-destructive-subtle px-4 py-2.5 text-xs font-semibold text-destructive hover:bg-destructive/20 transition-all shrink-0"
+              className="flex items-center gap-2 rounded-2xl border border-destructive/30 bg-destructive-subtle px-4 py-2.5 text-xs font-semibold text-destructive hover:bg-destructive/20 transition-all active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive shrink-0 btn-hover-shadow"
             >
               <Trash2 className="h-4 w-4 text-destructive" />
               <span>{cacheCleared ? "Chat History Cleared!" : "Clear Chat History"}</span>

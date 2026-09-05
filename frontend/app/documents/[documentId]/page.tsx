@@ -147,14 +147,14 @@ export default function DocumentDetailPage({ params }: PageParams) {
         <div className="flex flex-wrap items-center gap-2">
           <Link
             href="/documents"
-            className="flex items-center gap-2 rounded-xl border border-border bg-surface px-3.5 py-2 text-xs font-medium text-text-secondary hover:bg-surface-elevated hover:text-text-primary transition-all"
+            className="flex items-center gap-2 rounded-xl border border-border bg-surface px-3.5 py-2 text-xs font-medium text-text-secondary hover:bg-surface-elevated hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent active:scale-[0.98] btn-hover-shadow transition-all"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>Back to Repository</span>
           </Link>
           <Link
             href="/chat"
-            className="flex items-center gap-2 rounded-xl bg-accent px-3.5 py-2 text-xs font-semibold text-white shadow-md hover:bg-accent-hover transition-all"
+            className="flex items-center gap-2 rounded-xl bg-accent px-3.5 py-2 text-xs font-semibold text-white shadow-md hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent active:scale-[0.98] btn-hover-shadow transition-all"
           >
             <MessageSquare className="h-4 w-4" />
             <span>Ask in RAG Chat</span>
@@ -164,7 +164,7 @@ export default function DocumentDetailPage({ params }: PageParams) {
               <button
                 onClick={handleIndex}
                 disabled={indexing || deleting}
-                className="flex items-center gap-2 rounded-xl border border-accent/20 bg-accent/10 px-3.5 py-2 text-xs font-semibold text-accent hover:bg-accent hover:text-white disabled:opacity-50 transition-all"
+                className="flex items-center gap-2 rounded-xl border border-accent/20 bg-accent/10 px-3.5 py-2 text-xs font-semibold text-accent hover:bg-accent hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent active:scale-95 disabled:active:scale-100 disabled:opacity-50 btn-hover-shadow transition-all"
               >
                 {indexing ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
@@ -176,7 +176,7 @@ export default function DocumentDetailPage({ params }: PageParams) {
               <button
                 onClick={handleDelete}
                 disabled={deleting || indexing}
-                className="flex items-center gap-2 rounded-xl border border-rose-500/20 bg-rose-500/10 px-3.5 py-2 text-xs font-semibold text-rose-500 hover:bg-rose-500/20 disabled:opacity-50 transition-all"
+                className="flex items-center gap-2 rounded-xl border border-rose-500/20 bg-rose-500/10 px-3.5 py-2 text-xs font-semibold text-rose-500 hover:bg-rose-500/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 active:scale-95 disabled:active:scale-100 disabled:opacity-50 btn-hover-shadow transition-all"
               >
                 {deleting ? (
                   <Loader2 className="h-4 w-4 animate-spin" />

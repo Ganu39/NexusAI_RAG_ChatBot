@@ -48,7 +48,30 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setMounted(true);
   }, []);
 
+  const transitionTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
+
+  const applyThemeTransition = useCallback(() => {
+    if (typeof document === "undefined") return;
+    document.documentElement.classList.add("theme-transitioning");
+    if (transitionTimeoutRef.current) {
+      clearTimeout(transitionTimeoutRef.current);
+    }
+    transitionTimeoutRef.current = setTimeout(() => {
+      document.documentElement.classList.remove("theme-transitioning");
+      transitionTimeoutRef.current = null;
+    }, 1000);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (transitionTimeoutRef.current) {
+        clearTimeout(transitionTimeoutRef.current);
+      }
+    };
+  }, []);
+
   const setTheme = useCallback((newTheme: Theme) => {
+    applyThemeTransition();
     setThemeState(newTheme);
     try {
       localStorage.setItem(THEME_STORAGE_KEY, newTheme);
@@ -61,9 +84,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     } else {
       document.documentElement.classList.remove("dark");
     }
-  }, []);
+  }, [applyThemeTransition]);
 
   const toggleTheme = useCallback(() => {
+    applyThemeTransition();
     setThemeState((prev) => {
       const nextTheme: Theme = prev === "black" ? "light" : "black";
       try {
@@ -79,7 +103,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       }
       return nextTheme;
     });
-  }, []);
+  }, [applyThemeTransition]);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>

@@ -63,7 +63,7 @@ export function Sidebar() {
           <ThemeToggle />
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="rounded-lg p-2 text-text-secondary hover:bg-surface hover:text-text-primary"
+            className="rounded-lg p-2 text-text-secondary hover:bg-surface hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent active:scale-95 transition-all duration-150"
             aria-label="Toggle Navigation Menu"
           >
             {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -92,7 +92,7 @@ export function Sidebar() {
           </Link>
           <button
             onClick={() => setMobileOpen(false)}
-            className="rounded-lg p-1 text-text-secondary hover:text-text-primary md:hidden"
+            className="rounded-lg p-1 text-text-secondary hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent active:scale-95 transition-all duration-150 md:hidden"
           >
             <X className="h-5 w-5" />
           </button>
@@ -129,7 +129,7 @@ export function Sidebar() {
                   key={item.name}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className={`flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-medium transition-colors ${
+                  className={`flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent active:scale-[0.98] transition-all duration-150 ${
                     isActive
                       ? "bg-accent/10 text-accent border border-accent/20 font-semibold"
                       : "text-text-secondary hover:bg-surface hover:text-text-primary"

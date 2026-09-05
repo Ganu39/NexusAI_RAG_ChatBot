@@ -204,7 +204,7 @@ export function DocumentList({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search documents by name..."
-            className="w-full rounded-xl border border-border bg-surface-muted px-3.5 py-2 text-xs text-text-primary placeholder:text-text-muted focus:border-accent focus:outline-none transition-colors"
+            className="w-full rounded-xl border border-border bg-surface-muted px-3.5 py-2 text-xs text-text-primary placeholder:text-text-muted focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none transition-all duration-200"
           />
         </div>
 
@@ -214,10 +214,10 @@ export function DocumentList({
             <button
               key={type}
               onClick={() => setTypeFilter(type)}
-              className={`rounded-xl px-3 py-1.5 text-xs font-semibold transition-all ${
+              className={`rounded-xl px-3 py-1.5 text-xs font-semibold transition-all active:scale-[0.98] ${
                 typeFilter === type
                   ? "bg-accent text-white shadow-sm"
-                  : "border border-border bg-surface-muted text-text-secondary hover:text-text-primary hover:bg-surface-elevated"
+                  : "border border-border bg-surface-muted text-text-secondary hover:text-text-primary hover:bg-surface-elevated hover:border-accent/40"
               }`}
             >
               {type}
@@ -231,7 +231,7 @@ export function DocumentList({
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as "date" | "name" | "size" | "status")}
-            className="rounded-xl border border-border bg-surface-muted px-2.5 py-1.5 text-xs text-text-primary focus:border-accent focus:outline-none transition-colors"
+            className="rounded-xl border border-border bg-surface-muted px-2.5 py-1.5 text-xs text-text-primary focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none transition-all duration-200"
           >
             <option value="date">Newest</option>
             <option value="name">Name</option>
@@ -280,7 +280,7 @@ export function DocumentList({
                 return (
                   <tr
                     key={doc.document_id}
-                    className="transition-colors hover:bg-surface-muted/40"
+                    className="transition-colors duration-150 hover:bg-surface-muted/80"
                   >
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-3">
@@ -337,7 +337,7 @@ export function DocumentList({
                         <button
                           onClick={() => handleIndex(doc.document_id)}
                           disabled={isIndexing || isDeleting}
-                          className={`flex items-center gap-1 rounded-xl border px-2.5 py-1 text-xs font-semibold transition-all ${
+                          className={`flex items-center gap-1 rounded-xl border px-2.5 py-1 text-xs font-semibold transition-all active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
                             isIndexed
                               ? "border-purple-500/20 bg-purple-500/10 text-purple-600 dark:text-purple-300 hover:bg-purple-500/20"
                               : "border-accent/20 bg-accent/10 text-accent hover:bg-accent hover:text-white"
@@ -354,7 +354,7 @@ export function DocumentList({
 
                         <Link
                           href={`/documents/${doc.document_id}`}
-                          className="rounded-xl p-1.5 text-text-tertiary hover:bg-surface-muted hover:text-text-primary transition-colors"
+                          className="rounded-xl p-1.5 text-text-tertiary hover:bg-surface-muted hover:text-text-primary transition-all active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                           title="View Details"
                         >
                           <ExternalLink className="h-4 w-4" />
@@ -363,7 +363,7 @@ export function DocumentList({
                         <button
                           onClick={() => handleDelete(doc.document_id, doc.filename)}
                           disabled={isDeleting || isIndexing}
-                          className="rounded-xl p-1.5 text-text-tertiary hover:bg-rose-500/10 hover:text-rose-500 disabled:opacity-50 transition-colors"
+                          className="rounded-xl p-1.5 text-text-tertiary hover:bg-rose-500/10 hover:text-rose-500 disabled:opacity-50 transition-all active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
                           title="Delete Document"
                         >
                           {isDeleting ? (

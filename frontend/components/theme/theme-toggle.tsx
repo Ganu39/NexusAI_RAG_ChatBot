@@ -26,7 +26,7 @@ export function ThemeToggle({ className, showLabel = false }: ThemeToggleProps) 
       type="button"
       onClick={toggleTheme}
       className={cn(
-        "relative inline-flex items-center justify-center rounded-lg p-2 transition-colors",
+        "relative inline-flex items-center justify-center rounded-lg p-2 btn-hover-shadow active:scale-95",
         "border border-border bg-surface text-text-secondary hover:text-text-primary hover:bg-surface-elevated hover:border-accent/40",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 focus-visible:ring-offset-background",
         className

@@ -742,7 +742,7 @@ export function RAGChat() {
               e.preventDefault();
               handleSend();
             }}
-            className="flex items-center gap-3 rounded-full border border-border bg-surface-elevated/95 backdrop-blur-2xl p-2 pl-4 shadow-lg"
+            className="flex items-center gap-3 rounded-full border border-border bg-surface-elevated/95 backdrop-blur-2xl p-2 pl-4 shadow-lg focus-within:border-accent focus-within:ring-2 focus-within:ring-accent/20 transition-all duration-200"
           >
             <button
               type="button"
@@ -841,7 +841,7 @@ export function RAGChat() {
                   onChange={(e) => setInputUserName(e.target.value)}
                   placeholder="Enter your name (e.g. Ganu, Alex)..."
                   autoFocus
-                  className="w-full rounded-full border border-border bg-surface-elevated px-5 py-3 text-sm text-text-primary placeholder:text-text-inactive focus:border-accent focus:outline-none font-sans text-center shadow-inner"
+                  className="w-full rounded-full border border-border bg-surface-elevated px-5 py-3 text-sm text-text-primary placeholder:text-text-inactive focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none font-sans text-center shadow-inner transition-all duration-200"
                 />
               </div>
 

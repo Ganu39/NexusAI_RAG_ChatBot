@@ -74,14 +74,14 @@ export default function DashboardPage() {
         <div className="flex flex-wrap items-center gap-2.5">
           <Link
             href="/documents"
-            className="flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2 text-xs font-semibold text-white shadow-md shadow-indigo-600/20 hover:bg-indigo-500 transition-all"
+            className="flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2 text-xs font-semibold text-white shadow-md shadow-indigo-600/20 hover:bg-indigo-500 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent btn-hover-shadow transition-all"
           >
             <Upload className="h-4 w-4" />
             <span>Upload Document</span>
           </Link>
           <Link
             href="/chat"
-            className="flex items-center gap-2 rounded-xl border border-border bg-surface px-4 py-2 text-xs font-semibold text-text-primary hover:bg-surface-elevated transition-all"
+            className="flex items-center gap-2 rounded-xl border border-border bg-surface px-4 py-2 text-xs font-semibold text-text-primary hover:bg-surface-elevated active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent btn-hover-shadow transition-all"
           >
             <MessageSquare className="h-4 w-4" />
             <span>Open RAG Chat</span>
@@ -202,7 +202,7 @@ export default function DashboardPage() {
                   <p>No documents uploaded yet.</p>
                   <Link
                     href="/documents"
-                    className="inline-flex items-center gap-1.5 rounded-xl bg-indigo-600 px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-indigo-500"
+                    className="inline-flex items-center gap-1.5 rounded-xl bg-indigo-600 px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-indigo-500 btn-hover-shadow active:scale-[0.98] transition-all"
                   >
                     <Upload className="h-3.5 w-3.5" />
                     <span>Upload First Document</span>
@@ -213,7 +213,7 @@ export default function DashboardPage() {
                   {recentDocs.map((doc) => (
                     <div
                       key={doc.document_id}
-                      className="flex items-center justify-between py-3 px-2 first:pt-0 last:pb-0 hover:bg-surface-elevated/60 rounded-xl transition-colors"
+                      className="flex items-center justify-between py-3 px-2 first:pt-0 last:pb-0 hover:bg-surface-muted/80 rounded-xl transition-colors duration-150"
                     >
                       <div className="flex items-center gap-3 min-w-0">
                         <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-surface-muted text-accent border border-border shrink-0">
@@ -234,7 +234,7 @@ export default function DashboardPage() {
                         </span>
                         <Link
                           href={`/documents/${doc.document_id}`}
-                          className="rounded-xl p-1.5 text-text-secondary hover:bg-surface-elevated hover:text-text-primary transition-colors"
+                          className="rounded-xl p-1.5 text-text-secondary hover:bg-surface hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent active:scale-95 transition-all"
                           title="Inspect Document"
                         >
                           <ExternalLink className="h-4 w-4" />

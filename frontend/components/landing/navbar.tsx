@@ -25,24 +25,24 @@ export function Navbar() {
           <NexusLogo size="md" showText />
         </Link>
 
-        <nav className="hidden md:flex items-center gap-6">
+        <nav className="hidden md:flex items-center gap-4">
           <Link
             href="/dashboard"
-            className="flex items-center gap-1.5 text-sm font-medium text-text-secondary hover:text-text-primary transition-colors"
+            className="flex items-center gap-1.5 text-sm font-medium text-text-secondary hover:text-text-primary px-2 py-1 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent active:scale-[0.98] transition-all"
           >
             <LayoutDashboard className="w-4 h-4 text-indigo-400" />
             <span>Dashboard</span>
           </Link>
           <Link
             href="/documents"
-            className="flex items-center gap-1.5 text-sm font-medium text-text-secondary hover:text-text-primary transition-colors"
+            className="flex items-center gap-1.5 text-sm font-medium text-text-secondary hover:text-text-primary px-2 py-1 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent active:scale-[0.98] transition-all"
           >
             <FileText className="w-4 h-4 text-emerald-400" />
             <span>Documents</span>
           </Link>
           <Link
             href="/chat"
-            className="flex items-center gap-1.5 text-sm font-medium text-text-secondary hover:text-text-primary transition-colors"
+            className="flex items-center gap-1.5 text-sm font-medium text-text-secondary hover:text-text-primary px-2 py-1 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent active:scale-[0.98] transition-all"
           >
             <MessageSquare className="w-4 h-4 text-purple-400" />
             <span>RAG Chat</span>
@@ -51,20 +51,20 @@ export function Navbar() {
 
         <div className="hidden md:flex items-center gap-3">
           <ThemeToggle />
-          <Button asChild variant="ghost" size="icon" className="text-text-secondary hover:text-text-primary hover:bg-surface">
+          <Button asChild variant="ghost" size="icon" className="text-text-secondary hover:text-text-primary hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
             <Link href="https://github.com/Ganu39/NexusAI" target="_blank" rel="noreferrer">
               <GitBranch className="w-5 h-5" />
               <span className="sr-only">GitHub</span>
             </Link>
           </Button>
 
-          <Button asChild className="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold shadow-md shadow-indigo-600/20">
+          <Button asChild className="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold shadow-md shadow-indigo-600/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
             <Link href="/dashboard">Open Workspace</Link>
           </Button>
         </div>
 
         <button
-          className="md:hidden p-2 text-text-secondary hover:text-text-primary"
+          className="md:hidden p-2 text-text-secondary hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-lg active:scale-95 transition-all duration-150"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle Menu"
         >
@@ -77,7 +77,7 @@ export function Navbar() {
         <div className="md:hidden absolute top-16 left-0 w-full bg-background border-b border-border shadow-xl py-4 px-4 flex flex-col gap-3">
           <Link
             href="/dashboard"
-            className="flex items-center gap-2 text-sm font-medium text-text-primary py-2 border-b border-border/60"
+            className="flex items-center gap-2 text-sm font-medium text-text-primary py-2 px-2 rounded-lg border-b border-border/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent active:scale-[0.98] transition-all"
             onClick={() => setMobileMenuOpen(false)}
           >
             <LayoutDashboard className="w-4 h-4 text-indigo-400" />
@@ -85,7 +85,7 @@ export function Navbar() {
           </Link>
           <Link
             href="/documents"
-            className="flex items-center gap-2 text-sm font-medium text-text-primary py-2 border-b border-border/60"
+            className="flex items-center gap-2 text-sm font-medium text-text-primary py-2 px-2 rounded-lg border-b border-border/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent active:scale-[0.98] transition-all"
             onClick={() => setMobileMenuOpen(false)}
           >
             <FileText className="w-4 h-4 text-emerald-400" />
@@ -93,7 +93,7 @@ export function Navbar() {
           </Link>
           <Link
             href="/chat"
-            className="flex items-center gap-2 text-sm font-medium text-text-primary py-2 border-b border-border/60"
+            className="flex items-center gap-2 text-sm font-medium text-text-primary py-2 px-2 rounded-lg border-b border-border/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent active:scale-[0.98] transition-all"
             onClick={() => setMobileMenuOpen(false)}
           >
             <MessageSquare className="w-4 h-4 text-purple-400" />

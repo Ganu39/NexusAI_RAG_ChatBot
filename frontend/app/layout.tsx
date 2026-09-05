@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../styles/globals.css";
 import { ThemeProvider } from "@/components/theme/theme-provider";
+import { PageTransitionWrapper } from "@/components/layout/page-transition";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -54,6 +55,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-theme="black"
+      data-scroll-behavior="smooth"
       className={`${inter.variable} dark`}
       suppressHydrationWarning
     >
@@ -65,7 +67,9 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen font-sans bg-background text-foreground antialiased">
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <PageTransitionWrapper>{children}</PageTransitionWrapper>
+        </ThemeProvider>
       </body>
     </html>
   );
