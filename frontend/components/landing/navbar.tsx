@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { GitBranch, Menu, X, Sparkles, FileText, MessageSquare, LayoutDashboard } from "lucide-react";
+import { GitBranch, Menu, X, FileText, MessageSquare, LayoutDashboard } from "lucide-react";
 import { useState } from "react";
 import { useScroll } from "@/hooks/use-scroll";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { NexusLogo } from "@/components/ui/nexus-logo";
 
 export function Navbar() {
   const scrolled = useScroll(50);
@@ -19,11 +20,8 @@ export function Navbar() {
       )}
     >
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 shadow-sm">
-            <Sparkles className="h-4 w-4 text-indigo-400" />
-          </div>
-          <span className="font-bold text-lg tracking-tight text-white">NexusAI</span>
+        <Link href="/" className="flex items-center">
+          <NexusLogo size="md" showText />
         </Link>
 
         <nav className="hidden md:flex items-center gap-6">

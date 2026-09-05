@@ -38,6 +38,9 @@ export const metadata: Metadata = {
     description:
       "Enterprise-grade AI Knowledge Workspace powered by Retrieval-Augmented Generation.",
   },
+  icons: {
+    icon: "/icon.svg",
+  },
   metadataBase: new URL("https://nexusai.dev"),
 };
 

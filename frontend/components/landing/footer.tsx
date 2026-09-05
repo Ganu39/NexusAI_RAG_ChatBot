@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { GitBranch, MessageCircle } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { NexusLogo } from "@/components/ui/nexus-logo";
 
 export function Footer() {
   return (
@@ -8,12 +9,7 @@ export function Footer() {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           <div className="md:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30">
-                <span className="text-indigo-400 font-bold text-sm">N</span>
-              </div>
-              <span className="font-bold text-lg tracking-tight text-white">NexusAI</span>
-            </div>
+            <NexusLogo size="sm" showText className="mb-4" />
             <p className="text-xs text-zinc-400 mb-6 leading-relaxed">
               Enterprise-grade AI Knowledge Workspace powered by Retrieval-Augmented Generation.
             </p>

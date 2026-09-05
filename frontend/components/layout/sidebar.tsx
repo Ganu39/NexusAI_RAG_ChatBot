@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { NexusLogo } from "@/components/ui/nexus-logo";
 import {
   LayoutDashboard,
   FileText,
@@ -55,17 +55,8 @@ export function Sidebar() {
     <>
       {/* Mobile Top Bar */}
       <div className="flex items-center justify-between border-b border-[#1E293B] bg-[#080B11] px-4 py-3 md:hidden">
-        <Link href="/" className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl overflow-hidden border border-cyan-500/40 shrink-0">
-            <Image
-              src="/nexusai-logo.jpg"
-              alt="NexusAI Logo"
-              width={32}
-              height={32}
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <span className="font-bold text-white tracking-tight">NexusAI</span>
+        <Link href="/" className="flex items-center">
+          <NexusLogo size="sm" showText />
         </Link>
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
@@ -92,24 +83,8 @@ export function Sidebar() {
       >
         {/* Brand Header */}
         <div className="flex h-16 items-center justify-between border-b border-[#1E293B] px-6">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl overflow-hidden border border-cyan-500/40 shadow-sm shrink-0">
-              <Image
-                src="/nexusai-logo.jpg"
-                alt="NexusAI Logo"
-                width={36}
-                height={36}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-base font-extrabold text-white tracking-tight font-mono">
-                NexusAI
-              </span>
-              <span className="text-[10px] uppercase tracking-wider text-cyan-400 font-mono">
-                RAG Chatbot
-              </span>
-            </div>
+          <Link href="/" className="flex items-center">
+            <NexusLogo size="md" showText subtitle="RAG Chatbot" />
           </Link>
           <button
             onClick={() => setMobileOpen(false)}
