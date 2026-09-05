@@ -115,7 +115,7 @@ export function NexusLogo({
         <div className="flex flex-col justify-center">
           <div
             className={cn(
-              "font-bold tracking-tight text-white leading-tight font-mono",
+              "font-bold tracking-tight text-text-primary leading-tight font-mono",
               config.title
             )}
           >
@@ -127,7 +127,7 @@ export function NexusLogo({
           {subtitle && (
             <span
               className={cn(
-                "uppercase tracking-wider text-cyan-400 font-mono font-medium leading-none mt-0.5",
+                "uppercase tracking-wider text-accent font-mono font-medium leading-none mt-0.5",
                 config.subtitle
               )}
             >

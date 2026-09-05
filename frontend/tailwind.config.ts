@@ -10,20 +10,39 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        canvas: "#080B11",
-        background: "#080B11",
-        foreground: "#F8FAFC",
+        canvas: "var(--background)",
+        background: {
+          DEFAULT: "var(--background)",
+          subtle: "var(--background-subtle)",
+        },
+        foreground: "var(--text-primary)",
         surface: {
-          DEFAULT: "#0E131F",
-          secondary: "#141B2D",
+          DEFAULT: "var(--surface)",
+          elevated: "var(--surface-elevated)",
+          muted: "var(--surface-muted)",
+          secondary: "var(--surface-muted)",
         },
         card: {
-          DEFAULT: "#0E131F",
-          foreground: "#F8FAFC",
+          DEFAULT: "var(--surface)",
+          foreground: "var(--text-primary)",
+        },
+        border: {
+          DEFAULT: "var(--border)",
+          subtle: "var(--border-subtle)",
+        },
+        "text-primary": "var(--text-primary)",
+        "text-secondary": "var(--text-secondary)",
+        "text-tertiary": "var(--text-tertiary)",
+        "text-muted": "var(--text-muted)",
+        accent: {
+          DEFAULT: "var(--accent)",
+          hover: "var(--accent-hover)",
+          soft: "var(--accent-soft)",
+          foreground: "var(--accent-foreground)",
         },
         primary: {
-          DEFAULT: "#6366F1",
-          foreground: "#ffffff",
+          DEFAULT: "var(--accent)",
+          foreground: "var(--accent-foreground)",
           50: "#EEF2FF",
           100: "#E0E7FF",
           400: "#818CF8",
@@ -37,19 +56,17 @@ const config: Config = {
           400: "#A78BFA",
           500: "#8B5CF6",
         },
-        accent: {
-          DEFAULT: "#6366F1",
-          foreground: "#ffffff",
-        },
         muted: {
-          DEFAULT: "#141B2D",
-          foreground: "#94A3B8",
+          DEFAULT: "var(--surface-muted)",
+          foreground: "var(--text-muted)",
         },
-        border: "#1E293B",
-        ring: "#6366F1",
+        ring: "var(--ring)",
         success: "#10B981",
         warning: "#F59E0B",
-        destructive: "#F43F5E",
+        destructive: {
+          DEFAULT: "var(--destructive)",
+          foreground: "#ffffff",
+        },
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
