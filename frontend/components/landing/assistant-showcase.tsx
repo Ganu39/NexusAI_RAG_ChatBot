@@ -207,7 +207,7 @@ export function AssistantShowcase() {
   }, [activeStepIndex]);
 
   return (
-    <section className="relative py-28 md:py-36 overflow-hidden bg-[#080B11] border-y border-[#1E293B]">
+    <section className="relative py-28 md:py-36 overflow-hidden bg-background border-y border-border">
       {/* Background Holographic Lighting */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-indigo-600/10 blur-[150px] rounded-full pointer-events-none" />
       <div className="absolute bottom-10 right-1/4 w-[450px] h-[350px] bg-purple-600/10 blur-[130px] rounded-full pointer-events-none" />
@@ -223,9 +223,9 @@ export function AssistantShowcase() {
           >
             <Badge
               variant="outline"
-              className="mb-3 px-4 py-1.5 text-xs font-semibold bg-[#0E131F] border-indigo-500/30 text-indigo-400 gap-2"
+              className="mb-3 px-4 py-1.5 text-xs font-semibold bg-surface border-border text-accent gap-2"
             >
-              <Sparkles className="h-3.5 w-3.5 text-indigo-400 animate-pulse" />
+              <Sparkles className="h-3.5 w-3.5 text-accent animate-pulse" />
               <span>Cinematic Product Showcase • Interactive Demo</span>
             </Badge>
           </motion.div>
@@ -235,7 +235,7 @@ export function AssistantShowcase() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-text-primary leading-tight"
           >
             Your <span className="text-gradient-accent">AI Knowledge Assistant</span>
           </motion.h2>
@@ -245,7 +245,7 @@ export function AssistantShowcase() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-sm md:text-base text-zinc-400 max-w-2xl mx-auto leading-relaxed"
+            className="text-sm md:text-base text-text-secondary max-w-2xl mx-auto leading-relaxed"
           >
             Ask your documents anything. Get answers grounded in your knowledge base.
             Experience how NexusAI indexes, searches vectors, and connects answers directly to source pages.
@@ -260,7 +260,7 @@ export function AssistantShowcase() {
           transition={{ duration: 0.5, delay: 0.25 }}
           className="max-w-5xl mx-auto mb-10 overflow-x-auto pb-2"
         >
-          <div className="flex items-center justify-between min-w-[720px] rounded-2xl border border-[#1E293B] bg-[#0E131F]/90 p-3.5 shadow-md">
+          <div className="flex items-center justify-between min-w-[720px] rounded-2xl border border-border bg-surface/90 p-3.5 shadow-md">
             {RAG_PIPELINE_STEPS.map((step, sIdx) => {
               const isPassed = sIdx <= activeStepIndex;
               const isCurrent = sIdx === activeStepIndex;
@@ -269,27 +269,27 @@ export function AssistantShowcase() {
                   <div
                     className={`flex flex-col items-center text-center px-3 py-1.5 rounded-xl transition-all ${
                       isCurrent
-                        ? "bg-indigo-600/20 border border-indigo-500/50 shadow-md shadow-indigo-500/20 scale-105"
+                        ? "bg-accent/15 border border-accent/40 shadow-md scale-105"
                         : isPassed
-                        ? "text-zinc-200"
-                        : "text-zinc-600 opacity-60"
+                        ? "text-text-primary"
+                        : "text-text-muted opacity-60"
                     }`}
                   >
                     <div className="flex items-center gap-1.5">
                       <span
                         className={`h-2 w-2 rounded-full ${
                           isCurrent
-                            ? "bg-indigo-400 animate-ping"
+                            ? "bg-accent animate-ping"
                             : isPassed
-                            ? "bg-emerald-400"
-                            : "bg-zinc-700"
+                            ? "bg-emerald-500"
+                            : "bg-text-muted"
                         }`}
                       />
-                      <span className={`text-xs font-bold ${isCurrent ? "text-indigo-300" : isPassed ? "text-white" : "text-zinc-500"}`}>
+                      <span className={`text-xs font-bold ${isCurrent ? "text-accent" : isPassed ? "text-text-primary" : "text-text-muted"}`}>
                         {step.label}
                       </span>
                     </div>
-                    <span className="text-[10px] font-mono text-zinc-500 mt-0.5">
+                    <span className="text-[10px] font-mono text-text-tertiary mt-0.5">
                       {step.desc}
                     </span>
                   </div>
@@ -298,8 +298,8 @@ export function AssistantShowcase() {
                     <div
                       className={`h-0.5 w-5 sm:w-8 shrink-0 transition-colors duration-300 ${
                         sIdx < activeStepIndex
-                          ? "bg-gradient-to-r from-indigo-500 to-purple-500"
-                          : "bg-[#1E293B]"
+                          ? "bg-accent"
+                          : "bg-border"
                       }`}
                     />
                   )}
@@ -327,14 +327,14 @@ export function AssistantShowcase() {
               transformStyle: "preserve-3d",
               transition: "transform 0.15s ease-out",
             }}
-            className="relative rounded-3xl border border-[#1E293B] bg-[#0E131F] p-6 sm:p-8 md:p-10 shadow-2xl backdrop-blur-lg overflow-hidden glow-primary"
+            className="relative rounded-3xl border border-border bg-surface p-6 sm:p-8 md:p-10 shadow-2xl backdrop-blur-lg overflow-hidden glow-primary"
           >
             {/* AI Assistant Pop-Up Top Identity Bar */}
-            <div className="flex flex-wrap items-center justify-between border-b border-[#1E293B] pb-6 mb-8 gap-4">
+            <div className="flex flex-wrap items-center justify-between border-b border-border pb-6 mb-8 gap-4">
               <div className="flex items-center gap-4">
                 {/* Rotating & Glowing AI Orb / Core */}
                 <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-indigo-400 p-0.5 shadow-xl shadow-indigo-600/30">
-                  <div className="flex h-full w-full flex-col items-center justify-center rounded-[14px] bg-[#080B11] border border-indigo-400/40">
+                  <div className="flex h-full w-full flex-col items-center justify-center rounded-[14px] bg-background border border-indigo-400/40">
                     <Bot className="h-6 w-6 text-indigo-400 animate-pulse" />
                   </div>
                   {/* Orbiting particle ring */}
@@ -343,23 +343,23 @@ export function AssistantShowcase() {
 
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="text-base font-bold text-white tracking-tight">
+                    <span className="text-base font-bold text-text-primary tracking-tight">
                       NexusAI Intelligent Core
                     </span>
-                    <span className="rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-semibold text-emerald-400 border border-emerald-500/20">
+                    <span className="rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
                       Interactive Demo
                     </span>
                   </div>
-                  <div className="flex items-center gap-2 text-xs text-zinc-400 font-mono mt-0.5">
-                    <Activity className="h-3.5 w-3.5 text-indigo-400 animate-pulse" />
+                  <div className="flex items-center gap-2 text-xs text-text-secondary font-mono mt-0.5">
+                    <Activity className="h-3.5 w-3.5 text-accent animate-pulse" />
                     <span>FAISS Vector Retrieval • Gemini Grounding Active</span>
                   </div>
                 </div>
               </div>
 
               {/* Animated Waveform Indicator */}
-              <div className="flex items-center gap-1.5 bg-[#141B2D] px-3.5 py-2 rounded-xl border border-[#1E293B]">
-                <span className="text-xs font-mono text-zinc-400 mr-2">Signal:</span>
+              <div className="flex items-center gap-1.5 bg-surface-muted px-3.5 py-2 rounded-xl border border-border">
+                <span className="text-xs font-mono text-text-secondary mr-2">Signal:</span>
                 {[40, 75, 100, 60, 90, 45, 80].map((height, i) => (
                   <motion.div
                     key={i}
@@ -369,7 +369,7 @@ export function AssistantShowcase() {
                       repeat: Infinity,
                       ease: "easeInOut",
                     }}
-                    className="w-1 bg-indigo-500 rounded-full h-4"
+                    className="w-1 bg-accent rounded-full h-4"
                   />
                 ))}
               </div>
@@ -386,10 +386,10 @@ export function AssistantShowcase() {
                 style={{ transform: "translateZ(30px)" }}
                 className="flex items-start justify-end gap-3"
               >
-                <div className="rounded-2xl bg-indigo-600 px-5 py-3 text-xs sm:text-sm text-white shadow-lg shadow-indigo-600/20 max-w-xl">
+                <div className="rounded-2xl bg-accent px-5 py-3 text-xs sm:text-sm text-white shadow-lg max-w-xl">
                   <p className="font-medium">{selectedScenario.userQuestion}</p>
                 </div>
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#141B2D] text-zinc-300 border border-[#1E293B] shrink-0">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-surface-muted text-text-secondary border border-border shrink-0">
                   <User className="h-4 w-4" />
                 </div>
               </motion.div>
@@ -403,27 +403,27 @@ export function AssistantShowcase() {
                 style={{ transform: "translateZ(45px)" }}
                 className="flex items-start gap-3"
               >
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 shrink-0 shadow-sm">
-                  <Sparkles className="h-4 w-4 text-indigo-400" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-accent/15 text-accent border border-accent/25 shrink-0 shadow-sm">
+                  <Sparkles className="h-4 w-4 text-accent" />
                 </div>
 
                 <div className="flex-1 max-w-3xl space-y-3.5">
                   {/* Answer Glass Panel */}
-                  <div className="rounded-2xl border border-[#1E293B] bg-[#141B2D]/95 p-5 sm:p-6 text-xs sm:text-sm text-zinc-100 shadow-xl leading-relaxed space-y-4">
+                  <div className="rounded-2xl border border-border bg-surface-elevated p-5 sm:p-6 text-xs sm:text-sm text-text-primary shadow-xl leading-relaxed space-y-4">
                     <p>{selectedScenario.aiResponse}</p>
 
-                    <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[#1E293B]">
+                    <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-border">
                       <div className="flex items-center gap-2">
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-400 border border-emerald-500/20 shadow-sm">
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 shadow-sm">
                           <CheckCircle2 className="h-3.5 w-3.5" />
                           Grounded Answer
                         </span>
-                        <span className="text-xs text-zinc-400 font-mono">
+                        <span className="text-xs text-text-secondary font-mono">
                           ({selectedScenario.retrievedChunks} context chunks retrieved)
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-1.5 text-xs font-mono text-indigo-400 bg-indigo-600/10 px-2.5 py-1 rounded-lg border border-indigo-500/20">
+                      <div className="flex items-center gap-1.5 text-xs font-mono text-accent bg-accent/10 px-2.5 py-1 rounded-lg border border-accent/20">
                         <ShieldCheck className="h-3.5 w-3.5" />
                         <span>{selectedScenario.confidenceScore}% Grounding Confidence</span>
                       </div>
@@ -431,9 +431,9 @@ export function AssistantShowcase() {
                   </div>
 
                   {/* Connecting Line to Sources */}
-                  <div className="flex items-center gap-2 pl-4 text-[11px] font-mono text-zinc-400">
-                    <CornerDownRight className="h-4 w-4 text-indigo-400 animate-pulse" />
-                    <span className="font-semibold uppercase tracking-wider text-[10px] text-zinc-300">
+                  <div className="flex items-center gap-2 pl-4 text-[11px] font-mono text-text-secondary">
+                    <CornerDownRight className="h-4 w-4 text-accent animate-pulse" />
+                    <span className="font-semibold uppercase tracking-wider text-[10px] text-text-tertiary">
                       Retrieved Knowledge Sources & Citations
                     </span>
                   </div>
@@ -454,35 +454,35 @@ export function AssistantShowcase() {
                             transform: isHovered ? "translateZ(60px) translateY(-6px)" : "translateZ(20px)",
                             transition: "all 0.25s ease-out",
                           }}
-                          className={`rounded-2xl border p-4 cursor-default flex flex-col justify-between space-y-3 ${
+                          className={`rounded-2xl border p-4 cursor-default flex flex-col justify-between space-y-3 transition-all ${
                             isHovered
-                              ? "border-indigo-500 bg-[#141B2D] shadow-2xl shadow-indigo-600/25"
+                              ? "border-accent bg-surface-elevated shadow-xl"
                               : src.isPrimary
-                              ? "border-indigo-500/40 bg-[#0E131F]"
-                              : "border-[#1E293B] bg-[#0E131F]/90 hover:border-indigo-500/40"
+                              ? "border-accent/40 bg-surface-elevated"
+                              : "border-border bg-surface-muted hover:border-accent/40"
                           }`}
                         >
                           <div>
                             <div className="flex items-center justify-between gap-2 mb-2">
                               <div className="flex items-center gap-1.5 min-w-0">
-                                <FileText className="h-3.5 w-3.5 text-indigo-400 shrink-0" />
-                                <span className="text-xs font-semibold text-white truncate font-mono">
+                                <FileText className="h-3.5 w-3.5 text-accent shrink-0" />
+                                <span className="text-xs font-semibold text-text-primary truncate font-mono">
                                   {src.filename}
                                 </span>
                               </div>
-                              <span className="rounded bg-[#141B2D] border border-[#1E293B] px-1.5 py-0.5 text-[10px] font-mono font-semibold text-zinc-300">
+                              <span className="rounded bg-surface border border-border px-1.5 py-0.5 text-[10px] font-mono font-semibold text-text-secondary">
                                 Page {src.page}
                               </span>
                             </div>
 
-                            <p className="text-[11px] text-zinc-400 line-clamp-3 leading-relaxed">
+                            <p className="text-[11px] text-text-secondary line-clamp-3 leading-relaxed">
                               &quot;{src.snippet}&quot;
                             </p>
                           </div>
 
-                          <div className="flex items-center justify-between border-t border-[#1E293B] pt-2 text-[10px] font-mono">
-                            <span className="text-zinc-500">{src.docType}</span>
-                            <span className="rounded bg-emerald-500/10 px-2 py-0.5 font-bold text-emerald-400 border border-emerald-500/20">
+                          <div className="flex items-center justify-between border-t border-border pt-2 text-[10px] font-mono">
+                            <span className="text-text-muted">{src.docType}</span>
+                            <span className="rounded bg-emerald-500/10 px-2 py-0.5 font-bold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
                               {src.relevance}% Relevance
                             </span>
                           </div>
@@ -495,13 +495,13 @@ export function AssistantShowcase() {
             </div>
 
             {/* 4. INTERACTIVE QUESTION BUTTONS ("Try NexusAI") */}
-            <div className="mt-10 pt-6 border-t border-[#1E293B] space-y-3">
+            <div className="mt-10 pt-6 border-t border-border space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-zinc-300 flex items-center gap-2">
-                  <Sparkles className="h-3.5 w-3.5 text-indigo-400" />
+                <span className="text-xs font-bold uppercase tracking-wider text-text-primary flex items-center gap-2">
+                  <Sparkles className="h-3.5 w-3.5 text-accent" />
                   <span>Try NexusAI:</span>
                 </span>
-                <span className="text-[11px] text-zinc-500 font-mono hidden sm:inline">
+                <span className="text-[11px] text-text-tertiary font-mono hidden sm:inline">
                   Click any question to simulate vector retrieval
                 </span>
               </div>
@@ -515,8 +515,8 @@ export function AssistantShowcase() {
                       onClick={() => handleScenarioSelect(scenario)}
                       className={`rounded-xl px-4 py-2 text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 ${
                         isActive
-                          ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30 scale-[1.03]"
-                          : "border border-[#1E293B] bg-[#141B2D]/70 text-zinc-300 hover:border-indigo-500/40 hover:bg-[#141B2D] hover:text-white"
+                          ? "bg-accent text-white shadow-md scale-[1.03]"
+                          : "border border-border bg-surface-muted text-text-secondary hover:border-accent/40 hover:bg-surface-elevated hover:text-text-primary"
                       }`}
                     >
                       <span>💡 &quot;{scenario.pillLabel}&quot;</span>
@@ -536,14 +536,14 @@ export function AssistantShowcase() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="mt-14 text-center space-y-4"
         >
-          <h3 className="text-xl font-bold text-white">
+          <h3 className="text-xl font-bold text-text-primary">
             Ready to talk to your knowledge base?
           </h3>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Button
               asChild
               size="lg"
-              className="h-12 px-8 text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 text-white shadow-xl shadow-indigo-600/30 w-full sm:w-auto transition-all hover:scale-105"
+              className="h-12 px-8 text-sm font-semibold bg-accent hover:bg-accent-hover text-white shadow-xl w-full sm:w-auto transition-all hover:scale-105"
             >
               <Link href="/chat">
                 <span>Open RAG Chat</span>
@@ -554,14 +554,14 @@ export function AssistantShowcase() {
               asChild
               size="lg"
               variant="outline"
-              className="h-12 px-6 text-sm font-semibold border-[#1E293B] bg-[#0E131F] hover:bg-[#141B2D] text-zinc-300 hover:text-white w-full sm:w-auto"
+              className="h-12 px-6 text-sm font-semibold border-border bg-surface hover:bg-surface-elevated text-text-primary w-full sm:w-auto"
             >
               <Link href="/documents">
                 <span>Upload Documents</span>
               </Link>
             </Button>
           </div>
-          <p className="text-xs text-zinc-500 font-mono">
+          <p className="text-xs text-text-tertiary font-mono">
             Connects to your local FAISS vector store with zero data leakage.
           </p>
         </motion.div>

@@ -7,7 +7,7 @@ import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/ca
 
 export function Features() {
   return (
-    <section id="features" className="py-24 relative bg-[#080B11]">
+    <section id="features" className="py-24 relative bg-background">
       <div className="container mx-auto px-4">
         <SectionHeader 
           badge="Features"
@@ -20,13 +20,13 @@ export function Features() {
             const Icon = feature.icon;
             return (
               <AnimatedContainer key={i} variants={staggerChild}>
-                <div className="h-full rounded-2xl border border-[#1E293B] bg-[#0E131F] p-6 hover:border-indigo-500/40 hover:bg-[#141B2D] transition-all duration-300 group flex flex-col justify-between">
+                <div className="h-full rounded-2xl border border-border bg-surface p-6 hover:border-accent hover:bg-surface-elevated transition-all duration-300 group flex flex-col justify-between shadow-sm">
                   <div>
-                    <div className="w-12 h-12 rounded-xl bg-indigo-600/10 border border-indigo-500/20 flex items-center justify-center mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
-                      <Icon className="w-6 h-6 text-indigo-400 group-hover:text-white" />
+                    <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center mb-4 group-hover:bg-accent group-hover:text-white transition-colors">
+                      <Icon className="w-6 h-6 text-accent group-hover:text-white transition-colors" />
                     </div>
-                    <h3 className="text-lg font-bold text-white mb-2">{feature.title}</h3>
-                    <p className="text-xs text-zinc-400 leading-relaxed">{feature.description}</p>
+                    <h3 className="text-lg font-bold text-text-primary mb-2">{feature.title}</h3>
+                    <p className="text-xs text-text-secondary leading-relaxed">{feature.description}</p>
                   </div>
                 </div>
               </AnimatedContainer>

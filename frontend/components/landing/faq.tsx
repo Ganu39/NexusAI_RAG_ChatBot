@@ -11,7 +11,7 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="py-24 relative bg-[#080B11]">
+    <section id="faq" className="py-24 relative bg-background border-b border-border">
       <div className="container mx-auto px-4">
         <SectionHeader 
           badge="FAQ"
@@ -25,27 +25,27 @@ export function FAQ() {
             return (
               <AnimatedContainer key={i} variants={staggerChild}>
                 <div 
-                  className="border border-[#1E293B] bg-[#0E131F] rounded-2xl overflow-hidden transition-all duration-200"
+                  className="border border-border bg-surface rounded-2xl overflow-hidden transition-all duration-200"
                 >
                   <button
                     onClick={() => setOpenIndex(isOpen ? null : i)}
                     aria-expanded={isOpen}
                     className="w-full text-left px-6 py-4 flex items-center justify-between focus:outline-none"
                   >
-                    <span className="font-semibold text-sm text-white">{item.question}</span>
+                    <span className="font-semibold text-sm text-text-primary">{item.question}</span>
                     <ChevronDown className={cn(
-                      "w-4 h-4 text-zinc-400 transition-transform duration-200 shrink-0",
-                      isOpen && "transform rotate-180 text-indigo-400"
+                      "w-4 h-4 text-text-muted transition-transform duration-200 shrink-0",
+                      isOpen && "transform rotate-180 text-accent"
                     )} />
                   </button>
                   
                   <div 
                     className={cn(
-                      "px-6 text-xs text-zinc-400 overflow-hidden transition-all duration-300 ease-in-out",
+                      "px-6 text-xs text-text-secondary overflow-hidden transition-all duration-300 ease-in-out",
                       isOpen ? "max-h-96 pb-5 opacity-100" : "max-h-0 opacity-0"
                     )}
                   >
-                    <p className="leading-relaxed border-t border-[#1E293B]/60 pt-3">{item.answer}</p>
+                    <p className="leading-relaxed border-t border-border pt-3">{item.answer}</p>
                   </div>
                 </div>
               </AnimatedContainer>

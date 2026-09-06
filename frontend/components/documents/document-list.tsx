@@ -144,16 +144,16 @@ export function DocumentList({
         {[1, 2, 3].map((i) => (
           <div
             key={i}
-            className="flex items-center justify-between rounded-2xl border border-[#1E293B] bg-[#0E131F] p-4 animate-pulse"
+            className="flex items-center justify-between rounded-2xl border border-border bg-surface-muted p-4 animate-pulse"
           >
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-xl bg-[#141B2D]" />
+              <div className="h-10 w-10 rounded-xl bg-surface-elevated" />
               <div className="space-y-2">
-                <div className="h-4 w-48 rounded bg-[#141B2D]" />
-                <div className="h-3 w-32 rounded bg-[#141B2D]/60" />
+                <div className="h-4 w-48 rounded bg-surface-elevated" />
+                <div className="h-3 w-32 rounded bg-surface-elevated/60" />
               </div>
             </div>
-            <div className="h-8 w-20 rounded bg-[#141B2D]" />
+            <div className="h-8 w-20 rounded bg-surface-elevated" />
           </div>
         ))}
       </div>
@@ -178,14 +178,14 @@ export function DocumentList({
 
   if (documents.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-[#1E293B] bg-[#0E131F]/40 p-12 text-center">
-        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#141B2D] border border-[#1E293B] text-zinc-500 mb-4">
-          <FileText className="h-7 w-7 text-indigo-400" />
+      <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border bg-surface-muted p-12 text-center">
+        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-surface-elevated border border-border text-accent mb-4 shadow-sm">
+          <FileText className="h-7 w-7 text-accent" />
         </div>
-        <h3 className="text-sm font-semibold text-zinc-200">
+        <h3 className="text-sm font-semibold text-text-primary">
           No documents uploaded yet
         </h3>
-        <p className="mt-1 max-w-sm text-xs text-zinc-500">
+        <p className="mt-1 max-w-sm text-xs text-text-secondary">
           Upload PDF, TXT, or DOCX files above to populate your NexusAI
           knowledge base.
         </p>
@@ -196,7 +196,7 @@ export function DocumentList({
   return (
     <div className="space-y-4">
       {/* Search & Filter Bar */}
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between rounded-2xl border border-[#1E293B] bg-[#0E131F] p-3 shadow-sm">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between rounded-2xl border border-border bg-surface p-3 shadow-sm">
         {/* Search Input */}
         <div className="flex-1 min-w-[200px]">
           <input
@@ -204,7 +204,7 @@ export function DocumentList({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search documents by name..."
-            className="w-full rounded-xl border border-[#1E293B] bg-[#080B11] px-3.5 py-2 text-xs text-white placeholder-zinc-500 focus:border-indigo-500 focus:outline-none"
+            className="w-full rounded-xl border border-border bg-surface-muted px-3.5 py-2 text-xs text-text-primary placeholder:text-text-muted focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none transition-all duration-200"
           />
         </div>
 
@@ -214,10 +214,10 @@ export function DocumentList({
             <button
               key={type}
               onClick={() => setTypeFilter(type)}
-              className={`rounded-xl px-3 py-1.5 text-xs font-semibold transition-all ${
+              className={`rounded-xl px-3 py-1.5 text-xs font-semibold transition-all active:scale-[0.98] ${
                 typeFilter === type
-                  ? "bg-indigo-600 text-white shadow-sm"
-                  : "border border-[#1E293B] bg-[#080B11] text-zinc-400 hover:text-white"
+                  ? "bg-accent text-white shadow-sm"
+                  : "border border-border bg-surface-muted text-text-secondary hover:text-text-primary hover:bg-surface-elevated hover:border-accent/40"
               }`}
             >
               {type}
@@ -226,12 +226,12 @@ export function DocumentList({
         </div>
 
         {/* Sort Selector */}
-        <div className="flex items-center gap-2 text-xs text-zinc-400">
-          <span className="text-[11px] uppercase tracking-wider text-zinc-500">Sort:</span>
+        <div className="flex items-center gap-2 text-xs text-text-secondary">
+          <span className="text-[11px] uppercase tracking-wider text-text-tertiary">Sort:</span>
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as "date" | "name" | "size" | "status")}
-            className="rounded-xl border border-[#1E293B] bg-[#080B11] px-2.5 py-1.5 text-xs text-zinc-200 focus:border-indigo-500 focus:outline-none"
+            className="rounded-xl border border-border bg-surface-muted px-2.5 py-1.5 text-xs text-text-primary focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none transition-all duration-200"
           >
             <option value="date">Newest</option>
             <option value="name">Name</option>
@@ -249,9 +249,9 @@ export function DocumentList({
       )}
 
       {/* Desktop Table View */}
-      <div className="hidden overflow-hidden rounded-2xl border border-[#1E293B] bg-[#0E131F] md:block shadow-sm">
-        <table className="w-full text-left text-xs text-zinc-300">
-          <thead className="border-b border-[#1E293B] bg-[#080B11]/60 text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
+      <div className="hidden overflow-hidden rounded-2xl border border-border bg-surface md:block shadow-sm">
+        <table className="w-full text-left text-xs text-text-secondary">
+          <thead className="border-b border-border bg-surface-muted/60 text-[11px] font-semibold uppercase tracking-wider text-text-tertiary">
             <tr>
               <th className="px-5 py-3.5">Document</th>
               <th className="px-3 py-3.5">Format</th>
@@ -263,10 +263,10 @@ export function DocumentList({
               <th className="px-5 py-3.5 text-right">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[#1E293B]">
+          <tbody className="divide-y divide-border">
             {sortedDocs.length === 0 ? (
               <tr>
-                <td colSpan={8} className="py-8 text-center text-xs text-zinc-500">
+                <td colSpan={8} className="py-8 text-center text-xs text-text-muted">
                   No documents match your search & filter criteria.
                 </td>
               </tr>
@@ -280,54 +280,54 @@ export function DocumentList({
                 return (
                   <tr
                     key={doc.document_id}
-                    className="transition-colors hover:bg-[#141B2D]/50"
+                    className="transition-colors duration-150 hover:bg-surface-muted/80"
                   >
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-3">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#141B2D] text-indigo-400 border border-[#1E293B]">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-surface-muted text-accent border border-border">
                           <FileText className="h-4 w-4" />
                         </div>
                         <div className="flex flex-col min-w-0">
-                          <span className="font-semibold text-white truncate max-w-[200px]">
+                          <span className="font-semibold text-text-primary truncate max-w-[200px]">
                             {doc.filename}
                           </span>
-                          <span className="text-[10px] text-zinc-500 font-mono">
+                          <span className="text-[10px] text-text-tertiary font-mono">
                             {doc.document_id.slice(0, 8)}...
                           </span>
                         </div>
                       </div>
                     </td>
                     <td className="px-3 py-3.5">
-                      <span className="rounded-lg bg-[#141B2D] border border-[#1E293B] px-2 py-0.5 text-[10px] font-semibold text-zinc-300 uppercase">
+                      <span className="rounded-lg bg-surface-muted border border-border px-2 py-0.5 text-[10px] font-semibold text-text-secondary uppercase">
                         {doc.file_type}
                       </span>
                     </td>
-                    <td className="px-3 py-3.5 text-zinc-400 font-mono">
+                    <td className="px-3 py-3.5 text-text-secondary font-mono">
                       {formatBytes(doc.file_size)}
                     </td>
-                    <td className="px-3 py-3.5 text-zinc-400">
+                    <td className="px-3 py-3.5 text-text-secondary">
                       {doc.page_count}
                     </td>
-                    <td className="px-3 py-3.5 text-zinc-400 font-mono">
+                    <td className="px-3 py-3.5 text-text-secondary font-mono">
                       {doc.character_count.toLocaleString()}
                     </td>
-                    <td className="px-3 py-3.5 text-zinc-400">
+                    <td className="px-3 py-3.5 text-text-secondary">
                       {formatDate(doc.created_at)}
                     </td>
                     <td className="px-3 py-3.5">
                       {isIndexed ? (
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-500/10 px-2.5 py-0.5 text-[11px] font-medium text-purple-300 border border-purple-500/20">
-                          <Sparkles className="h-3 w-3 text-purple-400" />
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-500/10 px-2.5 py-0.5 text-[11px] font-medium text-purple-600 dark:text-purple-300 border border-purple-500/20">
+                          <Sparkles className="h-3 w-3 text-purple-500 dark:text-purple-400" />
                           <span>Indexed {chunks > 0 ? `(${chunks} Chunks)` : "in FAISS"}</span>
                         </span>
                       ) : isIndexing ? (
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-indigo-500/10 px-2.5 py-0.5 text-[11px] font-medium text-indigo-300 border border-indigo-500/20">
-                          <Loader2 className="h-3 w-3 animate-spin text-indigo-400" />
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-accent/10 px-2.5 py-0.5 text-[11px] font-medium text-accent border border-accent/20">
+                          <Loader2 className="h-3 w-3 animate-spin text-accent" />
                           <span className="font-mono text-[10px]">Indexing...</span>
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-medium text-emerald-400 border border-emerald-500/20">
-                          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-medium text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                           <span>Uploaded</span>
                         </span>
                       )}
@@ -337,10 +337,10 @@ export function DocumentList({
                         <button
                           onClick={() => handleIndex(doc.document_id)}
                           disabled={isIndexing || isDeleting}
-                          className={`flex items-center gap-1 rounded-xl border px-2.5 py-1 text-xs font-semibold transition-all ${
+                          className={`flex items-center gap-1 rounded-xl border px-2.5 py-1 text-xs font-semibold transition-all active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
                             isIndexed
-                              ? "border-purple-500/20 bg-purple-500/10 text-purple-300 hover:bg-purple-500/20"
-                              : "border-indigo-500/20 bg-indigo-600/10 text-indigo-400 hover:bg-indigo-600/20"
+                              ? "border-purple-500/20 bg-purple-500/10 text-purple-600 dark:text-purple-300 hover:bg-purple-500/20"
+                              : "border-accent/20 bg-accent/10 text-accent hover:bg-accent hover:text-white"
                           } disabled:opacity-50`}
                           title="Generate FAISS Vector Embeddings"
                         >
@@ -354,7 +354,7 @@ export function DocumentList({
 
                         <Link
                           href={`/documents/${doc.document_id}`}
-                          className="rounded-xl p-1.5 text-zinc-400 hover:bg-[#141B2D] hover:text-white transition-colors"
+                          className="rounded-xl p-1.5 text-text-tertiary hover:bg-surface-muted hover:text-text-primary transition-all active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                           title="View Details"
                         >
                           <ExternalLink className="h-4 w-4" />
@@ -363,11 +363,11 @@ export function DocumentList({
                         <button
                           onClick={() => handleDelete(doc.document_id, doc.filename)}
                           disabled={isDeleting || isIndexing}
-                          className="rounded-xl p-1.5 text-zinc-400 hover:bg-rose-500/10 hover:text-rose-400 disabled:opacity-50 transition-colors"
+                          className="rounded-xl p-1.5 text-text-tertiary hover:bg-rose-500/10 hover:text-rose-500 disabled:opacity-50 transition-all active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
                           title="Delete Document"
                         >
                           {isDeleting ? (
-                            <Loader2 className="h-4 w-4 animate-spin text-rose-400" />
+                            <Loader2 className="h-4 w-4 animate-spin text-rose-500" />
                           ) : (
                             <Trash2 className="h-4 w-4" />
                           )}
@@ -385,7 +385,7 @@ export function DocumentList({
       {/* Mobile Responsive Cards */}
       <div className="space-y-3 md:hidden">
         {sortedDocs.length === 0 ? (
-          <div className="py-8 text-center text-xs text-zinc-500">
+          <div className="py-8 text-center text-xs text-text-muted">
             No documents match your search & filter.
           </div>
         ) : (
@@ -397,35 +397,35 @@ export function DocumentList({
             return (
               <div
                 key={doc.document_id}
-                className="flex flex-col gap-3 rounded-2xl border border-[#1E293B] bg-[#0E131F] p-4 shadow-sm"
+                className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4 shadow-sm"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#141B2D] text-indigo-400 border border-[#1E293B]">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-surface-muted text-accent border border-border">
                       <FileText className="h-4 w-4" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-white text-xs">
+                      <h4 className="font-semibold text-text-primary text-xs">
                         {doc.filename}
                       </h4>
-                      <span className="text-[10px] text-zinc-500 font-mono">
+                      <span className="text-[10px] text-text-tertiary font-mono">
                         {formatBytes(doc.file_size)} • {doc.file_type.toUpperCase()}
                       </span>
                     </div>
                   </div>
                   {isIndexed ? (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-purple-500/10 px-2 py-0.5 text-[10px] font-medium text-purple-300 border border-purple-500/20">
-                      <Sparkles className="h-3 w-3 text-purple-400" />
+                    <span className="inline-flex items-center gap-1 rounded-full bg-purple-500/10 px-2 py-0.5 text-[10px] font-medium text-purple-600 dark:text-purple-300 border border-purple-500/20">
+                      <Sparkles className="h-3 w-3 text-purple-500 dark:text-purple-400" />
                       Indexed
                     </span>
                   ) : (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium text-emerald-400 border border-emerald-500/20">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
                       Uploaded
                     </span>
                   )}
                 </div>
 
-                <div className="grid grid-cols-2 gap-2 text-xs text-zinc-400 border-t border-[#1E293B] pt-3">
+                <div className="grid grid-cols-2 gap-2 text-xs text-text-secondary border-t border-border pt-3">
                   <div>Pages: {doc.page_count}</div>
                   <div>Chars: {doc.character_count.toLocaleString()}</div>
                   <div>Date: {formatDate(doc.created_at)}</div>
@@ -434,11 +434,11 @@ export function DocumentList({
                   )}
                 </div>
 
-                <div className="flex items-center justify-end gap-2 border-t border-[#1E293B] pt-2">
+                <div className="flex items-center justify-end gap-2 border-t border-border pt-2">
                   <button
                     onClick={() => handleIndex(doc.document_id)}
                     disabled={isIndexing || isDeleting}
-                    className="flex items-center gap-1.5 rounded-xl border border-indigo-500/20 bg-indigo-600/10 px-3 py-1.5 text-xs font-semibold text-indigo-300 hover:bg-indigo-600/20 disabled:opacity-50"
+                    className="flex items-center gap-1.5 rounded-xl border border-accent/20 bg-accent/10 px-3 py-1.5 text-xs font-semibold text-accent hover:bg-accent hover:text-white disabled:opacity-50 transition-colors"
                   >
                     {isIndexing ? (
                       <Loader2 className="h-3.5 w-3.5 animate-spin" />
@@ -449,7 +449,7 @@ export function DocumentList({
                   </button>
                   <Link
                     href={`/documents/${doc.document_id}`}
-                    className="flex items-center gap-1.5 rounded-xl border border-[#1E293B] bg-[#141B2D] px-3 py-1.5 text-xs font-medium text-zinc-300 hover:bg-[#1E293B]"
+                    className="flex items-center gap-1.5 rounded-xl border border-border bg-surface px-3 py-1.5 text-xs font-medium text-text-secondary hover:bg-surface-elevated hover:text-text-primary transition-colors"
                   >
                     <ExternalLink className="h-3.5 w-3.5" />
                     <span>Details</span>
@@ -457,7 +457,7 @@ export function DocumentList({
                   <button
                     onClick={() => handleDelete(doc.document_id, doc.filename)}
                     disabled={isDeleting || isIndexing}
-                    className="flex items-center gap-1.5 rounded-xl border border-rose-500/20 bg-rose-500/10 px-3 py-1.5 text-xs font-medium text-rose-300 hover:bg-rose-500/20 disabled:opacity-50"
+                    className="flex items-center gap-1.5 rounded-xl border border-rose-500/20 bg-rose-500/10 px-3 py-1.5 text-xs font-medium text-rose-500 hover:bg-rose-500/20 disabled:opacity-50 transition-colors"
                   >
                     <Trash2 className="h-3.5 w-3.5" />
                     <span>Delete</span>
