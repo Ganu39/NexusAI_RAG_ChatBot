@@ -2,7 +2,7 @@
 
 > **Enterprise AI Knowledge Workspace & RAG Chatbot powered by Retrieval-Augmented Generation**
 
-[![Version](https://img.shields.io/badge/Version-v1.5.0-indigo.svg)](https://github.com/Ganu39/nexusAI-rag-chat-bot/releases)
+[![Version](https://img.shields.io/badge/Version-v1.7.0-indigo.svg)](https://github.com/Ganu39/NexusAI_RAG_ChatBot/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Production Frontend](https://img.shields.io/badge/Frontend-Next.js_15-black?logo=next.js)](https://nexusai-sage-beta.vercel.app/)
 [![Production Backend](https://img.shields.io/badge/Backend-FastAPI-009688?logo=fastapi)](https://nexusai-1xq9.onrender.com)
@@ -65,7 +65,7 @@ flowchart TD
 ### Execution Stage Matrix
 
 | Stage # | Phase | Icon | Technical Operation | Output / Result | Status |
-| :---: | :--- | :---: | :--- | :--- | :---: |
+| :---: | :--- | :---: | :--- | :--- | :--- |
 | **1** | **Query Ingest** | 📩 | Validates query text & routes casual greetings vs. document queries. | Clean query string | 🟢 Active |
 | **2** | **Session Scope** | 🔒 | Attaches `X-User-ID` session context ensuring multi-tenant workspace isolation. | User-scoped session | 🟢 Active |
 | **3** | **Embedding** | ⚡ | Converts query text into a high-dimensional vector via Google Gemini (`text-embedding-004`). | `3072d` Vector Array | 🟢 Active |
@@ -87,13 +87,16 @@ flowchart TD
 
 ---
 
-## ✨ Key User Experience & Security Features
+## ✨ Key User Experience & Modern UI Features
 
+* **Dual Theme Engine (Light & Black Mode)** — Smooth 1-second theme switching across all components with semantic color tokens and accessible contrast.
+* **Client-Side PDF Export** — Instant one-click PDF generation for chat transcripts and synthesized answers with structured typography and branding.
+* **Modern Brand Mark (`NexusLogo`)** — Custom SVG geometric N monogram with multi-shade gradients and responsive sizing.
+* **Enhanced RAG Chat Controls** — Live token streaming speed indicators, grounding score badges, model selectors, and clear chat actions.
 * **3D Interactive Mascot Avatar (`Nexus_Bot`)** — WebGL-powered 3D robot mascot head avatar with glowing digital cyan eyes and dark studio UI.
 * **First-Time User Onboarding Popup** — Interactive *"What should we call you?"* modal with persistent `localStorage` user memory and edit pencil icon.
 * **Workspace Data Isolation (`X-User-ID`)** — Client session header scoping document listings and vector search to ensure zero cross-tenant data leakage.
 * **Interactive Source Citation Snippets** — Clickable source badges displaying filename, page number, match score, and raw vector text snippet modal.
-* **Spacious Markdown Formatting** — Formatted bullet lists, cyan headers, and inline dark skill badges.
 * **Universal Knowledge Base Drawer** — Responsive modal to search, view, upload, and delete indexed vector documents on desktop and mobile.
 
 ---
